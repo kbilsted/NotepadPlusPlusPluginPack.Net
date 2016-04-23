@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<VSTemplate xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Version="2.0.0" Type="Project">
+  <TemplateData>
+    <Name>Notepad++ Plugin</Name>
+    <Description>Classlibrary, ready to get loaded into N++. Credits for the DllExport part to R. Giesecke</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>MyNppPlugin</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>NppPlugin.ico</Icon>
+    <CreateInPlace>true</CreateInPlace>
+    <BuildOnLoad>false</BuildOnLoad>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="$projectname$.csproj" File="$projectname$.csproj" ReplaceParameters="true">
+      <Folder Name="DllExport" TargetFolderName="DllExport">
+        <ProjectItem ReplaceParameters="true" TargetFileName="DllExportAttribute.cs">DllExportAttribute.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Mono.Cecil.dll">Mono.Cecil.dll</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="NppPlugin.DllExport.dll">NppPlugin.DllExport.dll</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="NppPlugin.DllExport.MSBuild.dll">NppPlugin.DllExport.MSBuild.dll</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="NppPlugin.DllExport.targets">NppPlugin.DllExport.targets</ProjectItem>
+      </Folder>
+      <Folder Name="Forms" TargetFolderName="Forms">
+        <ProjectItem ReplaceParameters="true" TargetFileName="frmMyDlg.cs">frmMyDlg.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="frmMyDlg.Designer.cs">frmMyDlg.Designer.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="frmMyDlg.resx">frmMyDlg.resx</ProjectItem>
+      </Folder>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.Designer.cs">Resources.Designer.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Resources.resx">Resources.resx</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="star.png">star.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="star_bmp.bmp">star_bmp.bmp</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Main.cs">Main.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="NppPluginNETBase.cs">NppPluginNETBase.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="NppPluginNETHelper.cs">NppPluginNETHelper.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="UnmanagedExports.cs">UnmanagedExports.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
