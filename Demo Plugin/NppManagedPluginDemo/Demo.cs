@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using Kbg.NppPluginNET;
 
 namespace Kbg.NppPluginNET
 {
@@ -37,7 +38,7 @@ namespace Kbg.NppPluginNET
 
 namespace Kbg.Demo.Namespace
 {
-    partial class PluginBase
+    class Main
     {
         #region " Fields "
         internal const string PluginName = "NppManagedPluginDemo";
@@ -59,26 +60,26 @@ namespace Kbg.Demo.Namespace
             // Initialization of your plugin commands
             // You should fill your plugins commands here
  
-        	//
-	        // Firstly we get the parameters from your plugin config file (if any)
-	        //
+            //
+            // Firstly we get the parameters from your plugin config file (if any)
+            //
 
-	        // get path of plugin configuration
+            // get path of plugin configuration
             StringBuilder sbIniFilePath = new StringBuilder(Win32.MAX_PATH);
-            Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_GETPLUGINSCONFIGDIR, Win32.MAX_PATH, sbIniFilePath);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETPLUGINSCONFIGDIR, Win32.MAX_PATH, sbIniFilePath);
             iniFilePath = sbIniFilePath.ToString();
 
-	        // if config path doesn't exist, we create it
+            // if config path doesn't exist, we create it
             if (!Directory.Exists(iniFilePath))
-	        {
+            {
                 Directory.CreateDirectory(iniFilePath);
-	        }
+            }
 
-	        // make your plugin config file full file path name
+            // make your plugin config file full file path name
             iniFilePath = Path.Combine(iniFilePath, PluginName + ".ini");
 
-	        // get the parameter value from plugin config
-	        doCloseTag = (Win32.GetPrivateProfileInt(sectionName, keyName, 0, iniFilePath) != 0);
+            // get the parameter value from plugin config
+            doCloseTag = (Win32.GetPrivateProfileInt(sectionName, keyName, 0, iniFilePath) != 0);
 
             // with function :
             // SetCommand(int index,                            // zero based number to indicate the order of command
@@ -87,32 +88,32 @@ namespace Kbg.Demo.Namespace
             //            ShortcutKey *shortcut,                // optional. Define a shortcut to trigger this command
             //            bool check0nInit                      // optional. Make this menu item be checked visually
             //            );
-            SetCommand(0, "Hello Notepad++", hello);
-            SetCommand(1, "Hello (with FX)", helloFX);
-            SetCommand(2, "What is Notepad++?", WhatIsNpp);
+            PluginBase.SetCommand(0, "Hello Notepad++", hello);
+            PluginBase.SetCommand(1, "Hello (with FX)", helloFX);
+            PluginBase.SetCommand(2, "What is Notepad++?", WhatIsNpp);
 
             // Here you insert a separator
-            SetCommand(3, "---", null);
+            PluginBase.SetCommand(3, "---", null);
 
             // Shortcut :
             // Following makes the command bind to the shortcut Alt-F
-            SetCommand(4, "Current Full Path", insertCurrentFullPath, new ShortcutKey(false, true, false, Keys.F));
-            SetCommand(5, "Current File Name", insertCurrentFileName);
-            SetCommand(6, "Current Directory", insertCurrentDirectory);
-            SetCommand(7, "Date && Time - short format", insertShortDateTime);
-            SetCommand(8, "Date && Time - long format", insertLongDateTime);
+            PluginBase.SetCommand(4, "Current Full Path", insertCurrentFullPath, new ShortcutKey(false, true, false, Keys.F));
+            PluginBase.SetCommand(5, "Current File Name", insertCurrentFileName);
+            PluginBase.SetCommand(6, "Current Directory", insertCurrentDirectory);
+            PluginBase.SetCommand(7, "Date && Time - short format", insertShortDateTime);
+            PluginBase.SetCommand(8, "Date && Time - long format", insertLongDateTime);
 
-            SetCommand(9, "Close HTML/XML tag automatically", checkInsertHtmlCloseTag, new ShortcutKey(false, true, false, Keys.Q), doCloseTag);
+            PluginBase.SetCommand(9, "Close HTML/XML tag automatically", checkInsertHtmlCloseTag, new ShortcutKey(false, true, false, Keys.Q), doCloseTag);
 
-            SetCommand(10, "---", null);
+            PluginBase.SetCommand(10, "---", null);
 
-            SetCommand(11, "Get File Names Demo", getFileNamesDemo);
-            SetCommand(12, "Get Session File Names Demo", getSessionFileNamesDemo);
-            SetCommand(13, "Save Current Session Demo", saveCurrentSessionDemo);
+            PluginBase.SetCommand(11, "Get File Names Demo", getFileNamesDemo);
+            PluginBase.SetCommand(12, "Get Session File Names Demo", getSessionFileNamesDemo);
+            PluginBase.SetCommand(13, "Save Current Session Demo", saveCurrentSessionDemo);
 
-            SetCommand(14, "---", null);
+            PluginBase.SetCommand(14, "---", null);
 
-            SetCommand(15, "Dockable Dialog Demo", DockableDlgDemo); idFrmGotToLine = 15;
+            PluginBase.SetCommand(15, "Dockable Dialog Demo", DockableDlgDemo); idFrmGotToLine = 15;
         }
 
         static internal void SetToolBarIcon()
@@ -121,13 +122,13 @@ namespace Kbg.Demo.Namespace
             tbIcons.hToolbarBmp = tbBmp.GetHbitmap();
             IntPtr pTbIcons = Marshal.AllocHGlobal(Marshal.SizeOf(tbIcons));
             Marshal.StructureToPtr(tbIcons, pTbIcons, false);
-            Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_ADDTOOLBARICON, _funcItems.Items[idFrmGotToLine]._cmdID, pTbIcons);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_ADDTOOLBARICON, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, pTbIcons);
             Marshal.FreeHGlobal(pTbIcons);
         }
 
         static internal void PluginCleanUp()
         {
-	        Win32.WritePrivateProfileString(sectionName, keyName, doCloseTag ? "1" : "0", iniFilePath);
+            Win32.WritePrivateProfileString(sectionName, keyName, doCloseTag ? "1" : "0", iniFilePath);
         }
         #endregion
 
@@ -135,10 +136,10 @@ namespace Kbg.Demo.Namespace
         static void hello()
         {
             // Open a new document
-            Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
             // Say hello now :
             // Scintilla control has no Unicode mode, so we use ANSI here (marshalled as ANSI by default)
-            Win32.SendMessage(GetCurrentScintilla(), SciMsg.SCI_SETTEXT, 0, "Hello, Notepad++... from .NET!");
+            Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_SETTEXT, 0, "Hello, Notepad++... from .NET!");
         }
         static void helloFX()
         {
@@ -147,22 +148,22 @@ namespace Kbg.Demo.Namespace
         }
         static void callbackHelloFX()
         {
-            IntPtr curScintilla = GetCurrentScintilla();
+            IntPtr curScintilla = PluginBase.GetCurrentScintilla();
             int currentZoomLevel = (int)Win32.SendMessage(curScintilla, SciMsg.SCI_GETZOOM, 0, 0);
             int i = currentZoomLevel;
             for (int j = 0 ; j < 4 ; j++)
-            {	
-	            for ( ; i >= -10; i--)
-	            {
-		            Win32.SendMessage(curScintilla, SciMsg.SCI_SETZOOM, i, 0);
+            {    
+                for ( ; i >= -10; i--)
+                {
+                    Win32.SendMessage(curScintilla, SciMsg.SCI_SETZOOM, i, 0);
                     Thread.Sleep(30);
-	            }
+                }
                 Thread.Sleep(100);
-	            for ( ; i <= 20 ; i++)
-	            {
-		            Thread.Sleep(30);
-		            Win32.SendMessage(curScintilla, SciMsg.SCI_SETZOOM, i, 0);
-	            }
+                for ( ; i <= 20 ; i++)
+                {
+                    Thread.Sleep(30);
+                    Win32.SendMessage(curScintilla, SciMsg.SCI_SETZOOM, i, 0);
+                }
                 Thread.Sleep(100);
             }
             for ( ; i >= currentZoomLevel ; i--)
@@ -175,7 +176,7 @@ namespace Kbg.Demo.Namespace
         {
             string text2display = "Notepad++ is a free (as in \"free speech\" and also as in \"free beer\") " +
                 "source code editor and Notepad replacement that supports several languages.\n" +
-		        "Running in the MS Windows environment, its use is governed by GPL License.\n\n" +
+                "Running in the MS Windows environment, its use is governed by GPL License.\n\n" +
                 "Based on a powerful editing component Scintilla, Notepad++ is written in C++ and " +
                 "uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\n" +
                 "By optimizing as many routines as possible without losing user friendliness, Notepad++ is trying " +
@@ -187,10 +188,10 @@ namespace Kbg.Demo.Namespace
         {
             string text2display = (string)data;
             // Open a new document
-            Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
 
             // Get the current scintilla
-            IntPtr curScintilla = GetCurrentScintilla();
+            IntPtr curScintilla = PluginBase.GetCurrentScintilla();
 
             Random srand = new Random(DateTime.Now.Millisecond);
             int rangeMin = 0;
@@ -221,16 +222,16 @@ namespace Kbg.Demo.Namespace
         }
         static void insertCurrentPath(NppMsg which)
         {
-	        NppMsg msg = NppMsg.NPPM_GETFULLCURRENTPATH;
-	        if (which == NppMsg.FILE_NAME)
-		        msg = NppMsg.NPPM_GETFILENAME;
-	        else if (which == NppMsg.CURRENT_DIRECTORY)
+            NppMsg msg = NppMsg.NPPM_GETFULLCURRENTPATH;
+            if (which == NppMsg.FILE_NAME)
+                msg = NppMsg.NPPM_GETFILENAME;
+            else if (which == NppMsg.CURRENT_DIRECTORY)
                 msg = NppMsg.NPPM_GETCURRENTDIRECTORY;
 
-	        StringBuilder path = new StringBuilder(Win32.MAX_PATH);
-	        Win32.SendMessage(nppData._nppHandle, msg, 0, path);
+            StringBuilder path = new StringBuilder(Win32.MAX_PATH);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, msg, 0, path);
 
-            Win32.SendMessage(GetCurrentScintilla(), SciMsg.SCI_REPLACESEL, 0, path);
+            Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_REPLACESEL, 0, path);
         }
 
         static void insertShortDateTime()
@@ -246,27 +247,27 @@ namespace Kbg.Demo.Namespace
             string dateTime = string.Format("{0} {1}", 
                 DateTime.Now.ToShortTimeString(),
                 longFormat ? DateTime.Now.ToLongDateString() : DateTime.Now.ToShortDateString());
-            Win32.SendMessage(GetCurrentScintilla(), SciMsg.SCI_REPLACESEL, 0, dateTime);
+            Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_REPLACESEL, 0, dateTime);
         }
 
         static void checkInsertHtmlCloseTag()
         {
             doCloseTag = !doCloseTag;
 
-            int i = Win32.CheckMenuItem(Win32.GetMenu(nppData._nppHandle), _funcItems.Items[9]._cmdID,
+            int i = Win32.CheckMenuItem(Win32.GetMenu(PluginBase.nppData._nppHandle), PluginBase._funcItems.Items[9]._cmdID,
                 Win32.MF_BYCOMMAND | (doCloseTag ? Win32.MF_CHECKED : Win32.MF_UNCHECKED));
         }
         static internal void doInsertHtmlCloseTag(char newChar)
         {
             LangType docType = LangType.L_TEXT;
-            Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_GETCURRENTLANGTYPE, 0, ref docType);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETCURRENTLANGTYPE, 0, ref docType);
             bool isDocTypeHTML = (docType == LangType.L_HTML || docType == LangType.L_XML || docType == LangType.L_PHP);
             if (doCloseTag && isDocTypeHTML)
             {
                 if (newChar == '>')
                 {
                     int bufCapacity = 512;
-                    IntPtr hCurrentEditView = GetCurrentScintilla();
+                    IntPtr hCurrentEditView = PluginBase.GetCurrentScintilla();
                     int currentPos = (int)Win32.SendMessage(hCurrentEditView, SciMsg.SCI_GETCURRENTPOS, 0, 0);
                     int beginPos = currentPos - (bufCapacity - 1);
                     int startPos = (beginPos > 0) ? beginPos : 0;
@@ -316,37 +317,37 @@ namespace Kbg.Demo.Namespace
 
         static void getFileNamesDemo()
         {
-            int nbFile = (int)Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_GETNBOPENFILES, 0, 0);
+            int nbFile = (int)Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETNBOPENFILES, 0, 0);
             MessageBox.Show(nbFile.ToString(), "Number of opened files:");
 
             using (ClikeStringArray cStrArray = new ClikeStringArray(nbFile, Win32.MAX_PATH))
             {
-                if (Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_GETOPENFILENAMES, cStrArray.NativePointer, nbFile) != IntPtr.Zero)
+                if (Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETOPENFILENAMES, cStrArray.NativePointer, nbFile) != IntPtr.Zero)
                     foreach (string file in cStrArray.ManagedStringsUnicode) MessageBox.Show(file);
             }
         }
         static void getSessionFileNamesDemo()
         {
-            int nbFile = (int)Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_GETNBSESSIONFILES, 0, sessionFilePath);
+            int nbFile = (int)Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETNBSESSIONFILES, 0, sessionFilePath);
 
-        	if (nbFile < 1)
-	        {
-		        MessageBox.Show("Please modify \"sessionFilePath\" in \"Demo.cs\" in order to point to a valid session file", "Error");
-		        return;
-	        }
+            if (nbFile < 1)
+            {
+                MessageBox.Show("Please modify \"sessionFilePath\" in \"Demo.cs\" in order to point to a valid session file", "Error");
+                return;
+            }
             MessageBox.Show(nbFile.ToString(), "Number of session files:");
 
             using (ClikeStringArray cStrArray = new ClikeStringArray(nbFile, Win32.MAX_PATH))
             {
-                if (Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_GETSESSIONFILES, cStrArray.NativePointer, sessionFilePath) != IntPtr.Zero)
+                if (Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETSESSIONFILES, cStrArray.NativePointer, sessionFilePath) != IntPtr.Zero)
                     foreach (string file in cStrArray.ManagedStringsUnicode) MessageBox.Show(file);
             }
         }
         static void saveCurrentSessionDemo()
         {
-            string sessionPath = Marshal.PtrToStringUni(Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_SAVECURRENTSESSION, 0, sessionFilePath));
-	        if (!string.IsNullOrEmpty(sessionPath))
-		        MessageBox.Show(sessionPath, "Saved Session File :", MessageBoxButtons.OK);
+            string sessionPath = Marshal.PtrToStringUni(Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SAVECURRENTSESSION, 0, sessionFilePath));
+            if (!string.IsNullOrEmpty(sessionPath))
+                MessageBox.Show(sessionPath, "Saved Session File :", MessageBoxButtons.OK);
         }
 
         static void DockableDlgDemo()
@@ -361,15 +362,15 @@ namespace Kbg.Demo.Namespace
 
                 using (Bitmap newBmp = new Bitmap(16, 16))
                 {
-					Graphics g = Graphics.FromImage(newBmp);
-					ColorMap[] colorMap = new ColorMap[1];
-					colorMap[0] = new ColorMap();
-					colorMap[0].OldColor = Color.Fuchsia;
-					colorMap[0].NewColor = Color.FromKnownColor(KnownColor.ButtonFace);
-					ImageAttributes attr = new ImageAttributes();
-					attr.SetRemapTable(colorMap);
-					g.DrawImage(tbBmp_tbTab, new Rectangle(0, 0, 16, 16), 0, 0, 16, 16, GraphicsUnit.Pixel, attr);
-					tbIcon = Icon.FromHandle(newBmp.GetHicon());
+                    Graphics g = Graphics.FromImage(newBmp);
+                    ColorMap[] colorMap = new ColorMap[1];
+                    colorMap[0] = new ColorMap();
+                    colorMap[0].OldColor = Color.Fuchsia;
+                    colorMap[0].NewColor = Color.FromKnownColor(KnownColor.ButtonFace);
+                    ImageAttributes attr = new ImageAttributes();
+                    attr.SetRemapTable(colorMap);
+                    g.DrawImage(tbBmp_tbTab, new Rectangle(0, 0, 16, 16), 0, 0, 16, 16, GraphicsUnit.Pixel, attr);
+                    tbIcon = Icon.FromHandle(newBmp.GetHicon());
                 }
                 
                 NppTbData _nppTbData = new NppTbData();
@@ -385,22 +386,22 @@ namespace Kbg.Demo.Namespace
                 IntPtr _ptrNppTbData = Marshal.AllocHGlobal(Marshal.SizeOf(_nppTbData));
                 Marshal.StructureToPtr(_nppTbData, _ptrNppTbData, false);
 
-                Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_DMMREGASDCKDLG, 0, _ptrNppTbData);
+                Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMREGASDCKDLG, 0, _ptrNppTbData);
                 // Following message will toogle both menu item state and toolbar button
-                Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, _funcItems.Items[idFrmGotToLine]._cmdID, 1);
+                Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 1);
             }
             else
             {
-            	if (!frmGoToLine.Visible)
-            	{
-	                Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_DMMSHOW, 0, frmGoToLine.Handle);
-	                Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, _funcItems.Items[idFrmGotToLine]._cmdID, 1);
-            	}
-            	else
-            	{
-	                Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_DMMHIDE, 0, frmGoToLine.Handle);
-	                Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, _funcItems.Items[idFrmGotToLine]._cmdID, 0);
-            	}
+                if (!frmGoToLine.Visible)
+                {
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMSHOW, 0, frmGoToLine.Handle);
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 1);
+                }
+                else
+                {
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMHIDE, 0, frmGoToLine.Handle);
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 0);
+                }
             }
             frmGoToLine.textBox1.Focus();
         }
