@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using NppPluginNET;
 using NppPlugin.DllExport;
 
-namespace $safeprojectname$
+namespace Kbg.NppPluginNET
 {
     class UnmanagedExports
     {
@@ -17,7 +16,7 @@ namespace $safeprojectname$
         static void setInfo(NppData notepadPlusData)
         {
             PluginBase.nppData = notepadPlusData;
-            Main.CommandMenuInit();
+			Main.CommandMenuInit();
         }
 
         [DllExport(CallingConvention = CallingConvention.Cdecl)]
