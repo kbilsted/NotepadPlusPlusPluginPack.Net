@@ -628,10 +628,7 @@ namespace NppPluginNET
             DOCSTAUS_READONLY = 1,
             DOCSTAUS_BUFFERDIRTY = 2,
 
-        NPPN_DOCORDERCHANGED = (NPPN_FIRST + 16)  // To notify plugins that document order is changed
-        //scnNotification->nmhdr.code = NPPN_DOCORDERCHANGED;
-        //scnNotification->nmhdr.hwndFrom = newIndex;
-        //scnNotification->nmhdr.idFrom = BufferID;
+        NPPN_DOCORDERCHANGED         = (NPPN_FIRST + 17),  // To notify plugins that document order is changed
     }
 
     public enum NppMenuCmd : uint
