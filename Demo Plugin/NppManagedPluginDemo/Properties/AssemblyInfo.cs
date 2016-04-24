@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Managed demo plugin for Notepad++")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("UFO-Pu55y")]
+[assembly: AssemblyCompany("Kbg")]
 [assembly: AssemblyProduct("Managed demo plugin for Notepad++")]
-[assembly: AssemblyCopyright("Copyleft © UFO-Pu55y 2011")]
+[assembly: AssemblyCopyright("Kbg 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2f8c343a-3fa0-47ba-b3b5-23a5757f8d99")]
+[assembly: Guid("2f8c343a-3fa0-47ba-b3b5-23a5757f8779")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.5.0.0")]
-[assembly: AssemblyFileVersion("0.5.0.0")]
+[assembly: AssemblyVersion("0.7.0.0")]
+[assembly: AssemblyFileVersion("0.7.0.0")]
