@@ -5,11 +5,37 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-namespace NppPluginNET
+namespace Kbg.NppPluginNET
+{
+	/// <summary>
+	/// Integration layer as the demo app uses the pluginfiles as soft-links files.
+	/// This is different to normal plugins that would use the project template and get the files directly.
+	/// </summary>
+	class Main
+	{
+		static internal void CommandMenuInit()
+		{
+			Kbg.Demo.Namespace.Main.CommandMenuInit();
+		}
+
+		static internal void PluginCleanUp()
+		{
+			Kbg.Demo.Namespace.Main.PluginCleanUp();
+		}
+
+		static internal void SetToolBarIcon()
+		{
+			Kbg.Demo.Namespace.Main.SetToolBarIcon();
+		}
+
+		internal static string PluginName { get { return Kbg.Demo.Namespace.Main.PluginName; }}
+	}
+}
+
+namespace Kbg.Demo.Namespace
 {
     partial class PluginBase
     {
@@ -88,6 +114,7 @@ namespace NppPluginNET
 
             SetCommand(15, "Dockable Dialog Demo", DockableDlgDemo); idFrmGotToLine = 15;
         }
+
         static internal void SetToolBarIcon()
         {
             toolbarIcons tbIcons = new toolbarIcons();
@@ -97,6 +124,7 @@ namespace NppPluginNET
             Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_ADDTOOLBARICON, _funcItems.Items[idFrmGotToLine]._cmdID, pTbIcons);
             Marshal.FreeHGlobal(pTbIcons);
         }
+
         static internal void PluginCleanUp()
         {
 	        Win32.WritePrivateProfileString(sectionName, keyName, doCloseTag ? "1" : "0", iniFilePath);
