@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NppPluginNET.Properties {
+namespace Kbg.Demo.Namespace.Properties {
 	using System;
 	
 	

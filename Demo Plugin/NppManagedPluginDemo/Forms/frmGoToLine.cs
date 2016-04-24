@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using Kbg.NppPluginNET;
 
-namespace NppPluginNET
+namespace Kbg.Demo.Namespace
 {
-    partial class frmGoToLine : Form
+	partial class frmGoToLine : Form
     {
         public frmGoToLine()
         {
