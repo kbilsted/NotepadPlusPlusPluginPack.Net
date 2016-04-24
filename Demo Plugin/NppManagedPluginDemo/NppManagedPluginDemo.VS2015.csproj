@@ -45,7 +45,18 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DllExport\DllExportAttribute.cs" />
+    <Compile Include="..\..\Visual Studio Project Template C#\DllExport\DllExportAttribute.cs">
+      <Link>DllExport\DllExportAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\NppPluginNETBase.cs">
+      <Link>NppPluginNETBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\NppPluginNETHelper.cs">
+      <Link>NppPluginNETHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\UnmanagedExports.cs">
+      <Link>UnmanagedExports.cs</Link>
+    </Compile>
     <Compile Include="Forms\frmGoToLine.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -53,13 +64,10 @@
       <DependentUpon>frmGoToLine.cs</DependentUpon>
     </Compile>
     <Compile Include="Demo.cs" />
-    <Compile Include="NppPluginNETBase.cs" />
-    <Compile Include="NppPluginNETHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UnmanagedExports.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

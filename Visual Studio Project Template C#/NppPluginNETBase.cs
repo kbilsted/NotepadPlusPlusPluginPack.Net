@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NppPluginNET
+namespace Kbg.NppPluginNET
 {
     class PluginBase
     {

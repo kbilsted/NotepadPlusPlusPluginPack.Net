@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace NppPluginNET
+namespace Kbg.NppPluginNET
 {
     #region " Notepad++ "
     [StructLayout(LayoutKind.Sequential)]
@@ -628,10 +628,16 @@ namespace NppPluginNET
             DOCSTAUS_READONLY = 1,
             DOCSTAUS_BUFFERDIRTY = 2,
 
-        NPPN_DOCORDERCHANGED = (NPPN_FIRST + 16)  // To notify plugins that document order is changed
-        //scnNotification->nmhdr.code = NPPN_DOCORDERCHANGED;
-        //scnNotification->nmhdr.hwndFrom = newIndex;
-        //scnNotification->nmhdr.idFrom = BufferID;
+        NPPN_DOCORDERCHANGED         = (NPPN_FIRST + 17),  // To notify plugins that document order is changed
+        NPPN_SNAPSHOTDIRTYFILELOADED = (NPPN_FIRST + 18),  // To notify plugins that a snapshot dirty file is loaded on startup
+        NPPN_BEFORESHUTDOWN          = (NPPN_FIRST + 19),  // To notify plugins that Npp shutdown has been triggered, files have not been closed yet
+        NPPN_CANCELSHUTDOWN          = (NPPN_FIRST + 20),  // To notify plugins that Npp shutdown has been cancelled
+        NPPN_FILEBEFORERENAME        = (NPPN_FIRST + 21),  // To notify plugins that file is to be renamed
+        NPPN_FILERENAMECANCEL        = (NPPN_FIRST + 22),  // To notify plugins that file rename has been cancelled
+        NPPN_FILERENAMED             = (NPPN_FIRST + 23),  // To notify plugins that file has been renamed
+        NPPN_FILEBEFOREDELETE        = (NPPN_FIRST + 24),  // To notify plugins that file is to be deleted
+        NPPN_FILEDELETEFAILED        = (NPPN_FIRST + 25),  // To notify plugins that file deletion has failed
+        NPPN_FILEDELETED             = (NPPN_FIRST + 26),  // To notify plugins that file has been deleted		
     }
 
     public enum NppMenuCmd : uint

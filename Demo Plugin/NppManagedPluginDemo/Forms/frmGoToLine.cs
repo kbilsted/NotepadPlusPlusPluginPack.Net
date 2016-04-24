@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using Kbg.NppPluginNET;
 
-namespace NppPluginNET
+namespace Kbg.Demo.Namespace
 {
-    partial class frmGoToLine : Form
+	partial class frmGoToLine : Form
     {
         public frmGoToLine()
         {
@@ -53,7 +54,7 @@ namespace NppPluginNET
         	if (!Visible)
         	{
                 Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK,
-                                  PluginBase._funcItems.Items[PluginBase.idFrmGotToLine]._cmdID, 0);
+                                  PluginBase._funcItems.Items[Main.idFrmGotToLine]._cmdID, 0);
         	}
         }
     }
