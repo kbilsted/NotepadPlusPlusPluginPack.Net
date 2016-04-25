@@ -202,7 +202,8 @@ namespace Kbg.NppPluginNET
         L_ASM, L_DIFF, L_PROPS, L_PS, L_RUBY, L_SMALLTALK, L_VHDL, L_KIX, L_AU3,
         L_CAML, L_ADA, L_VERILOG, L_MATLAB, L_HASKELL, L_INNO, L_SEARCHRESULT,
         L_CMAKE, L_YAML, L_COBOL, L_GUI4CLI, L_D, L_POWERSHELL, L_R, L_JSP,
-        L_COFFEESCRIPT,
+        L_COFFEESCRIPT, L_JSON, L_JAVASCRIPT, L_FORTRAN_77,
+        // Don't use L_JS, use L_JAVASCRIPT instead
         // The end of enumated language type, so it should be always at the end
         L_EXTERNAL
     }
@@ -210,7 +211,7 @@ namespace Kbg.NppPluginNET
     public enum winVer
     {
         WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K,
-        WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81
+        WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10
     }
 
     [Flags]
@@ -568,6 +569,18 @@ namespace Kbg.NppPluginNET
         NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR = (NPPMSG + 91),
         // INT NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR(0, 0)
         // Return: current editor default background color. You should convert the returned value in COLORREF
+
+        NPPM_SETSMOOTHFONT = (NPPMSG + 92),
+        // VOID NPPM_SETSMOOTHFONT(0, BOOL setSmoothFontOrNot)
+        // Disable or enable smooth font drawing
+
+        NPPM_SETEDITORBORDEREDGE = (NPPMSG + 93),
+        // VOID NPPM_SETEDITORBORDEREDGE(0, BOOL withEditorBorderEdgeOrNot)
+        // Disable or enable border edge around the text area
+
+        NPPM_SAVEFILE = (NPPMSG + 94),
+        // VOID NPPM_SAVEFILE(0, const TCHAR *fileNameToSave)
+        // Save the file specified by fileNameToSave
 
         RUNCOMMAND_USER = (0x400/*WM_USER*/ + 3000),
         NPPM_GETFULLCURRENTPATH     = (RUNCOMMAND_USER + FULL_CURRENT_PATH),
