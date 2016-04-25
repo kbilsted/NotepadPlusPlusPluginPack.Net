@@ -1,16 +1,49 @@
-﻿<Project
-  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="NppPlugin.DllExport.MSBuild.DllExportTask"
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+      $(PostBuildEventDependsOn);
+      NppPluginDllExport
+    </PostBuildEventDependsOn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      NppPluginDllExport
+    </BuildDependsOn>
+  </PropertyGroup>
+
+  <UsingTask TaskName="NppPlugin.DllExport.MSBuild.DllExportAppDomainIsolatedTask"
              AssemblyFile="NppPlugin.DllExport.MSBuild.dll"/>
-  <Target Name="AfterBuild"
-          DependsOnTargets="GetFrameworkPaths"
-          >
-    <DllExportTask Platform="$(Platform)"
+
+  <Target Name="NppPluginDllExport"
+          DependsOnTargets="GetFrameworkPaths">
+
+    <!--
+      These properties can still be applied to the task, but upon installation of a 
+      new version of the nuget package, the properties 
+      DllExportAttributeAssemblyName and DllExportAttributeAssemblyName will be removed from the project.
+      So, if you want to provide an alternative attribute name, the you have to name the property in your project file differently.
+      
+      e.g.:
+      DllExportAttributeAssemblyName="$(MyDllExportAttributeAssemblyName)"
+      DllExportAttributeFullName="$(MyDllExportAttributeFullName)"
+    -->
+    <PropertyGroup>
+      <DllExportLeaveIntermediateFiles Condition="'$(DllExportLeaveIntermediateFiles)'==''">
+        false
+      </DllExportLeaveIntermediateFiles>
+
+
+    </PropertyGroup>
+
+    <DllExportAppDomainIsolatedTask Platform="$(Platform)"
                    PlatformTarget="$(PlatformTarget)"
                    CpuType="$(CpuType)"
                    EmitDebugSymbols="$(DebugSymbols)"
-                   DllExportAttributeAssemblyName="$(DllExportAttributeAssemblyName)"
-                   DllExportAttributeFullName="$(DllExportAttributeFullName)"
+                                    LeaveIntermediateFiles="$(DllExportLeaveIntermediateFiles)"
                    Timeout="$(DllExportTimeout)"
                    KeyContainer="$(KeyContainerName)$(AssemblyKeyContainerName)"
                    KeyFile="$(KeyOriginatorFile)"
@@ -19,6 +52,8 @@
                    FrameworkPath="$(TargetedFrameworkDir);$(TargetFrameworkDirectory)"
                    LibToolPath="$(DevEnvDir)\..\..\VC\bin"
                    LibToolDllPath="$(DevEnvDir)"
-                   SdkPath="$(SDK40ToolsPath)"/>
+                   TargetFrameworkVersion="$(TargetFrameworkVersion)"
+                   SdkPath="$(SDK40ToolsPath)"
+                   SkipOnAnyCpu="$(NoDllExportsForAnyCpu)"/>
   </Target>
 </Project>
