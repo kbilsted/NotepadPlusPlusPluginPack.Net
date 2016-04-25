@@ -57,6 +57,9 @@
     <Compile Include="..\..\Visual Studio Project Template C#\Integration\Msgs_h.cs">
       <Link>Integration\Msgs_h.cs</Link>
     </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\Integration\Scintilla_iface.cs">
+      <Link>Integration\Scintilla_iface.cs</Link>
+    </Compile>
     <Compile Include="..\..\Visual Studio Project Template C#\NppPluginNETBase.cs">
       <Link>NppPluginNETBase.cs</Link>
     </Compile>
