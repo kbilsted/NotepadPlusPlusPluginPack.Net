@@ -2,6 +2,7 @@
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace Kbg.NppPluginNET
@@ -201,8 +202,15 @@ namespace Kbg.NppPluginNET
         L_ASM, L_DIFF, L_PROPS, L_PS, L_RUBY, L_SMALLTALK, L_VHDL, L_KIX, L_AU3,
         L_CAML, L_ADA, L_VERILOG, L_MATLAB, L_HASKELL, L_INNO, L_SEARCHRESULT,
         L_CMAKE, L_YAML, L_COBOL, L_GUI4CLI, L_D, L_POWERSHELL, L_R, L_JSP,
+        L_COFFEESCRIPT,
         // The end of enumated language type, so it should be always at the end
         L_EXTERNAL
+    }
+
+    public enum winVer
+    {
+        WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K,
+        WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81
     }
 
     [Flags]
@@ -257,6 +265,9 @@ namespace Kbg.NppPluginNET
 
         NPPM_GETMENUHANDLE = (NPPMSG + 25),
             NPPPLUGINMENU = 0,
+            NPPMAINMENU = 1,
+        // INT NPPM_GETMENUHANDLE(INT menuChoice, 0)
+        // Return: menu handle (HMENU) of choice (plugin menu handle or Notepad++ main menu handle)
 
         NPPM_ENCODESCI = (NPPMSG + 26),
         //ascii file to unicode
@@ -366,6 +377,7 @@ namespace Kbg.NppPluginNET
         NPPM_GETPOSFROMBUFFERID = (NPPMSG + 57),
         // INT NPPM_GETPOSFROMBUFFERID(INT bufferID, 0)
         // Return VIEW|INDEX from a buffer ID. -1 if the bufferID non existing
+        // if priorityView set to SUB_VIEW, then SUB_VIEW will be search firstly
         //
         // VIEW takes 2 highest bits and INDEX (0 based) takes the rest (30 bits) 
         // Here's the values for the view :
@@ -380,25 +392,30 @@ namespace Kbg.NppPluginNET
         // allocate fullFilePath with the return values + 1, then call it again to get  full path file name
 
         NPPM_GETBUFFERIDFROMPOS = (NPPMSG + 59),
+        // INT NPPM_GETBUFFERIDFROMPOS(INT index, INT iView)
         //wParam: Position of document
         //lParam: View to use, 0 = Main, 1 = Secondary
         //Returns 0 if invalid
 
         NPPM_GETCURRENTBUFFERID = (NPPMSG + 60),
+        // INT NPPM_GETCURRENTBUFFERID(0, 0)
         //Returns active Buffer
 
         NPPM_RELOADBUFFERID = (NPPMSG + 61),
+        // VOID NPPM_RELOADBUFFERID(0, 0)
         //Reloads Buffer
         //wParam: Buffer to reload
         //lParam: 0 if no alert, else alert
 
 
         NPPM_GETBUFFERLANGTYPE = (NPPMSG + 64),
+        // INT NPPM_GETBUFFERLANGTYPE(INT bufferID, 0)
         //wParam: BufferID to get LangType from
         //lParam: 0
         //Returns as int, see LangType. -1 on error
 
         NPPM_SETBUFFERLANGTYPE = (NPPMSG + 65),
+        // BOOL NPPM_SETBUFFERLANGTYPE(INT bufferID, INT langType)
         //wParam: BufferID to set LangType of
         //lParam: LangType
         //Returns TRUE on success, FALSE otherwise
@@ -406,11 +423,13 @@ namespace Kbg.NppPluginNET
         //L_USER and L_EXTERNAL are not supported
 
         NPPM_GETBUFFERENCODING = (NPPMSG + 66),
+        // INT NPPM_GETBUFFERENCODING(INT bufferID, 0)
         //wParam: BufferID to get encoding from
         //lParam: 0
         //returns as int, see UniMode. -1 on error
 
         NPPM_SETBUFFERENCODING = (NPPMSG + 67),
+        // BOOL NPPM_SETBUFFERENCODING(INT bufferID, INT encoding)
         //wParam: BufferID to set encoding of
         //lParam: format
         //Returns TRUE on success, FALSE otherwise
@@ -418,11 +437,13 @@ namespace Kbg.NppPluginNET
         //Can only be done on new, unedited files
 
         NPPM_GETBUFFERFORMAT = (NPPMSG + 68),
+        // INT NPPM_GETBUFFERFORMAT(INT bufferID, 0)
         //wParam: BufferID to get format from
         //lParam: 0
         //returns as int, see formatType. -1 on error
 
         NPPM_SETBUFFERFORMAT = (NPPMSG + 69),
+        // BOOL NPPM_SETBUFFERFORMAT(INT bufferID, INT format)
         //wParam: BufferID to set format of
         //lParam: format
         //Returns TRUE on success, FALSE otherwise
@@ -502,6 +523,51 @@ namespace Kbg.NppPluginNET
         // sets startNumber to the initial command ID if successful
         // Allocates a marker number to a plugin
         // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
+
+        NPPM_GETLANGUAGENAME = (NPPMSG + 83),
+        // INT NPPM_GETLANGUAGENAME(int langType, TCHAR *langName)
+        // Get programing language name from the given language type (LangType)
+        // Return value is the number of copied character / number of character to copy (\0 is not included)
+        // You should call this function 2 times - the first time you pass langName as NULL to get the number of characters to copy.
+        // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGENAME function the 2nd time 
+        // by passing allocated buffer as argument langName
+
+        NPPM_GETLANGUAGEDESC = (NPPMSG + 84),
+        // INT NPPM_GETLANGUAGEDESC(int langType, TCHAR *langDesc)
+        // Get programing language short description from the given language type (LangType)
+        // Return value is the number of copied character / number of character to copy (\0 is not included)
+        // You should call this function 2 times - the first time you pass langDesc as NULL to get the number of characters to copy.
+        // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGEDESC function the 2nd time 
+        // by passing allocated buffer as argument langDesc
+
+        NPPM_SHOWDOCSWITCHER = (NPPMSG + 85),
+        // VOID NPPM_ISDOCSWITCHERSHOWN(0, BOOL toShowOrNot)
+        // Send this message to show or hide doc switcher.
+        // if toShowOrNot is TRUE then show doc switcher, otherwise hide it.
+
+        NPPM_ISDOCSWITCHERSHOWN = (NPPMSG + 86),
+        // BOOL NPPM_ISDOCSWITCHERSHOWN(0, 0)
+        // Check to see if doc switcher is shown.
+
+        NPPM_GETAPPDATAPLUGINSALLOWED = (NPPMSG + 87),
+        // BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
+        // Check to see if loading plugins from "%APPDATA%\Notepad++\plugins" is allowed.
+
+        NPPM_GETCURRENTVIEW = (NPPMSG + 88),
+        // INT NPPM_GETCURRENTVIEW(0, 0)
+        // Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
+
+        NPPM_DOCSWITCHERDISABLECOLUMN = (NPPMSG + 89),
+        // VOID NPPM_DOCSWITCHERDISABLECOLUMN(0, BOOL disableOrNot)
+        // Disable or enable extension column of doc switcher
+
+        NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR = (NPPMSG + 90),
+        // INT NPPM_GETEDITORDEFAULTFOREGROUNDCOLOR(0, 0)
+        // Return: current editor default foreground color. You should convert the returned value in COLORREF
+
+        NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR = (NPPMSG + 91),
+        // INT NPPM_GETEDITORDEFAULTBACKGROUNDCOLOR(0, 0)
+        // Return: current editor default background color. You should convert the returned value in COLORREF
 
         RUNCOMMAND_USER = (0x400/*WM_USER*/ + 3000),
         NPPM_GETFULLCURRENTPATH     = (RUNCOMMAND_USER + FULL_CURRENT_PATH),
@@ -2082,6 +2148,8 @@ namespace Kbg.NppPluginNET
         public static extern IntPtr SendMessage(IntPtr hWnd, NppMsg Msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
         [DllImport("user32")]
         public static extern IntPtr SendMessage(IntPtr hWnd, NppMsg Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+        [DllImport("user32")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, NppMsg Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lParam);
 
         [DllImport("user32")]
         public static extern IntPtr SendMessage(IntPtr hWnd, SciMsg Msg, int wParam, IntPtr lParam);
@@ -2107,6 +2175,12 @@ namespace Kbg.NppPluginNET
         public static extern int CheckMenuItem(IntPtr hmenu, int uIDCheckItem, int uCheck);
 
         public const int WM_CREATE = 1;
+
+        [DllImport("user32")]
+        public static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
+
+        [DllImport("kernel32")]
+        public static extern void OutputDebugString(string lpOutputString);
     }
 
     public class ClikeStringArray : IDisposable
@@ -2126,6 +2200,18 @@ namespace Kbg.NppPluginNET
                 _nativeItems.Add(item);
             }
             Marshal.WriteIntPtr((IntPtr)((int)_nativeArray + (num * IntPtr.Size)), IntPtr.Zero);
+        }
+        public ClikeStringArray(List<string> lstStrings)
+        {
+            _nativeArray = Marshal.AllocHGlobal((lstStrings.Count + 1) * IntPtr.Size);
+            _nativeItems = new List<IntPtr>();
+            for (int i = 0; i < lstStrings.Count; i++)
+            {
+                IntPtr item = Marshal.StringToHGlobalUni(lstStrings[i]);
+                Marshal.WriteIntPtr((IntPtr)((int)_nativeArray + (i * IntPtr.Size)), item);
+                _nativeItems.Add(item);
+            }
+            Marshal.WriteIntPtr((IntPtr)((int)_nativeArray + (lstStrings.Count * IntPtr.Size)), IntPtr.Zero);
         }
 
         public IntPtr NativePointer { get { return _nativeArray; } }
