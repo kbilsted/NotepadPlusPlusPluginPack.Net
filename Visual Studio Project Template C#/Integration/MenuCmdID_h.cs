@@ -3,7 +3,7 @@
 // This file should stay in sync with the CPP project file
 // "notepad-plus-plus/PowerEditor/src/menuCmdID.h"
 // found at
-// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/287ce9ec147d6d64224d8990f99385f57a240df4/PowerEditor/src/menuCmdID.h
+// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/menuCmdID.h
 
 namespace Kbg.NppPluginNET
 {

@@ -3,7 +3,7 @@
 // This file should stay in sync with the CPP project file
 // "notepad-plus-plus/PowerEditor/src/MISC/PluginsManager/Notepad_plus_msgs.h"
 // found at
-// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/287ce9ec147d6d64224d8990f99385f57a240df4/PowerEditor/src/MISC/PluginsManager/Notepad_plus_msgs.h
+// https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/MISC/PluginsManager/Notepad_plus_msgs.h
 
 namespace Kbg.NppPluginNET
 {
