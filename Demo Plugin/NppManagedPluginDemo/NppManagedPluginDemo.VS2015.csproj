@@ -51,6 +51,9 @@
     <Compile Include="..\..\Visual Studio Project Template C#\Integration\Docking_h.cs">
       <Link>Integration\Docking_h.cs</Link>
     </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\Integration\MenuCmdID_h.cs">
+      <Link>Integration\MenuCmdID_h.cs</Link>
+    </Compile>
     <Compile Include="..\..\Visual Studio Project Template C#\Integration\Msgs_h.cs">
       <Link>Integration\Msgs_h.cs</Link>
     </Compile>
