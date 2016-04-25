@@ -1,31 +1,37 @@
-# NppPlugin .NET package for VS2015
+# NppPlugin .NET package for VS2015 and beyond...
 
-## Fork information
-This is a fork of UFO's plugin package http://sourceforge.net/projects/sourcecookifier/files/other%20plugins/NppPlugin.NET.v0.5.zip/download  which seems abandoned (and only supports up to visual studio 2010).
+This is a fork of UFO's plugin package updated for VS2015
 
 
 
 ## Content information
 This package contains two folders:
 
-1) Visual Studio Project Template C#:
-    A VS template for very fast and even easier building of .NET plugins for Notepad++.
+    1. Templates:
+    Simple templates for very fast and even easier building of .NET plugins for Notepad++.
     Setting up a plugin for N++ has never ever been as easy as with this package.
-    Please See its containing text file for further information.
+    Please see the containing txt files for further installation information.
 
-2) Demo Plugin:
+
+    2. Demo:
     An example .NET plugin for Notepad++, build upon the template above.
-    It demonstrates the same functionality as the original demo plugin by Don HO:
-    http://notepad-plus.sourceforge.net/commun/pluginDemoTemplate/NppPluginTemplate.zip
-    I don't know if I've added new bugs, but I've corrected some small mistakes which
-    are in the original demo. I've also added example code for registering icons for
-    the tab of a dockable dialog and for Notepad++'s tool bar (and how to toggle its
-    state).
+    It demonstrates the same functionality as the original demo plugin by Don Ho:
+    http://download.tuxfamily.org/nppplugins/NppPluginDemo/NppPluginDemo.zip
+
+    
+    
+## Credits
+For the main work on the plugin package
+  * UFO
+    * v0.5 http://sourceforge.net/projects/sourcecookifier/files/other%20plugins/NppPlugin.NET.v0.5.zip/download 
+    * and v0.7 https://bitbucket.org/uph0/npppluginnet 
+
+All credits for the used DllExport technique to following guys:
+  * Dark Daskin: http://www.codeproject.com/KB/dotnet/DllExporter.aspx
+  * Robert Giesecke: http://sites.google.com/site/robertgiesecke/Home/uploads/csharpprojecttemplateforunmanagedexports https://www.nuget.org/packages/UnmanagedExports
 
 
 ## Requirements:
-
   * works with .NET Runtime 2.0 and above
   * UNICODE only! ANSI is doable, but not supported so far
 
-please feel free to contribute!
