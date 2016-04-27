@@ -55,21 +55,28 @@ namespace Kbg.NppPluginNET
         SCI_START = 2000,
         SCI_OPTIONAL_START = 3000,
         SCI_LEXER_START = 4000,
+
         /// Add text to the document at current position.
         SCI_ADDTEXT = 2001,
+
         /// Add array of cells to document.
         SCI_ADDSTYLEDTEXT = 2002,
+
         /// Insert string at a position.
         SCI_INSERTTEXT = 2003,
+
         /// Change the text that is being inserted in response to SC_MOD_INSERTCHECK
         SCI_CHANGEINSERTION = 2672,
+
         /// Delete all text in the document.
         SCI_CLEARALL = 2004,
+
         /// Delete a range of text in the document.
         SCI_DELETERANGE = 2645,
 
         /// Set all style bytes to 0, remove all folding information.
         SCI_CLEARDOCUMENTSTYLE = 2005,
+
         /// Returns the number of bytes in the document.
         SCI_GETLENGTH = 2006,
 
@@ -94,6 +101,7 @@ namespace Kbg.NppPluginNET
 
         /// Select all the text in the document.
         SCI_SELECTALL = 2013,
+
         /// Remember the current position in the undo history as the position
         /// at which the document was saved.
         SCI_SETSAVEPOINT = 2014,
@@ -101,10 +109,13 @@ namespace Kbg.NppPluginNET
         /// Retrieve a buffer of cells.
         /// Returns the number of bytes in the buffer not including terminating NULs.
         SCI_GETSTYLEDTEXT = 2015,
+
         /// Are there any redoable actions in the undo history?
         SCI_CANREDO = 2016,
+
         /// Retrieve the line number at which a particular marker is located.
         SCI_MARKERLINEFROMHANDLE = 2017,
+
         /// Delete a marker.
         SCI_MARKERDELETEHANDLE = 2018,
 
@@ -133,9 +144,11 @@ namespace Kbg.NppPluginNET
         SCI_SETANCHOR = 2026,
         SCI_GETCURLINE = 2027,
         SCI_GETENDSTYLED = 2028,
+
         SC_EOL_CRLF = 0,
         SC_EOL_CR = 1,
         SC_EOL_LF = 2,
+
         SCI_CONVERTEOLS = 2029,
         SCI_GETEOLMODE = 2030,
         SCI_SETEOLMODE = 2031,
@@ -145,8 +158,24 @@ namespace Kbg.NppPluginNET
         SCI_SETBUFFEREDDRAW = 2035,
         SCI_SETTABWIDTH = 2036,
         SCI_GETTABWIDTH = 2121,
+        SCI_ClearTabStops = 2675,
+        SCI_AddTabStop = 2676,
+        SCI_GetNextTabStop = 2677,
+        
+        /// The SC_CP_UTF8 value can be used to enter Unicode mode.
+        /// This is the same value as CP_UTF8 in Windows
         SC_CP_UTF8 = 65001,
+
         SCI_SETCODEPAGE = 2037,
+
+        /// Is the IME displayed in a winow or inline?
+        SCI_GetIMEInteraction = 2678,
+        SC_IME_WINDOWED = 0,
+        SC_IME_INLINE = 1,
+        
+        /// Choose to display the the IME in a winow or inline.
+        SCI_SetIMEInteraction = 2679,
+        
         MARKER_MAX = 31,
         SC_MARK_CIRCLE = 0,
         SC_MARK_ROUNDRECT = 1,
@@ -157,6 +186,8 @@ namespace Kbg.NppPluginNET
         SC_MARK_ARROWDOWN = 6,
         SC_MARK_MINUS = 7,
         SC_MARK_PLUS = 8,
+        
+        /// Shapes used for outlining column.
         SC_MARK_VLINE = 9,
         SC_MARK_LCORNER = 10,
         SC_MARK_TCORNER = 11,
@@ -170,6 +201,8 @@ namespace Kbg.NppPluginNET
         SC_MARK_CIRCLEPLUSCONNECTED = 19,
         SC_MARK_CIRCLEMINUS = 20,
         SC_MARK_CIRCLEMINUSCONNECTED = 21,
+
+        /// Invisible mark that only sets the line background colour.
         SC_MARK_BACKGROUND = 22,
         SC_MARK_DOTDOTDOT = 23,
         SC_MARK_ARROWS = 24,
@@ -178,7 +211,12 @@ namespace Kbg.NppPluginNET
         SC_MARK_LEFTRECT = 27,
         SC_MARK_AVAILABLE = 28,
         SC_MARK_UNDERLINE = 29,
+        SC_MARK_RGBAIMAGE = 30,
+        SC_MARK_BOOKMARK = 31,
+
         SC_MARK_CHARACTER = 10000,
+        
+        /// Markers used for outlining column.
         SC_MARKNUM_FOLDEREND = 25,
         SC_MARKNUM_FOLDEROPENMID = 26,
         SC_MARKNUM_FOLDERMIDTAIL = 27,
@@ -186,7 +224,9 @@ namespace Kbg.NppPluginNET
         SC_MARKNUM_FOLDERSUB = 29,
         SC_MARKNUM_FOLDER = 30,
         SC_MARKNUM_FOLDEROPEN = 31,
+        
         SC_MASK_FOLDERS = 0xFE000000,
+        
         SCI_MARKERDEFINE = 2040,
         SCI_MARKERSETFORE = 2041,
         SCI_MARKERSETBACK = 2042,
