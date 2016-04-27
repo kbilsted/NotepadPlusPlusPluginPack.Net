@@ -5,6 +5,9 @@
 // found at
 // https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/scintilla/include/Scintilla.iface
 
+using System;
+using System.Runtime.InteropServices;
+
 namespace Kbg.NppPluginNET
 {
     [StructLayout(LayoutKind.Sequential)]
