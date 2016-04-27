@@ -16,20 +16,20 @@ namespace Kbg.NppPluginNET
         /* Compatible with Windows NMHDR.
          * hwndFrom is really an environment specific window handle or pointer
          * but most clients of Scintilla.h do not have this type visible. */
-        public IntPtr hwndFrom;
-        public uint idFrom;
-        public uint code;
+        public IntPtr hwndFrom; //! environment specific window handle/pointer
+        public uint idFrom;     //! CtrlID of the window issuing the notification
+        public uint code;       //! The SCN_* notification code
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct SCNotification
     {
         public Sci_NotifyHeader nmhdr;
-        public int position;            /* SCN_STYLENEEDED, SCN_MODIFIED, SCN_DWELLSTART, SCN_DWELLEND */
-        public int ch;                    /* SCN_CHARADDED, SCN_KEY */
-        public int modifiers;            /* SCN_KEY */
+        public int position;               /* SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
+        public int ch;                     /* SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION */
+        public int modifiers;              /* SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE */
         public int modificationType;    /* SCN_MODIFIED */
-        public IntPtr text;                /* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
+        public IntPtr text;                /* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_URIDROPPED */
         public int length;                /* SCN_MODIFIED */
         public int linesAdded;            /* SCN_MODIFIED */
         public int message;                /* SCN_MACRORECORD */
@@ -44,6 +44,8 @@ namespace Kbg.NppPluginNET
         public int y;                    /* SCN_DWELLSTART, SCN_DWELLEND */
         public int token;                /* SCN_MODIFIED with SC_MOD_CONTAINER */
         public int annotationLinesAdded;/* SC_MOD_CHANGEANNOTATION */
+        public int updated;                   /* SCN_UPDATEUI */
+        public int listCompletionMethod;   /* SCN_AUTOCSELECTION, SCN_AUTOCCOMPLETED, SCN_USERLISTSELECTION */
     }
 
     [Flags]
@@ -53,31 +55,78 @@ namespace Kbg.NppPluginNET
         SCI_START = 2000,
         SCI_OPTIONAL_START = 3000,
         SCI_LEXER_START = 4000,
+        /// Add text to the document at current position.
         SCI_ADDTEXT = 2001,
+        /// Add array of cells to document.
         SCI_ADDSTYLEDTEXT = 2002,
+        /// Insert string at a position.
         SCI_INSERTTEXT = 2003,
+        /// Change the text that is being inserted in response to SC_MOD_INSERTCHECK
+        SCI_CHANGEINSERTION = 2672,
+        /// Delete all text in the document.
         SCI_CLEARALL = 2004,
+        /// Delete a range of text in the document.
+        SCI_DELETERANGE = 2645,
+
+        /// Set all style bytes to 0, remove all folding information.
         SCI_CLEARDOCUMENTSTYLE = 2005,
+        /// Returns the number of bytes in the document.
         SCI_GETLENGTH = 2006,
+
+        /// Returns the character byte at the position.
         SCI_GETCHARAT = 2007,
+
+        /// Returns the position of the caret.
         SCI_GETCURRENTPOS = 2008,
+
+        /// Returns the position of the opposite end of the selection to the caret.
         SCI_GETANCHOR = 2009,
+
+        /// Returns the style byte at the position.
         SCI_GETSTYLEAT = 2010,
+
+        /// Redoes the next action on the undo history.
         SCI_REDO = 2011,
+
+        /// Choose between collecting actions into the undo
+        /// history and discarding them.
         SCI_SETUNDOCOLLECTION = 2012,
+
+        /// Select all the text in the document.
         SCI_SELECTALL = 2013,
+        /// Remember the current position in the undo history as the position
+        /// at which the document was saved.
         SCI_SETSAVEPOINT = 2014,
+
+        /// Retrieve a buffer of cells.
+        /// Returns the number of bytes in the buffer not including terminating NULs.
         SCI_GETSTYLEDTEXT = 2015,
+        /// Are there any redoable actions in the undo history?
         SCI_CANREDO = 2016,
+        /// Retrieve the line number at which a particular marker is located.
         SCI_MARKERLINEFROMHANDLE = 2017,
+        /// Delete a marker.
         SCI_MARKERDELETEHANDLE = 2018,
+
+        /// Is undo history being collected?
         SCI_GETUNDOCOLLECTION = 2019,
+
         SCWS_INVISIBLE = 0,
         SCWS_VISIBLEALWAYS = 1,
         SCWS_VISIBLEAFTERINDENT = 2,
+
+        /// Are white space characters currently visible?
+        /// Returns one of SCWS_* constants.
         SCI_GETVIEWWS = 2020,
+
+        /// Make white space characters invisible, always visible or visible outside indentation.
         SCI_SETVIEWWS = 2021,
+
+        /// Find the position from a point within the window.
         SCI_POSITIONFROMPOINT = 2022,
+
+        /// Find the position from a point within the window but return
+        /// INVALID_POSITION if not close to text.
         SCI_POSITIONFROMPOINTCLOSE = 2023,
         SCI_GOTOLINE = 2024,
         SCI_GOTOPOS = 2025,

@@ -355,13 +355,10 @@ namespace Kbg.NppPluginNET
         IDM_LANG_POWERSHELL = (IDM_LANG + 53),
         IDM_LANG_R = (IDM_LANG + 54),
         IDM_LANG_JSP = (IDM_LANG + 55),
-
         IDM_LANG_EXTERNAL = (IDM_LANG + 65),
         IDM_LANG_EXTERNAL_LIMIT = (IDM_LANG + 79),
-
         IDM_LANG_USER = (IDM_LANG + 80),     //46080
         IDM_LANG_USER_LIMIT = (IDM_LANG + 110),    //46110
-
 
         IDM_ABOUT = (IDM + 7000),
         IDM_HOMESWEETHOME = (IDM_ABOUT + 1),
@@ -372,7 +369,6 @@ namespace Kbg.NppPluginNET
         IDM_UPDATE_NPP = (IDM_ABOUT + 6),
         IDM_WIKIFAQ = (IDM_ABOUT + 7),
         IDM_HELP = (IDM_ABOUT + 8),
-
 
         IDM_SETTING = (IDM + 8000),
         IDM_SETTING_TAB_SIZE = (IDM_SETTING + 1),
