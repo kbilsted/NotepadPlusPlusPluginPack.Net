@@ -25,8 +25,8 @@ def printLexCSFile(f):
 
 def main():
 	f = Face.Face()
-	f.ReadFromFile("Scintilla.iface")
-	Regenerate("../Visual Studio Project Template C#/Integration/Scintilla_iface.cs", "/* ", printLexCSFile(f))
+	f.ReadFromFile("../../../notepad-plus-plus/scintilla/include/Scintilla.iface")
+	Regenerate("../../Visual Studio Project Template C#/Integration/Scintilla_iface.cs", "/* ", printLexCSFile(f))
 
 if __name__ == "__main__":
 	main()
