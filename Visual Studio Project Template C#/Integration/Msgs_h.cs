@@ -9,12 +9,12 @@ using System;
 
 namespace Kbg.NppPluginNET
 {
-	class Constants
-	{
-		public const int WM_USER = 0x400;
-	}
+    class Constants
+    {
+        public const int WM_USER = 0x400;
+    }
 
-	public enum LangType
+    public enum LangType
     {
         L_TEXT, L_PHP, L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,
         L_HTML, L_XML, L_MAKEFILE, L_PASCAL, L_BATCH, L_INI, L_ASCII, L_USER,
@@ -32,7 +32,6 @@ namespace Kbg.NppPluginNET
     [Flags]
     public enum NppMsg : uint
     {
-        //Here you can find how to use these messages : http://notepad-plus.sourceforge.net/uk/plugins-HOWTO.php 
         NPPMSG = (Constants.WM_USER + 1000),
 
         NPPM_GETCURRENTSCINTILLA = (NPPMSG + 4),
