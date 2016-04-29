@@ -5,6 +5,7 @@ def printLexCSFile(f):
 	out = []
 	for name in f.order:
 		v = f.features[name]
+		if v["Value"] == "-1": v["Value"] = "0xFFFFFFFF"
 		if v["FeatureType"] in ["fun", "get", "set"]:
 			if "Comment" in v: out.extend(["        /// " + line for line in v["Comment"]])
 			featureDefineName = "SCI_" + name.upper()
