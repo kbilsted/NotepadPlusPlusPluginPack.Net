@@ -11,29 +11,29 @@ using Kbg.NppPluginNET;
 
 namespace Kbg.NppPluginNET
 {
-	/// <summary>
-	/// Integration layer as the demo app uses the pluginfiles as soft-links files.
-	/// This is different to normal plugins that would use the project template and get the files directly.
-	/// </summary>
-	class Main
-	{
-		static internal void CommandMenuInit()
-		{
-			Kbg.Demo.Namespace.Main.CommandMenuInit();
-		}
+    /// <summary>
+    /// Integration layer as the demo app uses the pluginfiles as soft-links files.
+    /// This is different to normal plugins that would use the project template and get the files directly.
+    /// </summary>
+    class Main
+    {
+        static internal void CommandMenuInit()
+        {
+            Kbg.Demo.Namespace.Main.CommandMenuInit();
+        }
 
-		static internal void PluginCleanUp()
-		{
-			Kbg.Demo.Namespace.Main.PluginCleanUp();
-		}
+        static internal void PluginCleanUp()
+        {
+            Kbg.Demo.Namespace.Main.PluginCleanUp();
+        }
 
-		static internal void SetToolBarIcon()
-		{
-			Kbg.Demo.Namespace.Main.SetToolBarIcon();
-		}
+        static internal void SetToolBarIcon()
+        {
+            Kbg.Demo.Namespace.Main.SetToolBarIcon();
+        }
 
-		internal static string PluginName { get { return Kbg.Demo.Namespace.Main.PluginName; }}
-	}
+        internal static string PluginName { get { return Kbg.Demo.Namespace.Main.PluginName; }}
+    }
 }
 
 namespace Kbg.Demo.Namespace
