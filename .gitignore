@@ -105,3 +105,6 @@ UpgradeLog*.XML
 /.project
 
 *.orig
+
+*.pyc
+

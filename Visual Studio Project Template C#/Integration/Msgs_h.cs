@@ -9,7 +9,12 @@ using System;
 
 namespace Kbg.NppPluginNET
 {
-    public enum LangType
+	class Constants
+	{
+		public const int WM_USER = 0x400;
+	}
+
+	public enum LangType
     {
         L_TEXT, L_PHP, L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,
         L_HTML, L_XML, L_MAKEFILE, L_PASCAL, L_BATCH, L_INI, L_ASCII, L_USER,
@@ -28,7 +33,7 @@ namespace Kbg.NppPluginNET
     public enum NppMsg : uint
     {
         //Here you can find how to use these messages : http://notepad-plus.sourceforge.net/uk/plugins-HOWTO.php 
-        NPPMSG = (0x400/*WM_USER*/ + 1000),
+        NPPMSG = (Constants.WM_USER + 1000),
 
         NPPM_GETCURRENTSCINTILLA = (NPPMSG + 4),
         NPPM_GETCURRENTLANGTYPE = (NPPMSG + 5),
@@ -380,7 +385,7 @@ namespace Kbg.NppPluginNET
         // VOID NPPM_SAVEFILE(0, const TCHAR *fileNameToSave)
         // Save the file specified by fileNameToSave
 
-        RUNCOMMAND_USER = (0x400/*WM_USER*/ + 3000),
+        RUNCOMMAND_USER = (Constants.WM_USER + 3000),
         NPPM_GETFULLCURRENTPATH = (RUNCOMMAND_USER + FULL_CURRENT_PATH),
         NPPM_GETCURRENTDIRECTORY = (RUNCOMMAND_USER + CURRENT_DIRECTORY),
         NPPM_GETFILENAME = (RUNCOMMAND_USER + FILE_NAME),
@@ -411,7 +416,7 @@ namespace Kbg.NppPluginNET
         CURRENT_LINE = 8,
         CURRENT_COLUMN = 9,
 
-        // Notification code
+        // Notification codes
         NPPN_FIRST = 1000,
         NPPN_READY = (NPPN_FIRST + 1), // To notify plugins that all the procedures of launchment of notepad++ are done.
                                        //scnNotification->nmhdr.code = NPPN_READY;
