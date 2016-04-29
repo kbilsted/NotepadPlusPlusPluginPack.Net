@@ -1829,7 +1829,7 @@ namespace Kbg.NppPluginNET
         /// Get whether mouse gets captured.
         SCI_GETMOUSEDOWNCAPTURES = 2385,
 
-        SC_CURSORNORMAL = -1,
+        SC_CURSORNORMAL = 0xFFFFFFFF,
 
         SC_CURSORARROW = 2,
 
