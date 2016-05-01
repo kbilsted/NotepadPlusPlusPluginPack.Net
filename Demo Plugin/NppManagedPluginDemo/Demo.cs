@@ -32,6 +32,11 @@ namespace Kbg.NppPluginNET
 			Kbg.Demo.Namespace.Main.SetToolBarIcon();
 		}
 
+        static internal void OnCharAdded(char newChar)
+        {
+            Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag(newChar);
+        }
+
 		internal static string PluginName { get { return Kbg.Demo.Namespace.Main.PluginName; }}
 	}
 }
