@@ -33,6 +33,7 @@
     <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,6 +49,9 @@
       <DependentUpon>frmMyDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
+    <Compile Include="GatewayDomain.cs" />
+    <Compile Include="ScintillaGateway.cs" />
+    <Compile Include="IScintillaGateway.cs" />
     <Compile Include="NppPluginNETBase.cs" />
     <Compile Include="NppPluginNETHelper.cs" />
     <Compile Include="Integration\Docking_h.cs" />

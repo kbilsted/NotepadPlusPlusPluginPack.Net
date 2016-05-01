@@ -30,6 +30,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -47,6 +48,15 @@
   <ItemGroup>
     <Compile Include="..\..\Visual Studio Project Template C#\DllExport\DllExportAttribute.cs">
       <Link>DllExport\DllExportAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\ScintillaGateway.cs">
+      <Link>ScintillaGateway.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\IScintillaGateway.cs">
+      <Link>IScintillaGateway.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\GatewayDomain.cs">
+      <Link>GatewayDomain.cs</Link>
     </Compile>
     <Compile Include="..\..\Visual Studio Project Template C#\Integration\Docking_h.cs">
       <Link>Integration\Docking_h.cs</Link>

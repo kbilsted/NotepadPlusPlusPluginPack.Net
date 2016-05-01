@@ -2940,76 +2940,13 @@ namespace Kbg.NppPluginNET
         SC_SEARCHRESULT_LINEBUFFERMAXLENGTH = 1024
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Sci_CharacterRange
-    {
-        public Sci_CharacterRange(int cpmin, int cpmax) { cpMin = cpmin; cpMax = cpmax; }
-        public int cpMin;
-        public int cpMax;
-    }
-
-    public class Sci_TextRange : IDisposable
-    {
-        _Sci_TextRange _sciTextRange;
-        IntPtr _ptrSciTextRange;
-        bool _disposed = false;
-
-        public Sci_TextRange(Sci_CharacterRange chrRange, int stringCapacity)
-        {
-            _sciTextRange.chrg = chrRange;
-            _sciTextRange.lpstrText = Marshal.AllocHGlobal(stringCapacity);
-        }
-        public Sci_TextRange(int cpmin, int cpmax, int stringCapacity)
-        {
-            _sciTextRange.chrg.cpMin = cpmin;
-            _sciTextRange.chrg.cpMax = cpmax;
-            _sciTextRange.lpstrText = Marshal.AllocHGlobal(stringCapacity);
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        struct _Sci_TextRange
-        {
-            public Sci_CharacterRange chrg;
-            public IntPtr lpstrText;
-        }
-
-        public IntPtr NativePointer { get { _initNativeStruct(); return _ptrSciTextRange; } }
-        public string lpstrText { get { _readNativeStruct(); return Marshal.PtrToStringAnsi(_sciTextRange.lpstrText); } }
-        public Sci_CharacterRange chrg { get { _readNativeStruct(); return _sciTextRange.chrg; } set { _sciTextRange.chrg = value; _initNativeStruct(); } }
-        void _initNativeStruct()
-        {
-            if (_ptrSciTextRange == IntPtr.Zero)
-                _ptrSciTextRange = Marshal.AllocHGlobal(Marshal.SizeOf(_sciTextRange));
-            Marshal.StructureToPtr(_sciTextRange, _ptrSciTextRange, false);
-        }
-        void _readNativeStruct()
-        {
-            if (_ptrSciTextRange != IntPtr.Zero)
-                _sciTextRange = (_Sci_TextRange)Marshal.PtrToStructure(_ptrSciTextRange, typeof(_Sci_TextRange));
-        }
-
-        public void Dispose()
-        {
-            if (!_disposed)
-            {
-                if (_sciTextRange.lpstrText != IntPtr.Zero) Marshal.FreeHGlobal(_sciTextRange.lpstrText);
-                if (_ptrSciTextRange != IntPtr.Zero) Marshal.FreeHGlobal(_ptrSciTextRange);
-                _disposed = true;
-            }
-        }
-        ~Sci_TextRange()
-        {
-            Dispose();
-        }
-    }
-
     public class Sci_TextToFind : IDisposable
     {
         _Sci_TextToFind _sciTextToFind;
         IntPtr _ptrSciTextToFind;
         bool _disposed = false;
 
-        public Sci_TextToFind(Sci_CharacterRange chrRange, string searchText)
+        public Sci_TextToFind(CharacterRange chrRange, string searchText)
         {
             _sciTextToFind.chrg = chrRange;
             _sciTextToFind.lpstrText = Marshal.StringToHGlobalAnsi(searchText);
@@ -3024,15 +2961,15 @@ namespace Kbg.NppPluginNET
         [StructLayout(LayoutKind.Sequential)]
         struct _Sci_TextToFind
         {
-            public Sci_CharacterRange chrg;
+            public CharacterRange chrg;
             public IntPtr lpstrText;
-            public Sci_CharacterRange chrgText;
+            public CharacterRange chrgText;
         }
 
         public IntPtr NativePointer { get { _initNativeStruct(); return _ptrSciTextToFind; } }
         public string lpstrText { set { _freeNativeString(); _sciTextToFind.lpstrText = Marshal.StringToHGlobalAnsi(value); } }
-        public Sci_CharacterRange chrg { get { _readNativeStruct(); return _sciTextToFind.chrg; } set { _sciTextToFind.chrg = value; _initNativeStruct(); } }
-        public Sci_CharacterRange chrgText { get { _readNativeStruct(); return _sciTextToFind.chrgText; } }
+        public CharacterRange chrg { get { _readNativeStruct(); return _sciTextToFind.chrg; } set { _sciTextToFind.chrg = value; _initNativeStruct(); } }
+        public CharacterRange chrgText { get { _readNativeStruct(); return _sciTextToFind.chrgText; } }
         void _initNativeStruct()
         {
             if (_ptrSciTextToFind == IntPtr.Zero)

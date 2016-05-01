@@ -215,6 +215,14 @@ namespace Kbg.NppPluginNET
         [DllImport("user32")]
         public static extern IntPtr SendMessage(IntPtr hWnd, NppMsg Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lParam);
 
+
+        // TODO KBG Experimental
+        [DllImport("user32")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, SciMsg Msg, IntPtr wParam, IntPtr lParam);
+        [DllImport("user32")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, SciMsg Msg, IntPtr wParam, int lParam);
+
+
         [DllImport("user32")]
         public static extern IntPtr SendMessage(IntPtr hWnd, SciMsg Msg, int wParam, IntPtr lParam);
         [DllImport("user32")]
