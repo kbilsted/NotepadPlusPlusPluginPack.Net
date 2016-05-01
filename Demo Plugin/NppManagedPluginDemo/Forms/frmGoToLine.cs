@@ -4,21 +4,24 @@ using Kbg.NppPluginNET;
 
 namespace Kbg.Demo.Namespace
 {
-	partial class frmGoToLine : Form
+    partial class frmGoToLine : Form
     {
-        public frmGoToLine()
+        private readonly IScintillaGateway editor;
+
+        public frmGoToLine(IScintillaGateway editor)
         {
+            this.editor = editor;
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             int line;
-            if (!int.TryParse(textBox1.Text, out line)) return;
-            IntPtr curScintilla = PluginBase.GetCurrentScintilla();
-			Win32.SendMessage(curScintilla, SciMsg.SCI_ENSUREVISIBLE, line - 1, 0);
-            Win32.SendMessage(curScintilla, SciMsg.SCI_GOTOLINE, line - 1, 0);
-            Win32.SendMessage(curScintilla, SciMsg.SCI_GRABFOCUS, 0, 0);
+            if (!int.TryParse(textBox1.Text, out line))
+                return;
+            editor.EnsureVisible(line - 1);
+            editor.GotoLine(line - 1);
+            editor.GrabFocus();
         }
 
         private void frmGoToLine_KeyDown(object sender, KeyEventArgs e)
@@ -30,7 +33,7 @@ namespace Kbg.Demo.Namespace
             }
             else if (e.KeyData == Keys.Escape)
             {
-                Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GRABFOCUS, 0, 0);
+                editor.GrabFocus();
             }
             else if (e.KeyCode == Keys.Tab)
             {
@@ -51,11 +54,11 @@ namespace Kbg.Demo.Namespace
         
         void FrmGoToLineVisibleChanged(object sender, EventArgs e)
         {
-        	if (!Visible)
-        	{
+            if (!Visible)
+            {
                 Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK,
                                   PluginBase._funcItems.Items[Main.idFrmGotToLine]._cmdID, 0);
-        	}
+            }
         }
     }
 }

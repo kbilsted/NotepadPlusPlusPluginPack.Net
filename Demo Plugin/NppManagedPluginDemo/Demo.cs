@@ -258,7 +258,6 @@ namespace Kbg.Demo.Namespace
                 if (newChar == '>')
                 {
                     int bufCapacity = 512;
-                    IntPtr hCurrentEditView = PluginBase.GetCurrentScintilla();
                     var pos = editor.GetCurrentPos();
                     int currentPos = pos.Value;
                     int beginPos = currentPos - (bufCapacity - 1);
@@ -350,7 +349,7 @@ namespace Kbg.Demo.Namespace
             // You can create your own non dockable dialog - in this case you don't nedd this demonstration.
             if (frmGoToLine == null)
             {
-                frmGoToLine = new frmGoToLine();
+                frmGoToLine = new frmGoToLine(editor);
 
                 using (Bitmap newBmp = new Bitmap(16, 16))
                 {
