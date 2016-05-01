@@ -3,6 +3,14 @@ using System.Text;
 
 namespace Kbg.NppPluginNET
 {
+    public class NotepadPPGateway : INotepadPPGateway
+    {
+        public void FileNew()
+        {
+            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
+        }
+    }
+
     /// <summary>
     /// This should be the plugin-writers primary interface to Notepad++/Scintilla.
     /// It takes away all the complexity with command numbers and Int-pointer casting
@@ -10,11 +18,6 @@ namespace Kbg.NppPluginNET
     public class ScintillaGateway : IScintillaGateway
     {
         private const int Unused = 0;
-
-        public void FileNew()
-        {
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
-        }
 
         public int GetSelectionLength()
         {

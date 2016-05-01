@@ -2,9 +2,14 @@
 
 namespace Kbg.NppPluginNET
 {
-    public interface IScintillaGateway
+    public interface INotepadPPGateway
     {
         void FileNew();
+    }
+
+
+    public interface IScintillaGateway
+    {
         int GetSelectionLength();
         void SetZoomLevel(int zoomLevel);
         unsafe string GetSelectedText();

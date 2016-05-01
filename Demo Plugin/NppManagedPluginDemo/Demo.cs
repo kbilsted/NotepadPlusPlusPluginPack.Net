@@ -52,7 +52,8 @@ namespace Kbg.Demo.Namespace
         static Bitmap tbBmp = Properties.Resources.star;
         static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
         static Icon tbIcon = null;
-        static IScintillaGateway gateway = new ScintillaGateway();
+        static IScintillaGateway editor = new ScintillaGateway();
+        static INotepadPPGateway notepad = new NotepadPPGateway();
         #endregion
 
         #region " Startup/CleanUp "
@@ -136,8 +137,8 @@ namespace Kbg.Demo.Namespace
         #region " Menu functions "
         static void hello()
         {
-            gateway.FileNew();
-            gateway.SetText("Hello, Notepad++...from.NET!");
+            notepad.FileNew();
+            editor.SetText("Hello, Notepad++...from.NET!");
         }
 
         static void helloFX()
@@ -148,27 +149,27 @@ namespace Kbg.Demo.Namespace
 
         static void callbackHelloFX()
         {
-            int currentZoomLevel = gateway.GetZoom();
+            int currentZoomLevel = editor.GetZoom();
             int i = currentZoomLevel;
             for (int j = 0 ; j < 4 ; j++)
             {    
                 for ( ; i >= -10; i--)
                 {
-                    gateway.SetZoomLevel(i);
+                    editor.SetZoomLevel(i);
                     Thread.Sleep(30);
                 }
                 Thread.Sleep(100);
                 for ( ; i <= 20 ; i++)
                 {
                     Thread.Sleep(30);
-                    gateway.SetZoomLevel(i);
+                    editor.SetZoomLevel(i);
                 }
                 Thread.Sleep(100);
             }
             for ( ; i >= currentZoomLevel ; i--)
             {
                 Thread.Sleep(30);
-                gateway.SetZoomLevel(i);
+                editor.SetZoomLevel(i);
             }
         }
 
@@ -188,7 +189,7 @@ namespace Kbg.Demo.Namespace
         static void callbackWhatIsNpp(object data)
         {
             string text2display = (string)data;
-            gateway.FileNew();
+            notepad.FileNew();
 
             Random srand = new Random(DateTime.Now.Millisecond);
             int rangeMin = 0;
@@ -196,7 +197,7 @@ namespace Kbg.Demo.Namespace
             for (int i = 0; i < text2display.Length; i++)
             {
                 Thread.Sleep(srand.Next(rangeMin, rangeMax) + 30);
-                gateway.AppendTextAndMoveCursor(text2display[i].ToString());
+                editor.AppendTextAndMoveCursor(text2display[i].ToString());
             }
         }
 
@@ -223,7 +224,7 @@ namespace Kbg.Demo.Namespace
             StringBuilder path = new StringBuilder(Win32.MAX_PATH);
             Win32.SendMessage(PluginBase.nppData._nppHandle, msg, 0, path);
 
-            gateway.ReplaceSel(path.ToString());
+            editor.ReplaceSel(path.ToString());
         }
 
         static void insertShortDateTime()
@@ -237,7 +238,7 @@ namespace Kbg.Demo.Namespace
         static void insertDateTime(bool longFormat)
         {
             string dateTime = string.Format("{0} {1}", DateTime.Now.ToShortTimeString(), longFormat ? DateTime.Now.ToLongDateString() : DateTime.Now.ToShortDateString());
-            gateway.ReplaceSel(dateTime);
+            editor.ReplaceSel(dateTime);
         }
 
         static void checkInsertHtmlCloseTag()
@@ -258,7 +259,7 @@ namespace Kbg.Demo.Namespace
                 {
                     int bufCapacity = 512;
                     IntPtr hCurrentEditView = PluginBase.GetCurrentScintilla();
-                    var pos = gateway.GetCurrentPos();
+                    var pos = editor.GetCurrentPos();
                     int currentPos = pos.Value;
                     int beginPos = currentPos - (bufCapacity - 1);
                     int startPos = (beginPos > 0) ? beginPos : 0;
@@ -268,7 +269,7 @@ namespace Kbg.Demo.Namespace
                     {
                         using (TextRange tr = new TextRange(startPos, currentPos, bufCapacity))
                         {
-                            gateway.GetTextRange(tr);
+                            editor.GetTextRange(tr);
                             string buf = tr.lpstrText;
 
                             if (buf[size - 2] != '/')
@@ -293,10 +294,10 @@ namespace Kbg.Demo.Namespace
 
                                     if (insertString.Length > 3)
                                     {
-                                        gateway.BeginUndoAction();
-                                        gateway.ReplaceSel(insertString.ToString());
-                                        gateway.SetSel(pos, pos);
-                                        gateway.EndUndoAction();
+                                        editor.BeginUndoAction();
+                                        editor.ReplaceSel(insertString.ToString());
+                                        editor.SetSel(pos, pos);
+                                        editor.EndUndoAction();
                                     }
                                 }
                             }
