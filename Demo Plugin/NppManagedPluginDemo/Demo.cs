@@ -52,6 +52,7 @@ namespace Kbg.Demo.Namespace
         static Bitmap tbBmp = Properties.Resources.star;
         static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
         static Icon tbIcon = null;
+        static IScintillaGateway gateway = new ScintillaGateway();
         #endregion
 
         #region " Startup/CleanUp "
@@ -135,43 +136,42 @@ namespace Kbg.Demo.Namespace
         #region " Menu functions "
         static void hello()
         {
-            // Open a new document
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
-            // Say hello now :
-            // Scintilla control has no Unicode mode, so we use ANSI here (marshalled as ANSI by default)
-            Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_SETTEXT, 0, "Hello, Notepad++... from .NET!");
+            gateway.FileNew();
+            gateway.SetText("Hello, Notepad++...from.NET!");
         }
+
         static void helloFX()
         {
             hello();
             new Thread(callbackHelloFX).Start();
         }
+
         static void callbackHelloFX()
         {
-            IntPtr curScintilla = PluginBase.GetCurrentScintilla();
-            int currentZoomLevel = (int)Win32.SendMessage(curScintilla, SciMsg.SCI_GETZOOM, 0, 0);
+            int currentZoomLevel = gateway.GetZoom();
             int i = currentZoomLevel;
             for (int j = 0 ; j < 4 ; j++)
             {    
                 for ( ; i >= -10; i--)
                 {
-                    Win32.SendMessage(curScintilla, SciMsg.SCI_SETZOOM, i, 0);
+                    gateway.SetZoomLevel(i);
                     Thread.Sleep(30);
                 }
                 Thread.Sleep(100);
                 for ( ; i <= 20 ; i++)
                 {
                     Thread.Sleep(30);
-                    Win32.SendMessage(curScintilla, SciMsg.SCI_SETZOOM, i, 0);
+                    gateway.SetZoomLevel(i);
                 }
                 Thread.Sleep(100);
             }
             for ( ; i >= currentZoomLevel ; i--)
             {
                 Thread.Sleep(30);
-                Win32.SendMessage(curScintilla, SciMsg.SCI_SETZOOM, i, 0);
+                gateway.SetZoomLevel(i);
             }
         }
+
         static void WhatIsNpp()
         {
             string text2display = "Notepad++ is a free (as in \"free speech\" and also as in \"free beer\") " +
@@ -184,27 +184,19 @@ namespace Kbg.Demo.Namespace
                 "and reduce power consumption, resulting in a greener environment.";
             new Thread(new ParameterizedThreadStart(callbackWhatIsNpp)).Start(text2display);
         }
+
         static void callbackWhatIsNpp(object data)
         {
             string text2display = (string)data;
-            // Open a new document
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
-
-            // Get the current scintilla
-            IntPtr curScintilla = PluginBase.GetCurrentScintilla();
+            gateway.FileNew();
 
             Random srand = new Random(DateTime.Now.Millisecond);
             int rangeMin = 0;
             int rangeMax = 250;
             for (int i = 0; i < text2display.Length; i++)
             {
-                StringBuilder charToShow = new StringBuilder(text2display[i].ToString());
-
-                int ranNum = srand.Next(rangeMin, rangeMax);
-                Thread.Sleep(ranNum + 30);
-
-                Win32.SendMessage(curScintilla, SciMsg.SCI_APPENDTEXT, 1, charToShow);
-                Win32.SendMessage(curScintilla, SciMsg.SCI_GOTOPOS, (int)Win32.SendMessage(curScintilla, SciMsg.SCI_GETLENGTH, 0, 0), 0);
+                Thread.Sleep(srand.Next(rangeMin, rangeMax) + 30);
+                gateway.AppendTextAndMoveCursor(text2display[i].ToString());
             }
         }
 
@@ -231,7 +223,7 @@ namespace Kbg.Demo.Namespace
             StringBuilder path = new StringBuilder(Win32.MAX_PATH);
             Win32.SendMessage(PluginBase.nppData._nppHandle, msg, 0, path);
 
-            Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_REPLACESEL, 0, path);
+            gateway.ReplaceSel(path.ToString());
         }
 
         static void insertShortDateTime()
@@ -244,10 +236,8 @@ namespace Kbg.Demo.Namespace
         }
         static void insertDateTime(bool longFormat)
         {
-            string dateTime = string.Format("{0} {1}", 
-                DateTime.Now.ToShortTimeString(),
-                longFormat ? DateTime.Now.ToLongDateString() : DateTime.Now.ToShortDateString());
-            Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_REPLACESEL, 0, dateTime);
+            string dateTime = string.Format("{0} {1}", DateTime.Now.ToShortTimeString(), longFormat ? DateTime.Now.ToLongDateString() : DateTime.Now.ToShortDateString());
+            gateway.ReplaceSel(dateTime);
         }
 
         static void checkInsertHtmlCloseTag()
@@ -268,16 +258,17 @@ namespace Kbg.Demo.Namespace
                 {
                     int bufCapacity = 512;
                     IntPtr hCurrentEditView = PluginBase.GetCurrentScintilla();
-                    int currentPos = (int)Win32.SendMessage(hCurrentEditView, SciMsg.SCI_GETCURRENTPOS, 0, 0);
+                    var pos = gateway.GetCurrentPos();
+                    int currentPos = pos.Value;
                     int beginPos = currentPos - (bufCapacity - 1);
                     int startPos = (beginPos > 0) ? beginPos : 0;
                     int size = currentPos - startPos;
 
                     if (size >= 3)
                     {
-                        using (Sci_TextRange tr = new Sci_TextRange(startPos, currentPos, bufCapacity))
+                        using (TextRange tr = new TextRange(startPos, currentPos, bufCapacity))
                         {
-                            Win32.SendMessage(hCurrentEditView, SciMsg.SCI_GETTEXTRANGE, 0, tr.NativePointer);
+                            gateway.GetTextRange(tr);
                             string buf = tr.lpstrText;
 
                             if (buf[size - 2] != '/')
@@ -302,10 +293,10 @@ namespace Kbg.Demo.Namespace
 
                                     if (insertString.Length > 3)
                                     {
-                                        Win32.SendMessage(hCurrentEditView, SciMsg.SCI_BEGINUNDOACTION, 0, 0);
-                                        Win32.SendMessage(hCurrentEditView, SciMsg.SCI_REPLACESEL, 0, insertString);
-                                        Win32.SendMessage(hCurrentEditView, SciMsg.SCI_SETSEL, currentPos, currentPos);
-                                        Win32.SendMessage(hCurrentEditView, SciMsg.SCI_ENDUNDOACTION, 0, 0);
+                                        gateway.BeginUndoAction();
+                                        gateway.ReplaceSel(insertString.ToString());
+                                        gateway.SetSel(pos, pos);
+                                        gateway.EndUndoAction();
                                     }
                                 }
                             }
