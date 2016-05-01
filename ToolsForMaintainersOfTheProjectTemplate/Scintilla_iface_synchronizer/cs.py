@@ -52,7 +52,8 @@ def methodName(name):
 
 def appendComment(indent, out, v):
 	if "Comment" in v: 
-		if len (v["Comment"]) == 1: out.append(indent + "/// <summary>" + v["Comment"][0] + " (Scintilla feature " + v["Value"] + ")</summary>")
+		if len (v["Comment"]) == 1: 
+			out.append(indent + "/// <summary>" + v["Comment"][0] + " (Scintilla feature " + v["Value"] + ")</summary>")
 		else:
 			out.append(indent + "/// <summary>")
 			out.extend([indent + "/// " + line for line in v["Comment"]])
@@ -85,7 +86,7 @@ def printLexGatewayFile(f):
 			param2Type = translateType(v["Param2Type"])
 			param2Name = v["Param2Name"]
 
-			if (isTypeUnsupported(param1Type) or isTypeUnsupported(param2Type) or isTypeUnsupported(returnType)) and name != "GetCurrentPos":
+			if (isTypeUnsupported(param1Type) or isTypeUnsupported(param2Type) or isTypeUnsupported(returnType)):
 				continue
 
 			appendComment(indent, out, v)
@@ -149,7 +150,7 @@ def printLexIGatewayFile(f):
 			param2Type = translateType(v["Param2Type"])
 			param2Name = v["Param2Name"]
 
-			if (isTypeUnsupported(param1Type) or isTypeUnsupported(param2Type) or isTypeUnsupported(returnType)) and name != "GetCurrentPos":
+			if (isTypeUnsupported(param1Type) or isTypeUnsupported(param2Type) or isTypeUnsupported(returnType)):
 				continue
 
 			appendComment(indent, out, v)
