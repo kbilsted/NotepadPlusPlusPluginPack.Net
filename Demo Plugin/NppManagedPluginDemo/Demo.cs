@@ -52,7 +52,7 @@ namespace Kbg.Demo.Namespace
         static Bitmap tbBmp = Properties.Resources.star;
         static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
         static Icon tbIcon = null;
-        static IScintillaGateway editor = new ScintillaGateway();
+        static IScintillaGateway editor = new ScintillaGateway(PluginBase.GetCurrentScintilla());
         static INotepadPPGateway notepad = new NotepadPPGateway();
         #endregion
 

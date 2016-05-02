@@ -136,7 +136,7 @@ def printLexGatewayFile(f):
 			firstArg = translateVariableAccess(param1Name, param1Type)
 			seconArg = translateVariableAccess(param2Name, param2Type)
 
-			out.append(iindent + "IntPtr res = Win32.SendMessage(PluginBase.GetCurrentScintilla(), " +featureConstant+ ", " +firstArg+ ", " +seconArg+ ");")
+			out.append(iindent + "IntPtr res = Win32.SendMessage(scintilla, " +featureConstant+ ", " +firstArg+ ", " +seconArg+ ");")
 
 
 			if returnType != "void":
