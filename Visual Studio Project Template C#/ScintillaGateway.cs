@@ -88,8 +88,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Add text to the document at current position. (Scintilla feature 2001)</summary>
         public unsafe void AddText(int length, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_ADDTEXT, length, (IntPtr) textPtr);
             }
@@ -98,8 +97,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Insert string at a position. (Scintilla feature 2003)</summary>
         public unsafe void InsertText(Position pos, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_INSERTTEXT, pos.Value, (IntPtr) textPtr);
             }
@@ -108,8 +106,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Change the text that is being inserted in response to SC_MOD_INSERTCHECK (Scintilla feature 2672)</summary>
         public unsafe void ChangeInsertion(int length, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_CHANGEINSERTION, length, (IntPtr) textPtr);
             }
@@ -506,8 +503,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Define a marker from a pixmap. (Scintilla feature 2049)</summary>
         public unsafe void MarkerDefinePixmap(int markerNumber, string pixmap)
         {
-            byte[] pixmapBuffer = Encoding.UTF8.GetBytes(pixmap);
-            fixed (byte* pixmapPtr = pixmapBuffer)
+            fixed (byte* pixmapPtr = Encoding.UTF8.GetBytes(pixmap))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_MARKERDEFINEPIXMAP, markerNumber, (IntPtr) pixmapPtr);
             }
@@ -629,8 +625,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the font of a style. (Scintilla feature 2056)</summary>
         public unsafe void StyleSetFont(int style, string fontName)
         {
-            byte[] fontNameBuffer = Encoding.UTF8.GetBytes(fontName);
-            fixed (byte* fontNamePtr = fontNameBuffer)
+            fixed (byte* fontNamePtr = Encoding.UTF8.GetBytes(fontName))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_STYLESETFONT, style, (IntPtr) fontNamePtr);
             }
@@ -855,8 +850,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the styles for a segment of the document. (Scintilla feature 2073)</summary>
         public unsafe void SetStylingEx(int length, string styles)
         {
-            byte[] stylesBuffer = Encoding.UTF8.GetBytes(styles);
-            fixed (byte* stylesPtr = stylesBuffer)
+            fixed (byte* stylesPtr = Encoding.UTF8.GetBytes(styles))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETSTYLINGEX, length, (IntPtr) stylesPtr);
             }
@@ -888,8 +882,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe void SetWordChars(string characters)
         {
-            byte[] charactersBuffer = Encoding.UTF8.GetBytes(characters);
-            fixed (byte* charactersPtr = charactersBuffer)
+            fixed (byte* charactersPtr = Encoding.UTF8.GetBytes(characters))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETWORDCHARS, Unused, (IntPtr) charactersPtr);
             }
@@ -1111,8 +1104,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe void AutoCShow(int lenEntered, string itemList)
         {
-            byte[] itemListBuffer = Encoding.UTF8.GetBytes(itemList);
-            fixed (byte* itemListPtr = itemListBuffer)
+            fixed (byte* itemListPtr = Encoding.UTF8.GetBytes(itemList))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCSHOW, lenEntered, (IntPtr) itemListPtr);
             }
@@ -1147,8 +1139,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Define a set of character that when typed cancel the auto-completion list. (Scintilla feature 2105)</summary>
         public unsafe void AutoCStops(string characterSet)
         {
-            byte[] characterSetBuffer = Encoding.UTF8.GetBytes(characterSet);
-            fixed (byte* characterSetPtr = characterSetBuffer)
+            fixed (byte* characterSetPtr = Encoding.UTF8.GetBytes(characterSet))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCSTOPS, Unused, (IntPtr) characterSetPtr);
             }
@@ -1174,8 +1165,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Select the item in the auto-completion list that starts with a string. (Scintilla feature 2108)</summary>
         public unsafe void AutoCSelect(string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCSELECT, Unused, (IntPtr) textPtr);
             }
@@ -1205,8 +1195,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe void AutoCSetFillUps(string characterSet)
         {
-            byte[] characterSetBuffer = Encoding.UTF8.GetBytes(characterSet);
-            fixed (byte* characterSetPtr = characterSetBuffer)
+            fixed (byte* characterSetPtr = Encoding.UTF8.GetBytes(characterSet))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCSETFILLUPS, Unused, (IntPtr) characterSetPtr);
             }
@@ -1241,8 +1230,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Display a list of strings and send notification when user chooses one. (Scintilla feature 2117)</summary>
         public unsafe void UserListShow(int listType, string itemList)
         {
-            byte[] itemListBuffer = Encoding.UTF8.GetBytes(itemList);
-            fixed (byte* itemListPtr = itemListBuffer)
+            fixed (byte* itemListPtr = Encoding.UTF8.GetBytes(itemList))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_USERLISTSHOW, listType, (IntPtr) itemListPtr);
             }
@@ -1285,8 +1273,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Register an XPM image for use in autocompletion lists. (Scintilla feature 2405)</summary>
         public unsafe void RegisterImage(int type, string xpmData)
         {
-            byte[] xpmDataBuffer = Encoding.UTF8.GetBytes(xpmData);
-            fixed (byte* xpmDataPtr = xpmDataBuffer)
+            fixed (byte* xpmDataPtr = Encoding.UTF8.GetBytes(xpmData))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_REGISTERIMAGE, type, (IntPtr) xpmDataPtr);
             }
@@ -1703,8 +1690,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Replace the selected text with the argument text. (Scintilla feature 2170)</summary>
         public unsafe void ReplaceSel(string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_REPLACESEL, Unused, (IntPtr) textPtr);
             }
@@ -1775,8 +1761,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Replace the contents of the document with the argument text. (Scintilla feature 2181)</summary>
         public unsafe void SetText(string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETTEXT, Unused, (IntPtr) textPtr);
             }
@@ -1908,8 +1893,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe int ReplaceTarget(int length, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_REPLACETARGET, length, (IntPtr) textPtr);
                 return (int) res;
@@ -1927,8 +1911,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe int ReplaceTargetRE(int length, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_REPLACETARGETRE, length, (IntPtr) textPtr);
                 return (int) res;
@@ -1943,8 +1926,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe int SearchInTarget(int length, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SEARCHINTARGET, length, (IntPtr) textPtr);
                 return (int) res;
@@ -1967,8 +1949,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Show a call tip containing a definition near position pos. (Scintilla feature 2200)</summary>
         public unsafe void CallTipShow(Position pos, string definition)
         {
-            byte[] definitionBuffer = Encoding.UTF8.GetBytes(definition);
-            fixed (byte* definitionPtr = definitionBuffer)
+            fixed (byte* definitionPtr = Encoding.UTF8.GetBytes(definition))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_CALLTIPSHOW, pos.Value, (IntPtr) definitionPtr);
             }
@@ -2358,8 +2339,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe int TextWidth(int style, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_TEXTWIDTH, style, (IntPtr) textPtr);
                 return (int) res;
@@ -2411,8 +2391,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Append a string to the end of the document without changing the selection. (Scintilla feature 2282)</summary>
         public unsafe void AppendText(int length, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_APPENDTEXT, length, (IntPtr) textPtr);
             }
@@ -3081,8 +3060,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe int SearchNext(int flags, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SEARCHNEXT, flags, (IntPtr) textPtr);
                 return (int) res;
@@ -3096,8 +3074,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe int SearchPrev(int flags, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SEARCHPREV, flags, (IntPtr) textPtr);
                 return (int) res;
@@ -3474,8 +3451,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Copy argument text to the clipboard. (Scintilla feature 2420)</summary>
         public unsafe void CopyText(int length, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_COPYTEXT, length, (IntPtr) textPtr);
             }
@@ -3626,8 +3602,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe void SetWhitespaceChars(string characters)
         {
-            byte[] charactersBuffer = Encoding.UTF8.GetBytes(characters);
-            fixed (byte* charactersPtr = charactersBuffer)
+            fixed (byte* charactersPtr = Encoding.UTF8.GetBytes(characters))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETWHITESPACECHARS, Unused, (IntPtr) charactersPtr);
             }
@@ -3651,8 +3626,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe void SetPunctuationChars(string characters)
         {
-            byte[] charactersBuffer = Encoding.UTF8.GetBytes(characters);
-            fixed (byte* charactersPtr = charactersBuffer)
+            fixed (byte* charactersPtr = Encoding.UTF8.GetBytes(characters))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETPUNCTUATIONCHARS, Unused, (IntPtr) charactersPtr);
             }
@@ -3776,8 +3750,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe string EncodedFromUTF8(string utf8)
         {
-            byte[] utf8Buffer = Encoding.UTF8.GetBytes(utf8);
-            fixed (byte* utf8Ptr = utf8Buffer)
+            fixed (byte* utf8Ptr = Encoding.UTF8.GetBytes(utf8))
             {
                 byte[] encodedBuffer = new byte[10000];
                 fixed (byte* encodedPtr = encodedBuffer)
@@ -4044,8 +4017,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the text in the text margin for a line (Scintilla feature 2530)</summary>
         public unsafe void MarginSetText(int line, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_MARGINSETTEXT, line, (IntPtr) textPtr);
             }
@@ -4078,8 +4050,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the style in the text margin for a line (Scintilla feature 2534)</summary>
         public unsafe void MarginSetStyles(int line, string styles)
         {
-            byte[] stylesBuffer = Encoding.UTF8.GetBytes(styles);
-            fixed (byte* stylesPtr = stylesBuffer)
+            fixed (byte* stylesPtr = Encoding.UTF8.GetBytes(styles))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_MARGINSETSTYLES, line, (IntPtr) stylesPtr);
             }
@@ -4131,8 +4102,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the annotation text for a line (Scintilla feature 2540)</summary>
         public unsafe void AnnotationSetText(int line, string text)
         {
-            byte[] textBuffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* textPtr = textBuffer)
+            fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_ANNOTATIONSETTEXT, line, (IntPtr) textPtr);
             }
@@ -4165,8 +4135,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the annotation styles for a line (Scintilla feature 2544)</summary>
         public unsafe void AnnotationSetStyles(int line, string styles)
         {
-            byte[] stylesBuffer = Encoding.UTF8.GetBytes(styles);
-            fixed (byte* stylesPtr = stylesBuffer)
+            fixed (byte* stylesPtr = Encoding.UTF8.GetBytes(styles))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_ANNOTATIONSETSTYLES, line, (IntPtr) stylesPtr);
             }
@@ -4675,8 +4644,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe void MarkerDefineRGBAImage(int markerNumber, string pixels)
         {
-            byte[] pixelsBuffer = Encoding.UTF8.GetBytes(pixels);
-            fixed (byte* pixelsPtr = pixelsBuffer)
+            fixed (byte* pixelsPtr = Encoding.UTF8.GetBytes(pixels))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_MARKERDEFINERGBAIMAGE, markerNumber, (IntPtr) pixelsPtr);
             }
@@ -4689,8 +4657,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe void RegisterRGBAImage(int type, string pixels)
         {
-            byte[] pixelsBuffer = Encoding.UTF8.GetBytes(pixels);
-            fixed (byte* pixelsPtr = pixelsBuffer)
+            fixed (byte* pixelsPtr = Encoding.UTF8.GetBytes(pixels))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_REGISTERRGBAIMAGE, type, (IntPtr) pixelsPtr);
             }
@@ -4798,11 +4765,9 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the way a character is drawn. (Scintilla feature 2665)</summary>
         public unsafe void SetRepresentation(string encodedCharacter, string representation)
         {
-            byte[] encodedCharacterBuffer = Encoding.UTF8.GetBytes(encodedCharacter);
-            fixed (byte* encodedCharacterPtr = encodedCharacterBuffer)
+            fixed (byte* encodedCharacterPtr = Encoding.UTF8.GetBytes(encodedCharacter))
             {
-                byte[] representationBuffer = Encoding.UTF8.GetBytes(representation);
-                fixed (byte* representationPtr = representationBuffer)
+                fixed (byte* representationPtr = Encoding.UTF8.GetBytes(representation))
                 {
                     IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETREPRESENTATION, (IntPtr) encodedCharacterPtr, (IntPtr) representationPtr);
                 }
@@ -4816,8 +4781,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe string GetRepresentation(string encodedCharacter)
         {
-            byte[] encodedCharacterBuffer = Encoding.UTF8.GetBytes(encodedCharacter);
-            fixed (byte* encodedCharacterPtr = encodedCharacterBuffer)
+            fixed (byte* encodedCharacterPtr = Encoding.UTF8.GetBytes(encodedCharacter))
             {
                 byte[] representationBuffer = new byte[10000];
                 fixed (byte* representationPtr = representationBuffer)
@@ -4831,8 +4795,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Remove a character representation. (Scintilla feature 2667)</summary>
         public unsafe void ClearRepresentation(string encodedCharacter)
         {
-            byte[] encodedCharacterBuffer = Encoding.UTF8.GetBytes(encodedCharacter);
-            fixed (byte* encodedCharacterPtr = encodedCharacterBuffer)
+            fixed (byte* encodedCharacterPtr = Encoding.UTF8.GetBytes(encodedCharacter))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_CLEARREPRESENTATION, (IntPtr) encodedCharacterPtr, Unused);
             }
@@ -4872,11 +4835,9 @@ namespace Kbg.NppPluginNET
         /// <summary>Set up a value that may be used by a lexer for some optional feature. (Scintilla feature 4004)</summary>
         public unsafe void SetProperty(string key, string value)
         {
-            byte[] keyBuffer = Encoding.UTF8.GetBytes(key);
-            fixed (byte* keyPtr = keyBuffer)
+            fixed (byte* keyPtr = Encoding.UTF8.GetBytes(key))
             {
-                byte[] valueBuffer = Encoding.UTF8.GetBytes(value);
-                fixed (byte* valuePtr = valueBuffer)
+                fixed (byte* valuePtr = Encoding.UTF8.GetBytes(value))
                 {
                     IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETPROPERTY, (IntPtr) keyPtr, (IntPtr) valuePtr);
                 }
@@ -4886,8 +4847,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set up the key words used by the lexer. (Scintilla feature 4005)</summary>
         public unsafe void SetKeyWords(int keywordSet, string keyWords)
         {
-            byte[] keyWordsBuffer = Encoding.UTF8.GetBytes(keyWords);
-            fixed (byte* keyWordsPtr = keyWordsBuffer)
+            fixed (byte* keyWordsPtr = Encoding.UTF8.GetBytes(keyWords))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETKEYWORDS, keywordSet, (IntPtr) keyWordsPtr);
             }
@@ -4896,8 +4856,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the lexing language of the document based on string name. (Scintilla feature 4006)</summary>
         public unsafe void SetLexerLanguage(string language)
         {
-            byte[] languageBuffer = Encoding.UTF8.GetBytes(language);
-            fixed (byte* languagePtr = languageBuffer)
+            fixed (byte* languagePtr = Encoding.UTF8.GetBytes(language))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETLEXERLANGUAGE, Unused, (IntPtr) languagePtr);
             }
@@ -4906,8 +4865,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Load a lexer library (dll / so). (Scintilla feature 4007)</summary>
         public unsafe void LoadLexerLibrary(string path)
         {
-            byte[] pathBuffer = Encoding.UTF8.GetBytes(path);
-            fixed (byte* pathPtr = pathBuffer)
+            fixed (byte* pathPtr = Encoding.UTF8.GetBytes(path))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_LOADLEXERLIBRARY, Unused, (IntPtr) pathPtr);
             }
@@ -4920,8 +4878,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe string GetProperty(string key)
         {
-            byte[] keyBuffer = Encoding.UTF8.GetBytes(key);
-            fixed (byte* keyPtr = keyBuffer)
+            fixed (byte* keyPtr = Encoding.UTF8.GetBytes(key))
             {
                 byte[] bufBuffer = new byte[10000];
                 fixed (byte* bufPtr = bufBuffer)
@@ -4940,8 +4897,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe string GetPropertyExpanded(string key)
         {
-            byte[] keyBuffer = Encoding.UTF8.GetBytes(key);
-            fixed (byte* keyPtr = keyBuffer)
+            fixed (byte* keyPtr = Encoding.UTF8.GetBytes(key))
             {
                 byte[] bufBuffer = new byte[10000];
                 fixed (byte* bufPtr = bufBuffer)
@@ -4959,8 +4915,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe int GetPropertyInt(string key)
         {
-            byte[] keyBuffer = Encoding.UTF8.GetBytes(key);
-            fixed (byte* keyPtr = keyBuffer)
+            fixed (byte* keyPtr = Encoding.UTF8.GetBytes(key))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_GETPROPERTYINT, (IntPtr) keyPtr, Unused);
                 return (int) res;
@@ -5015,8 +4970,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Retrieve the type of a property. (Scintilla feature 4015)</summary>
         public unsafe int PropertyType(string name)
         {
-            byte[] nameBuffer = Encoding.UTF8.GetBytes(name);
-            fixed (byte* namePtr = nameBuffer)
+            fixed (byte* namePtr = Encoding.UTF8.GetBytes(name))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_PROPERTYTYPE, (IntPtr) namePtr, Unused);
                 return (int) res;
@@ -5030,8 +4984,7 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public unsafe string DescribeProperty(string name)
         {
-            byte[] nameBuffer = Encoding.UTF8.GetBytes(name);
-            fixed (byte* namePtr = nameBuffer)
+            fixed (byte* namePtr = Encoding.UTF8.GetBytes(name))
             {
                 byte[] descriptionBuffer = new byte[10000];
                 fixed (byte* descriptionPtr = descriptionBuffer)
@@ -5112,8 +5065,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the identifiers that are shown in a particular style (Scintilla feature 4024)</summary>
         public unsafe void SetIdentifiers(int style, string identifiers)
         {
-            byte[] identifiersBuffer = Encoding.UTF8.GetBytes(identifiers);
-            fixed (byte* identifiersPtr = identifiersBuffer)
+            fixed (byte* identifiersPtr = Encoding.UTF8.GetBytes(identifiers))
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETIDENTIFIERS, style, (IntPtr) identifiersPtr);
             }

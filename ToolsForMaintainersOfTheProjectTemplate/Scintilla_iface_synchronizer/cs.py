@@ -105,18 +105,16 @@ def printLexGatewayFile(f):
 				+ methodName(name) 
 				+ "(" + getParameterList(param1Type, param1Name, param2Type, param2Name) +")")
 			out.append(indent + "{")
-			
+
 			if param1Type == "string":
-				out.append(iindent + "byte[] " +param1Name+ "Buffer = Encoding.UTF8.GetBytes(" +param1Name+ ");")
-				out.append(iindent + "fixed (byte* "+param1Name+"Ptr = " +param1Name+ "Buffer)")
+				out.append(iindent + "fixed (byte* "+param1Name+"Ptr = Encoding.UTF8.GetBytes(" +param1Name+ "))")
 				out.append(iindent + "{")
 				iindent = iindent + "    "
-				
+
 			if param2Type == "string":
-				out.append(iindent + "byte[] " +param2Name+ "Buffer = Encoding.UTF8.GetBytes(" +param2Name+ ");")
-				out.append(iindent + "fixed (byte* "+param2Name+"Ptr = " +param2Name+ "Buffer)")
+				out.append(iindent + "fixed (byte* "+param2Name+"Ptr = Encoding.UTF8.GetBytes(" +param2Name+ "))")
 				out.append(iindent + "{")
-				iindent = iindent + "    "				
+				iindent = iindent + "    "
 
 			bufferVariableName = ""
 			if param1Type == "stringresult":
