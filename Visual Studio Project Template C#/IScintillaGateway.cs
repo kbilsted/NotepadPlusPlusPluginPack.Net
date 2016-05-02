@@ -127,6 +127,14 @@ namespace Kbg.NppPluginNET
         /// </summary>
         void SetAnchor(Position posAnchor);
 
+        /// <summary>
+        /// Retrieve the text of the line containing the caret.
+        /// Returns the index of the caret on the line.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 2027)
+        /// </summary>
+        unsafe string GetCurLine(int length);
+
         /// <summary>Retrieve the position of the last correctly styled character. (Scintilla feature 2028)</summary>
         Position GetEndStyled();
 
@@ -312,6 +320,14 @@ namespace Kbg.NppPluginNET
         /// <summary>Get the size of characters of a style. (Scintilla feature 2485)</summary>
         int StyleGetSize(int style);
 
+        /// <summary>
+        /// Get the font of a style.
+        /// Returns the length of the fontName
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 2486)
+        /// </summary>
+        unsafe string StyleGetFont(int style);
+
         /// <summary>Get is a style to have its end of line filled or not. (Scintilla feature 2487)</summary>
         bool StyleGetEOLFilled(int style);
 
@@ -400,6 +416,13 @@ namespace Kbg.NppPluginNET
         /// (Scintilla feature 2077)
         /// </summary>
         unsafe void SetWordChars(string characters);
+
+        /// <summary>
+        /// Get the set of characters making up words for when moving or selecting by word.
+        /// Returns the number of characters
+        /// (Scintilla feature 2646)
+        /// </summary>
+        unsafe string GetWordChars();
 
         /// <summary>
         /// Start a sequence of actions that is undone and redone as a unit.
@@ -720,6 +743,13 @@ namespace Kbg.NppPluginNET
         /// <summary>Retrieve the display line at the top of the display. (Scintilla feature 2152)</summary>
         int GetFirstVisibleLine();
 
+        /// <summary>
+        /// Retrieve the contents of a line.
+        /// Returns the length of the line.
+        /// (Scintilla feature 2153)
+        /// </summary>
+        unsafe string GetLine(int line);
+
         /// <summary>Returns the number of lines in the document. There is always at least one. (Scintilla feature 2154)</summary>
         int GetLineCount();
 
@@ -740,6 +770,14 @@ namespace Kbg.NppPluginNET
 
         /// <summary>Select a range of text. (Scintilla feature 2160)</summary>
         void SetSel(Position start, Position end);
+
+        /// <summary>
+        /// Retrieve the selected text.
+        /// Return the length of the text.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 2161)
+        /// </summary>
+        unsafe string GetSelText();
 
         /// <summary>
         /// Retrieve a range of text.
@@ -813,6 +851,14 @@ namespace Kbg.NppPluginNET
         /// <summary>Replace the contents of the document with the argument text. (Scintilla feature 2181)</summary>
         unsafe void SetText(string text);
 
+        /// <summary>
+        /// Retrieve all the text in the document.
+        /// Returns number of characters retrieved.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 2182)
+        /// </summary>
+        unsafe string GetText(int length);
+
         /// <summary>Retrieve the number of characters in the document. (Scintilla feature 2183)</summary>
         int GetTextLength();
 
@@ -860,6 +906,9 @@ namespace Kbg.NppPluginNET
 
         /// <summary>Sets both the start and end of the target in one call. (Scintilla feature 2686)</summary>
         void SetTargetRange(Position start, Position end);
+
+        /// <summary>Retrieve the text in the target. (Scintilla feature 2687)</summary>
+        unsafe string GetTargetText();
 
         /// <summary>
         /// Replace the target text with the argument text.
@@ -1148,6 +1197,13 @@ namespace Kbg.NppPluginNET
 
         /// <summary>Retrieve the effect of pasting when there are multiple selections.. (Scintilla feature 2615)</summary>
         int GetMultiPaste();
+
+        /// <summary>
+        /// Retrieve the value of a tag from a regular expression search.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 2616)
+        /// </summary>
+        unsafe string GetTag(int tagNumber);
 
         /// <summary>Make the target range start and end be the same as the selection range start and end. (Scintilla feature 2287)</summary>
         void TargetFromSelection();
@@ -1763,6 +1819,9 @@ namespace Kbg.NppPluginNET
         /// </summary>
         unsafe void SetWhitespaceChars(string characters);
 
+        /// <summary>Get the set of characters making up whitespace for when moving or selecting by word. (Scintilla feature 2647)</summary>
+        unsafe string GetWhitespaceChars();
+
         /// <summary>
         /// Set the set of characters making up punctuation characters
         /// Should be called after SetWordChars.
@@ -1770,11 +1829,22 @@ namespace Kbg.NppPluginNET
         /// </summary>
         unsafe void SetPunctuationChars(string characters);
 
+        /// <summary>Get the set of characters making up punctuation characters (Scintilla feature 2649)</summary>
+        unsafe string GetPunctuationChars();
+
         /// <summary>Reset the set of characters for whitespace and word characters to the defaults. (Scintilla feature 2444)</summary>
         void SetCharsDefault();
 
         /// <summary>Get currently selected item position in the auto-completion list (Scintilla feature 2445)</summary>
         int AutoCGetCurrent();
+
+        /// <summary>
+        /// Get currently selected item text in the auto-completion list
+        /// Returns the length of the item text
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 2610)
+        /// </summary>
+        unsafe string AutoCGetCurrentText();
 
         /// <summary>Set auto-completion case insensitive behaviour to either prefer case-sensitive matches or have no preference. (Scintilla feature 2634)</summary>
         void AutoCSetCaseInsensitiveBehaviour(int behaviour);
@@ -1798,11 +1868,26 @@ namespace Kbg.NppPluginNET
         void Allocate(int bytes);
 
         /// <summary>
+        /// Returns the target converted to UTF8.
+        /// Return the length in bytes.
+        /// (Scintilla feature 2447)
+        /// </summary>
+        unsafe string TargetAsUTF8();
+
+        /// <summary>
         /// Set the length of the utf8 argument for calling EncodedFromUTF8.
         /// Set to -1 and the string will be measured to the first nul.
         /// (Scintilla feature 2448)
         /// </summary>
         void SetLengthForEncode(int bytes);
+
+        /// <summary>
+        /// Translates a UTF8 string into the document encoding.
+        /// Return the length of the result in bytes.
+        /// On error return 0.
+        /// (Scintilla feature 2449)
+        /// </summary>
+        unsafe string EncodedFromUTF8(string utf8);
 
         /// <summary>
         /// Find the position of a column on a line taking into account tabs and
@@ -1932,6 +2017,9 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the text in the text margin for a line (Scintilla feature 2530)</summary>
         unsafe void MarginSetText(int line, string text);
 
+        /// <summary>Get the text in the text margin for a line (Scintilla feature 2531)</summary>
+        unsafe string MarginGetText(int line);
+
         /// <summary>Set the style number for the text margin for a line (Scintilla feature 2532)</summary>
         void MarginSetStyle(int line, int style);
 
@@ -1940,6 +2028,9 @@ namespace Kbg.NppPluginNET
 
         /// <summary>Set the style in the text margin for a line (Scintilla feature 2534)</summary>
         unsafe void MarginSetStyles(int line, string styles);
+
+        /// <summary>Get the styles in the text margin for a line (Scintilla feature 2535)</summary>
+        unsafe string MarginGetStyles(int line);
 
         /// <summary>Clear the margin text on all lines (Scintilla feature 2536)</summary>
         void MarginTextClearAll();
@@ -1959,6 +2050,9 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the annotation text for a line (Scintilla feature 2540)</summary>
         unsafe void AnnotationSetText(int line, string text);
 
+        /// <summary>Get the annotation text for a line (Scintilla feature 2541)</summary>
+        unsafe string AnnotationGetText(int line);
+
         /// <summary>Set the style number for the annotations for a line (Scintilla feature 2542)</summary>
         void AnnotationSetStyle(int line, int style);
 
@@ -1967,6 +2061,9 @@ namespace Kbg.NppPluginNET
 
         /// <summary>Set the annotation styles for a line (Scintilla feature 2544)</summary>
         unsafe void AnnotationSetStyles(int line, string styles);
+
+        /// <summary>Get the annotation styles for a line (Scintilla feature 2545)</summary>
+        unsafe string AnnotationGetStyles(int line);
 
         /// <summary>Get the number of annotation lines for a line (Scintilla feature 2546)</summary>
         int AnnotationGetLines(int line);
@@ -2273,6 +2370,13 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the way a character is drawn. (Scintilla feature 2665)</summary>
         unsafe void SetRepresentation(string encodedCharacter, string representation);
 
+        /// <summary>
+        /// Set the way a character is drawn.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 2666)
+        /// </summary>
+        unsafe string GetRepresentation(string encodedCharacter);
+
         /// <summary>Remove a character representation. (Scintilla feature 2667)</summary>
         unsafe void ClearRepresentation(string encodedCharacter);
 
@@ -2304,6 +2408,21 @@ namespace Kbg.NppPluginNET
         unsafe void LoadLexerLibrary(string path);
 
         /// <summary>
+        /// Retrieve a "property" value previously set with SetProperty.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 4008)
+        /// </summary>
+        unsafe string GetProperty(string key);
+
+        /// <summary>
+        /// Retrieve a "property" value previously set with SetProperty,
+        /// with "$()" variable replacement on returned buffer.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 4009)
+        /// </summary>
+        unsafe string GetPropertyExpanded(string key);
+
+        /// <summary>
         /// Retrieve a "property" value previously set with SetProperty,
         /// interpreted as an int AFTER any "$()" variable replacement.
         /// (Scintilla feature 4010)
@@ -2313,11 +2432,40 @@ namespace Kbg.NppPluginNET
         /// <summary>Retrieve the number of bits the current lexer needs for styling. (Scintilla feature 4011)</summary>
         int GetStyleBitsNeeded();
 
+        /// <summary>
+        /// Retrieve the name of the lexer.
+        /// Return the length of the text.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 4012)
+        /// </summary>
+        unsafe string GetLexerLanguage();
+
         /// <summary>For private communication between an application and a known lexer. (Scintilla feature 4013)</summary>
         int PrivateLexerCall(int operation, int pointer);
 
+        /// <summary>
+        /// Retrieve a '\n' separated list of properties understood by the current lexer.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 4014)
+        /// </summary>
+        unsafe string PropertyNames();
+
         /// <summary>Retrieve the type of a property. (Scintilla feature 4015)</summary>
         unsafe int PropertyType(string name);
+
+        /// <summary>
+        /// Describe a property.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 4016)
+        /// </summary>
+        unsafe string DescribeProperty(string name);
+
+        /// <summary>
+        /// Retrieve a '\n' separated list of descriptions of the keyword sets understood by the current lexer.
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 4017)
+        /// </summary>
+        unsafe string DescribeKeyWordSets();
 
         /// <summary>
         /// Bit set of LineEndType enumertion for which line ends beyond the standard
@@ -2353,6 +2501,13 @@ namespace Kbg.NppPluginNET
         /// (Scintilla feature 4025)
         /// </summary>
         int DistanceToSecondaryStyles();
+
+        /// <summary>
+        /// Get the set of base styles that can be extended with sub styles
+        /// Result is NUL-terminated.
+        /// (Scintilla feature 4026)
+        /// </summary>
+        unsafe string GetSubStyleBases();
 
         /// <summary>
         /// Deprecated in 2.30

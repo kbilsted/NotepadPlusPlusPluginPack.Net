@@ -27,7 +27,7 @@ def printLexCSFile(f):
 	return out
 
 def isTypeUnsupported(t):
-	if t in ["colour", "cells", "stringresult", "keymod", "findtext", "formatrange"]: return True
+	if t in ["colour", "cells", "keymod", "findtext", "formatrange"]: return True
 	return False
 
 def translateType(t):
@@ -38,7 +38,7 @@ def translateType(t):
 
 def translateVariableAccess(name, type):
 	if type == "bool": return name + " ? 1 : 0"
-	if type == "string": return "(IntPtr) " +name+ "Ptr"
+	if type in ["string", "stringresult"]: return "(IntPtr) " +name+ "Ptr"
 
 	res = name if name else "Unused"
 	if type in ["Colour", "Position"]:
@@ -65,12 +65,18 @@ def getUnsafeModifier(returnType, param1Type, param2Type):
 		return "unsafe "
 	return ""
 
+
+def translateReturnType(v, param1Type, param2Type):
+	if param1Type == "stringresult" or param2Type == "stringresult": 
+		return "string" 
+	else:
+		return translateType(v["ReturnType"])
+
 def getParameterList(param1Type, param1Name, param2Type, param2Name):
-	parameters = ""
-	if param1Type: parameters += param1Type + " " + param1Name
-	if param1Type and param2Type: parameters += ", "
-	if param2Type: parameters += param2Type + " " + param2Name
-	return parameters
+	first  = param1Type + " " + param1Name if param1Type and param1Type != "stringresult" else ""
+	second = param2Type + " " + param2Name if param2Type and param2Type != "stringresult" else ""
+	separator = ", " if first and second else ""
+	return first + separator + second
 
 def printLexGatewayFile(f):
 	out = []
@@ -80,11 +86,11 @@ def printLexGatewayFile(f):
 		iindent = indent + "    "
 
 		if v["FeatureType"] in ["fun", "get", "set"]:
-			returnType = translateType(v["ReturnType"])
 			param1Type = translateType(v["Param1Type"])
 			param1Name = v["Param1Name"]
 			param2Type = translateType(v["Param2Type"])
 			param2Name = v["Param2Name"]
+			returnType = translateReturnType(v, param1Type, param2Type) 
 
 			if (isTypeUnsupported(param1Type) or isTypeUnsupported(param2Type) or isTypeUnsupported(returnType)):
 				continue
@@ -101,29 +107,47 @@ def printLexGatewayFile(f):
 			out.append(indent + "{")
 			
 			if param1Type == "string":
-				out.append(iindent + "byte[] " +param1Name+"Buffer = Encoding.UTF8.GetBytes(" +param1Name+ ");")
+				out.append(iindent + "byte[] " +param1Name+ "Buffer = Encoding.UTF8.GetBytes(" +param1Name+ ");")
 				out.append(iindent + "fixed (byte* "+param1Name+"Ptr = " +param1Name+ "Buffer)")
 				out.append(iindent + "{")
 				iindent = iindent + "    "
 				
 			if param2Type == "string":
-				out.append(iindent + "byte[] " +param2Name+"Buffer = Encoding.UTF8.GetBytes(" +param2Name+ ");")
+				out.append(iindent + "byte[] " +param2Name+ "Buffer = Encoding.UTF8.GetBytes(" +param2Name+ ");")
 				out.append(iindent + "fixed (byte* "+param2Name+"Ptr = " +param2Name+ "Buffer)")
 				out.append(iindent + "{")
-				iindent = iindent + "    "
+				iindent = iindent + "    "				
 
-			firstArg = translateVariableAccess(v["Param1Name"], param1Type)
-			seconArg = translateVariableAccess(v["Param2Name"], param2Type)
+			bufferVariableName = ""
+			if param1Type == "stringresult":
+				bufferVariableName = param1Name + "Buffer"
+				out.append(iindent + "byte[] " + bufferVariableName +" = new byte[10000];")
+				out.append(iindent + "fixed (byte* "+param1Name+"Ptr = " +bufferVariableName + ")" )
+				out.append(iindent + "{")
+				iindent = iindent + "    "
+				
+			if param2Type == "stringresult":
+				bufferVariableName = param2Name + "Buffer"
+				out.append(iindent + "byte[] " + bufferVariableName +" = new byte[10000];")
+				out.append(iindent + "fixed (byte* "+param2Name+"Ptr = " +bufferVariableName + ")" )
+				out.append(iindent + "{")
+				iindent = iindent + "    "
+				
+			firstArg = translateVariableAccess(param1Name, param1Type)
+			seconArg = translateVariableAccess(param2Name, param2Type)
 
 			out.append(iindent + "IntPtr res = Win32.SendMessage(PluginBase.GetCurrentScintilla(), " +featureConstant+ ", " +firstArg+ ", " +seconArg+ ");")
 
-			if v["ReturnType"] != "void":
+
+			if returnType != "void":
 				if returnType == "bool":
 					out.append(iindent + "return 1 == (int) res;")
 				elif returnType == "Colour":
 					out.append(iindent + "return new Colour((int) res);")
 				elif returnType == "Position":
 					out.append(iindent + "return new Position((int) res);")
+				elif returnType == "string":
+					out.append(iindent + "return Encoding.UTF8.GetString("+bufferVariableName+").TrimEnd('\\0');")
 				else:
 					out.append(iindent + "return (" +returnType+ ") res;")
 
@@ -131,6 +155,12 @@ def printLexGatewayFile(f):
 				iindent = iindent[4:]
 				out.append(iindent + "}")
 			if param2Type == "string":
+				iindent = iindent[4:]
+				out.append(iindent + "}")
+			if param1Type == "stringresult":
+				iindent = iindent[4:]
+				out.append(iindent + "}")
+			if param2Type == "stringresult":
 				iindent = iindent[4:]
 				out.append(iindent + "}")
 
@@ -144,11 +174,11 @@ def printLexIGatewayFile(f):
 		v = f.features[name]
 
 		if v["FeatureType"] in ["fun", "get", "set"]:
-			returnType = translateType(v["ReturnType"])
 			param1Type = translateType(v["Param1Type"])
 			param1Name = v["Param1Name"]
 			param2Type = translateType(v["Param2Type"])
 			param2Name = v["Param2Name"]
+			returnType = translateReturnType(v, param1Type, param2Type) 
 
 			if (isTypeUnsupported(param1Type) or isTypeUnsupported(param2Type) or isTypeUnsupported(returnType)):
 				continue
