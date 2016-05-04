@@ -27,13 +27,14 @@ def printLexCSFile(f):
 	return out
 
 def isTypeUnsupported(t):
-	if t in ["cells", "keymod", "findtext", "formatrange"]: return True
+	if t in ["cells", "keymod", "formatrange"]: return True
 	return False
 
 def translateType(t):
 	if t == "colour": return "Colour"
 	if t == "position": return "Position"
 	if t == "textrange": return "TextRange"
+	if t == "findtext": return "TextToFind"
 	return t
 
 def translateVariableAccess(name, type):
@@ -43,7 +44,7 @@ def translateVariableAccess(name, type):
 	res = name if name else "Unused"
 	if type in ["Colour", "Position"]:
 		res += ".Value"
-	if type == "TextRange": 
+	if type in ["TextRange", "TextToFind"]: 
 		res += ".NativePointer"
 	return res
 

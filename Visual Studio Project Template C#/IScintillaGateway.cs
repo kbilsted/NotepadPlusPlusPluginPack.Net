@@ -742,6 +742,9 @@ namespace Kbg.NppPluginNET
         /// <summary>Returns the print colour mode. (Scintilla feature 2149)</summary>
         int GetPrintColourMode();
 
+        /// <summary>Find some text in the document. (Scintilla feature 2150)</summary>
+        Position FindText(int flags, TextToFind ft);
+
         /// <summary>Retrieve the display line at the top of the display. (Scintilla feature 2152)</summary>
         int GetFirstVisibleLine();
 

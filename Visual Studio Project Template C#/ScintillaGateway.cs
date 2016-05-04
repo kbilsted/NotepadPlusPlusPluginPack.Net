@@ -1537,6 +1537,13 @@ namespace Kbg.NppPluginNET
             return (int) res;
         }
 
+        /// <summary>Find some text in the document. (Scintilla feature 2150)</summary>
+        public Position FindText(int flags, TextToFind ft)
+        {
+            IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_FINDTEXT, flags, ft.NativePointer);
+            return new Position((int) res);
+        }
+
         /// <summary>Retrieve the display line at the top of the display. (Scintilla feature 2152)</summary>
         public int GetFirstVisibleLine()
         {

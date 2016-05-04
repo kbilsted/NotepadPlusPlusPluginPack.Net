@@ -143,5 +143,4 @@ namespace Kbg.NppPluginNET
             Dispose();
         }
     }
-
 }

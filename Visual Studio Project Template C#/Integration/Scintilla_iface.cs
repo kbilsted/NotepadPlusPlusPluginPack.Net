@@ -2940,18 +2940,30 @@ namespace Kbg.NppPluginNET
         SC_SEARCHRESULT_LINEBUFFERMAXLENGTH = 1024
     }
 
-    public class Sci_TextToFind : IDisposable
+    public class TextToFind : IDisposable
     {
-        _Sci_TextToFind _sciTextToFind;
+        Sci_TextToFind _sciTextToFind;
         IntPtr _ptrSciTextToFind;
         bool _disposed = false;
 
-        public Sci_TextToFind(CharacterRange chrRange, string searchText)
+        /// <summary>
+        /// text to find
+        /// </summary>
+        /// <param name="chrRange">range to search</param>
+        /// <param name="searchText">the search pattern</param>
+        public TextToFind(CharacterRange chrRange, string searchText)
         {
             _sciTextToFind.chrg = chrRange;
             _sciTextToFind.lpstrText = Marshal.StringToHGlobalAnsi(searchText);
         }
-        public Sci_TextToFind(int cpmin, int cpmax, string searchText)
+
+        /// <summary>
+        /// text to find
+        /// </summary>
+        /// <param name="cpmin">range to search</param>
+        /// <param name="cpmax">range to search</param>
+        /// <param name="searchText">the search pattern</param>
+        public TextToFind(int cpmin, int cpmax, string searchText)
         {
             _sciTextToFind.chrg.cpMin = cpmin;
             _sciTextToFind.chrg.cpMax = cpmax;
@@ -2959,7 +2971,7 @@ namespace Kbg.NppPluginNET
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        struct _Sci_TextToFind
+        struct Sci_TextToFind
         {
             public CharacterRange chrg;
             public IntPtr lpstrText;
@@ -2970,17 +2982,20 @@ namespace Kbg.NppPluginNET
         public string lpstrText { set { _freeNativeString(); _sciTextToFind.lpstrText = Marshal.StringToHGlobalAnsi(value); } }
         public CharacterRange chrg { get { _readNativeStruct(); return _sciTextToFind.chrg; } set { _sciTextToFind.chrg = value; _initNativeStruct(); } }
         public CharacterRange chrgText { get { _readNativeStruct(); return _sciTextToFind.chrgText; } }
+
         void _initNativeStruct()
         {
             if (_ptrSciTextToFind == IntPtr.Zero)
                 _ptrSciTextToFind = Marshal.AllocHGlobal(Marshal.SizeOf(_sciTextToFind));
             Marshal.StructureToPtr(_sciTextToFind, _ptrSciTextToFind, false);
         }
+
         void _readNativeStruct()
         {
             if (_ptrSciTextToFind != IntPtr.Zero)
-                _sciTextToFind = (_Sci_TextToFind)Marshal.PtrToStructure(_ptrSciTextToFind, typeof(_Sci_TextToFind));
+                _sciTextToFind = (Sci_TextToFind)Marshal.PtrToStructure(_ptrSciTextToFind, typeof(Sci_TextToFind));
         }
+
         void _freeNativeString()
         {
             if (_sciTextToFind.lpstrText != IntPtr.Zero) Marshal.FreeHGlobal(_sciTextToFind.lpstrText);
@@ -2995,7 +3010,8 @@ namespace Kbg.NppPluginNET
                 _disposed = true;
             }
         }
-        ~Sci_TextToFind()
+
+        ~TextToFind()
         {
             Dispose();
         }
