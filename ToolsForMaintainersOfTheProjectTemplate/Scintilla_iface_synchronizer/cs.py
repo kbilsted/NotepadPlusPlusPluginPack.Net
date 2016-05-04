@@ -27,10 +27,11 @@ def printLexCSFile(f):
 	return out
 
 def isTypeUnsupported(t):
-	if t in ["cells", "keymod", "formatrange"]: return True
+	if t in ["keymod", "formatrange"]: return True
 	return False
 
 def translateType(t):
+	if t == "cells": return "Cells"
 	if t == "colour": return "Colour"
 	if t == "position": return "Position"
 	if t == "textrange": return "TextRange"
@@ -39,7 +40,7 @@ def translateType(t):
 
 def translateVariableAccess(name, type):
 	if type == "bool": return name + " ? 1 : 0"
-	if type in ["string", "stringresult"]: return "(IntPtr) " +name+ "Ptr"
+	if type in ["string", "stringresult", "Cells"]: return "(IntPtr) " +name+ "Ptr"
 
 	res = name if name else "Unused"
 	if type in ["Colour", "Position"]:
@@ -63,6 +64,8 @@ def appendComment(indent, out, v):
 
 def getUnsafeModifier(returnType, param1Type, param2Type):
 	if "string" in [returnType, param1Type, param2Type]:
+		return "unsafe "
+	if "Cells" in [returnType, param1Type, param2Type]:
 		return "unsafe "
 	return ""
 
@@ -117,6 +120,16 @@ def printLexGatewayFile(f):
 				out.append(iindent + "{")
 				iindent = iindent + "    "
 
+			if param1Type == "Cells":
+				out.append(iindent + "fixed (char* "+param2Name+"Ptr = "+param1Name+".Value)")
+				out.append(iindent + "{")
+				iindent = iindent + "    "
+
+			if param2Type == "Cells":
+				out.append(iindent + "fixed (char* "+param2Name+"Ptr = "+param2Name+".Value)")
+				out.append(iindent + "{")
+				iindent = iindent + "    "
+
 			bufferVariableName = ""
 			if param1Type == "stringresult":
 				bufferVariableName = param1Name + "Buffer"
@@ -150,16 +163,10 @@ def printLexGatewayFile(f):
 				else:
 					out.append(iindent + "return (" +returnType+ ") res;")
 
-			if param1Type == "string":
+			if param1Type in ["string", "Cells", "stringresult"]:
 				iindent = iindent[4:]
 				out.append(iindent + "}")
-			if param2Type == "string":
-				iindent = iindent[4:]
-				out.append(iindent + "}")
-			if param1Type == "stringresult":
-				iindent = iindent[4:]
-				out.append(iindent + "}")
-			if param2Type == "stringresult":
+			if param2Type in ["string", "Cells", "stringresult"]:
 				iindent = iindent[4:]
 				out.append(iindent + "}")
 

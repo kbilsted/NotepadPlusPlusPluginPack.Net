@@ -96,6 +96,15 @@ namespace Kbg.NppPluginNET
             }
         }
 
+        /// <summary>Add array of cells to document. (Scintilla feature 2002)</summary>
+        public unsafe void AddStyledText(int length, Cells c)
+        {
+            fixed (char* cPtr = c.Value)
+            {
+                IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_ADDSTYLEDTEXT, length, (IntPtr) cPtr);
+            }
+        }
+
         /// <summary>Insert string at a position. (Scintilla feature 2003)</summary>
         public unsafe void InsertText(Position pos, string text)
         {

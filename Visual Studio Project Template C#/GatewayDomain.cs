@@ -83,6 +83,17 @@ namespace Kbg.NppPluginNET
         public int cpMax;
     }
 
+    public class Cells
+    {
+        char[] charactersAndStyles;
+
+        public Cells(char[] charactersAndStyles)
+        {
+            this.charactersAndStyles = charactersAndStyles;
+        }
+
+        public char[] Value { get { return charactersAndStyles; } }
+    }
 
     public class TextRange : IDisposable
     {

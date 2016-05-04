@@ -27,6 +27,9 @@ namespace Kbg.NppPluginNET
         /// <summary>Add text to the document at current position. (Scintilla feature 2001)</summary>
         unsafe void AddText(int length, string text);
 
+        /// <summary>Add array of cells to document. (Scintilla feature 2002)</summary>
+        unsafe void AddStyledText(int length, Cells c);
+
         /// <summary>Insert string at a position. (Scintilla feature 2003)</summary>
         unsafe void InsertText(Position pos, string text);
 
