@@ -11,11 +11,13 @@ namespace Kbg.NppPluginNET
         }
     }
 
-    /// <summary>
-    /// This it the plugin-writers primary interface to Notepad++/Scintilla.
-    /// It takes away all the complexity with command numbers and Int-pointer casting.
-    /// </summary>
-    public class ScintillaGateway : IScintillaGateway
+	/// <summary>
+	/// This it the plugin-writers primary interface to Notepad++/Scintilla.
+	/// It takes away all the complexity with command numbers and Int-pointer casting.
+	///
+	/// See http://www.scintilla.org/ScintillaDoc.html for further details.
+	/// </summary>
+	public class ScintillaGateway : IScintillaGateway
     {
         private const int Unused = 0;
 

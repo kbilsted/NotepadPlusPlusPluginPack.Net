@@ -46,6 +46,20 @@ namespace Kbg.NppPluginNET
         }
     }
 
+    /// <summary>
+    /// Positions within the Scintilla document refer to a character or the gap before that character. 
+    /// The first character in a document is 0, the second 1 and so on. If a document contains nLen characters, the last character is numbered nLen-1. The caret exists between character positions and can be located from before the first character (0) to after the last character (nLen).
+    ///
+    /// There are places where the caret can not go where two character bytes make up one character. 
+    /// This occurs when a DBCS character from a language like Japanese is included in the document or when line ends are marked with the CP/M 
+    /// standard of a carriage return followed by a line feed.The INVALID_POSITION constant(-1) represents an invalid position within the document.
+    ///
+    /// All lines of text in Scintilla are the same height, and this height is calculated from the largest font in any current style.This restriction 
+    /// is for performance; if lines differed in height then calculations involving positioning of text would require the text to be styled first.
+    ///
+    /// If you use messages, there is nothing to stop you setting a position that is in the middle of a CRLF pair, or in the middle of a 2 byte character. 
+    /// However, keyboard commands will not move the caret into such positions.
+    /// </summary>
     public class Position
     {
         private readonly int Pos;

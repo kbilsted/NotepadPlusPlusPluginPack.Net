@@ -7,8 +7,10 @@ namespace Kbg.NppPluginNET
         void FileNew();
     }
 
-
-    public interface IScintillaGateway
+	/// <summary>
+	/// See http://www.scintilla.org/ScintillaDoc.html for further details.
+	/// </summary>
+	public interface IScintillaGateway
     {
         int GetSelectionLength();
         void SetZoomLevel(int zoomLevel);
