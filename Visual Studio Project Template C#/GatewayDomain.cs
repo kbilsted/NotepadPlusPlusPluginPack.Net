@@ -4,27 +4,45 @@ using System.Text;
 
 namespace Kbg.NppPluginNET
 {
+    /// <summary>
+    /// Colours are set using the RGB format (Red, Green, Blue). The intensity of each colour is set in the range 0 to 255. 
+    /// If you have three such intensities, they are combined as: red | (green &lt;&lt; 8) | (blue &lt;&lt; 16). 
+    /// If you set all intensities to 255, the colour is white. If you set all intensities to 0, the colour is black. 
+    /// When you set a colour, you are making a request. What you will get depends on the capabilities of the system and the current screen mode.
+    /// </summary>
     public class Colour
     {
-        public readonly int R, G, B;
+        public readonly int Red, Green, Blue;
 
-        // TODO KBG figure out
         public Colour(int rgb)
         {
-            R = rgb;
+            Red = rgb ^ 0xFF;
+            Green = rgb ^ 0x00FF;
+            Blue = rgb ^ 0x0000FF;
         }
 
-        public Colour(int r, int g, int b)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="red">a number 0-255</param>
+        /// <param name="green">a number 0-255</param>
+        /// <param name="blue">a number 0-255</param>
+        public Colour(int red, int green, int blue)
         {
-            R = r;
-            G = g;
-            B = b;
+            if(red > 255 || red < 0)
+                throw new ArgumentOutOfRangeException("red", "must be 0-255");
+            if(green > 255 || green < 0)
+                throw new ArgumentOutOfRangeException("green", "must be 0-255");
+            if(blue > 255 || blue < 0)
+                throw new ArgumentOutOfRangeException("blue", "must be 0-255");
+            Red = red;
+            Green = green;
+            Blue = blue;
         }
 
-        // TODO KBG figure out
         public int Value
         {
-            get { return R + (B << 8 ) + (G << 16); }
+            get { return Red + (Blue << 8 ) + (Green << 16); }
         }
     }
 

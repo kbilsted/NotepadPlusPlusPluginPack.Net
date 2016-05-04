@@ -27,7 +27,7 @@ def printLexCSFile(f):
 	return out
 
 def isTypeUnsupported(t):
-	if t in ["colour", "cells", "keymod", "findtext", "formatrange"]: return True
+	if t in ["cells", "keymod", "findtext", "formatrange"]: return True
 	return False
 
 def translateType(t):

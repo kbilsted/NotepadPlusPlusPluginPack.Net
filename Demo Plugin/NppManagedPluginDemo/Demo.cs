@@ -139,6 +139,8 @@ namespace Kbg.Demo.Namespace
         {
             notepad.FileNew();
             editor.SetText("Hello, Notepad++...from.NET!");
+            var rest = editor.GetLine(0);
+            editor.SetText(rest+rest+rest);
         }
 
         static void helloFX()
