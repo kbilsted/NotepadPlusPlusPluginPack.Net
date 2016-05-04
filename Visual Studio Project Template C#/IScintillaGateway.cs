@@ -400,6 +400,12 @@ namespace Kbg.NppPluginNET
         /// <summary>Set the foreground colour of the caret. (Scintilla feature 2069)</summary>
         void SetCaretFore(Colour fore);
 
+        /// <summary>When key+modifier combination km is pressed perform msg. (Scintilla feature 2070)</summary>
+        void AssignCmdKey(KeyModifier km, int msg);
+
+        /// <summary>When key+modifier combination km is pressed do nothing. (Scintilla feature 2071)</summary>
+        void ClearCmdKey(KeyModifier km);
+
         /// <summary>Drop all key mappings. (Scintilla feature 2072)</summary>
         void ClearAllCmdKeys();
 

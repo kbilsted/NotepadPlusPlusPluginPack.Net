@@ -852,6 +852,18 @@ namespace Kbg.NppPluginNET
             IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETCARETFORE, fore.Value, Unused);
         }
 
+        /// <summary>When key+modifier combination km is pressed perform msg. (Scintilla feature 2070)</summary>
+        public void AssignCmdKey(KeyModifier km, int msg)
+        {
+            IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_ASSIGNCMDKEY, km.Value, msg);
+        }
+
+        /// <summary>When key+modifier combination km is pressed do nothing. (Scintilla feature 2071)</summary>
+        public void ClearCmdKey(KeyModifier km)
+        {
+            IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_CLEARCMDKEY, km.Value, Unused);
+        }
+
         /// <summary>Drop all key mappings. (Scintilla feature 2072)</summary>
         public void ClearAllCmdKeys()
         {

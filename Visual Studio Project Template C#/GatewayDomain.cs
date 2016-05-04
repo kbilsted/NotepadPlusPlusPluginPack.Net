@@ -75,6 +75,41 @@ namespace Kbg.NppPluginNET
         }
     }
 
+    /// <summary>
+    /// Class containing key and modifiers 
+    ///
+    /// The key code is a visible or control character or a key from the SCK_* enumeration, which contains:
+    /// SCK_ADD, SCK_BACK, SCK_DELETE, SCK_DIVIDE, SCK_DOWN, SCK_END, SCK_ESCAPE, SCK_HOME, SCK_INSERT, SCK_LEFT, SCK_MENU, SCK_NEXT(Page Down), SCK_PRIOR(Page Up), S
+    /// CK_RETURN, SCK_RIGHT, SCK_RWIN, SCK_SUBTRACT, SCK_TAB, SCK_UP, and SCK_WIN.
+    ///
+    /// The modifiers are a combination of zero or more of SCMOD_ALT, SCMOD_CTRL, SCMOD_SHIFT, SCMOD_META, and SCMOD_SUPER. 
+    /// On OS X, the Command key is mapped to SCMOD_CTRL and the Control key to SCMOD_META.SCMOD_SUPER is only available on GTK+ which is commonly the Windows key. 
+    /// If you are building a table, you might want to use SCMOD_NORM, which has the value 0, to mean no modifiers.
+    /// </summary>
+    public class KeyModifier
+    {
+        private readonly int value;
+
+        /// <summary>
+        /// The key code is a visible or control character or a key from the SCK_* enumeration, which contains:
+        /// SCK_ADD, SCK_BACK, SCK_DELETE, SCK_DIVIDE, SCK_DOWN, SCK_END, SCK_ESCAPE, SCK_HOME, SCK_INSERT, SCK_LEFT, SCK_MENU, SCK_NEXT(Page Down), SCK_PRIOR(Page Up), 
+        /// SCK_RETURN, SCK_RIGHT, SCK_RWIN, SCK_SUBTRACT, SCK_TAB, SCK_UP, and SCK_WIN.
+        ///
+        /// The modifiers are a combination of zero or more of SCMOD_ALT, SCMOD_CTRL, SCMOD_SHIFT, SCMOD_META, and SCMOD_SUPER. 
+        /// On OS X, the Command key is mapped to SCMOD_CTRL and the Control key to SCMOD_META.SCMOD_SUPER is only available on GTK+ which is commonly the Windows key. 
+        /// If you are building a table, you might want to use SCMOD_NORM, which has the value 0, to mean no modifiers.
+        /// </summary>
+        public KeyModifier(SciMsg SCK_KeyCode, SciMsg SCMOD_modifier)
+        {
+            value = (int) SCK_KeyCode | ((int) SCMOD_modifier << 16);
+        }
+
+        public int Value
+        {
+            get { return Value; }
+        }
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     public struct CharacterRange
     {
