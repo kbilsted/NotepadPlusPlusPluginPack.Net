@@ -16,7 +16,7 @@ namespace Kbg.NppPluginNET
         static void setInfo(NppData notepadPlusData)
         {
             PluginBase.nppData = notepadPlusData;
-			Main.CommandMenuInit();
+            Main.CommandMenuInit();
         }
 
         [DllExport(CallingConvention = CallingConvention.Cdecl)]
@@ -49,6 +49,10 @@ namespace Kbg.NppPluginNET
             {
                 PluginBase._funcItems.RefreshItems();
                 Main.SetToolBarIcon();
+            }
+            else if (nc.nmhdr.code == (uint)SciMsg.SCN_CHARADDED)
+            {
+                Main.OnCharAdded((char)nc.ch);
             }
             else if (nc.nmhdr.code == (uint)NppMsg.NPPN_SHUTDOWN)
             {
