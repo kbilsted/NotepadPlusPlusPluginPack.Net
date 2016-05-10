@@ -2,7 +2,7 @@
 <VSTemplate xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Version="2.0.0" Type="Project">
   <TemplateData>
     <Name>Notepad++ Plugin</Name>
-    <Description>Classlibrary, ready to get loaded into N++. Credits for the DllExport part to R. Giesecke</Description>
+    <Description>Plugin for notepad++</Description>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>
     </ProjectSubType>
@@ -37,10 +37,19 @@
         <ProjectItem ReplaceParameters="false" TargetFileName="star.png">star.png</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="star_bmp.bmp">star_bmp.bmp</ProjectItem>
       </Folder>
+      <Folder Name="Integration" TargetFolderName="Integration">
+        <ProjectItem ReplaceParameters="false" TargetFileName="Docking_h.cs">Docking_h.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="MenuCmdID_h.cs">MenuCmdID_h.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Msgs_h.cs">Msgs_h.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Scintilla_iface.cs">Scintilla_iface.cs</ProjectItem>
+      </Folder>
       <ProjectItem ReplaceParameters="true" TargetFileName="Main.cs" OpenInEditor="true">Main.cs</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="NppPluginNETBase.cs">NppPluginNETBase.cs</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="NppPluginNETHelper.cs">NppPluginNETHelper.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="UnmanagedExports.cs">UnmanagedExports.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="ScintillaGateway.cs">ScintillaGateway.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="IScintillaGateway.cs">IScintillaGateway.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="GatewayDomain.cs">GatewayDomain.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>
