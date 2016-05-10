@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace $safeprojectname$.Properties {
+namespace Kbg.NppPluginNET.Properties {
     using System;
     
     
