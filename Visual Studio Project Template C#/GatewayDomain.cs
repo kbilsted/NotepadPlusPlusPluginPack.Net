@@ -60,18 +60,63 @@ namespace Kbg.NppPluginNET
     /// If you use messages, there is nothing to stop you setting a position that is in the middle of a CRLF pair, or in the middle of a 2 byte character. 
     /// However, keyboard commands will not move the caret into such positions.
     /// </summary>
-    public class Position
+    public class Position : IEquatable<Position>
     {
-        private readonly int Pos;
+        private readonly int pos;
 
         public Position(int pos)
         {
-            Pos = pos;
+            this.pos = pos;
         }
 
         public int Value
         {
-            get { return Pos; }
+            get { return pos; }
+        }
+
+        public static Position operator +(Position a, Position b)
+        {
+            return new Position(a.pos + b.pos);
+        }
+
+        public static Position operator -(Position a, Position b)
+        {
+            return new Position(a.pos - b.pos);
+        }
+
+        public static bool operator ==(Position a, Position b)
+        {
+            return a.pos == b.pos;
+        }
+
+        public static bool operator !=(Position a, Position b)
+        {
+            return !(a == b);
+        }
+
+        public override string ToString()
+        {
+            return "Postion: " + pos;
+        }
+
+        public bool Equals(Position other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return pos == other.pos;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Position)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return pos;
         }
     }
 
