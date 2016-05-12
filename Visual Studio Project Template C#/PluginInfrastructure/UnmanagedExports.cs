@@ -45,20 +45,20 @@ namespace Kbg.NppPluginNET
         [DllExport(CallingConvention = CallingConvention.Cdecl)]
         static void beNotified(IntPtr notifyCode)
         {
-            SCNotification nc = (SCNotification)Marshal.PtrToStructure(notifyCode, typeof(SCNotification));
-            if (nc.nmhdr.code == (uint)NppMsg.NPPN_TBMODIFICATION)
+            SCNotification notification = (SCNotification)Marshal.PtrToStructure(notifyCode, typeof(SCNotification));
+            if (notification.nmhdr.code == (uint)NppMsg.NPPN_TBMODIFICATION)
             {
                 PluginBase._funcItems.RefreshItems();
                 Main.SetToolBarIcon();
             }
-            else if (nc.nmhdr.code == (uint)SciMsg.SCN_CHARADDED)
-            {
-                Main.OnCharAdded((char)nc.ch);
-            }
-            else if (nc.nmhdr.code == (uint)NppMsg.NPPN_SHUTDOWN)
+            else if (notification.nmhdr.code == (uint)NppMsg.NPPN_SHUTDOWN)
             {
                 Main.PluginCleanUp();
                 Marshal.FreeHGlobal(_ptrPluginName);
+            }
+            else
+            {
+	            Main.OnNotification(notification);
             }
         }
     }

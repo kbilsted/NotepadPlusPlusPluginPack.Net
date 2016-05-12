@@ -35,7 +35,14 @@ namespace Kbg.NppPluginNET
 
         static internal void OnCharAdded(char newChar)
         {
-            Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag(newChar);
+        }
+
+        public static void OnNotification(SCNotification notification)
+        {
+            if (notification.nmhdr.code == (uint)SciMsg.SCN_CHARADDED)
+            {
+                Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag((char)notification.Character);
+            }
         }
 
         internal static string PluginName { get { return Kbg.Demo.Namespace.Main.PluginName; }}
@@ -63,6 +70,7 @@ namespace Kbg.Demo.Namespace
         #endregion
 
         #region " Startup/CleanUp "
+
         static internal void CommandMenuInit()
         {
             // Initialization of your plugin commands
