@@ -8,7 +8,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Kbg.NppPluginNET
+namespace Kbg.NppPluginNET.Integration
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct Sci_NotifyHeader

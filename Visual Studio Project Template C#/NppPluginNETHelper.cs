@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using Kbg.NppPluginNET.Integration;
 
 namespace Kbg.NppPluginNET
 {
