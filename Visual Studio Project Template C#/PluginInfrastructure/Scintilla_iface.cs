@@ -16,7 +16,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     /// but most clients of Scintilla.h do not have this type visible. 
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct Sci_NotifyHeader
+    public struct ScNotificationHeader
     {
         public IntPtr hwndFrom; //! environment specific window handle/pointer
         public uint idFrom;     //! CtrlID of the window issuing the notification
@@ -24,30 +24,33 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SCNotification
+    public struct ScNotification
     {
-        public Sci_NotifyHeader nmhdr;
+        public ScNotificationHeader Header;
         private int position;               /* SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
         public int character;                     /* SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION */
-        public int modifiers;              /* SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE */
-        public int modificationType;    /* SCN_MODIFIED */
-        public IntPtr text;                /* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_URIDROPPED */
-        public int length;                /* SCN_MODIFIED */
-        public int linesAdded;            /* SCN_MODIFIED */
-        public int message;                /* SCN_MACRORECORD */
+        public int Mmodifiers;              /* SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE */
+        public int ModificationType;    /* SCN_MODIFIED */
+        public IntPtr TextPointer;                /* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_URIDROPPED */
+        public int Length;                /* SCN_MODIFIED */
+        public int LinesAdded;            /* SCN_MODIFIED */
+        public int Message;                /* SCN_MACRORECORD */
         public uint wParam;                /* SCN_MACRORECORD */
         public int lParam;                /* SCN_MACRORECORD */
-        public int line;                /* SCN_MODIFIED */
-        public int foldLevelNow;        /* SCN_MODIFIED */
-        public int foldLevelPrev;        /* SCN_MODIFIED */
-        public int margin;                /* SCN_MARGINCLICK */
-        public int listType;            /* SCN_USERLISTSELECTION */
-        public int x;                    /* SCN_DWELLSTART, SCN_DWELLEND */
-        public int y;                    /* SCN_DWELLSTART, SCN_DWELLEND */
-        public int token;                /* SCN_MODIFIED with SC_MOD_CONTAINER */
-        public int annotationLinesAdded;/* SC_MOD_CHANGEANNOTATION */
-        public int updated;                   /* SCN_UPDATEUI */
-        public int listCompletionMethod;   /* SCN_AUTOCSELECTION, SCN_AUTOCCOMPLETED, SCN_USERLISTSELECTION */
+        /// <summary>
+        /// 0-based index
+        /// </summary>
+        public int LineNumber;                /* SCN_MODIFIED */
+        public int FoldLevelNow;        /* SCN_MODIFIED */
+        public int FoldLevelPrev;        /* SCN_MODIFIED */
+        public int Margin;                /* SCN_MARGINCLICK */
+        public int ListType;            /* SCN_USERLISTSELECTION */
+        public int X;                    /* SCN_DWELLSTART, SCN_DWELLEND */
+        public int Y;                    /* SCN_DWELLSTART, SCN_DWELLEND */
+        public int Token;                /* SCN_MODIFIED with SC_MOD_CONTAINER */
+        public int AnnotationLinesAdded;/* SC_MOD_CHANGEANNOTATION */
+        public int Updated;                   /* SCN_UPDATEUI */
+        public int ListCompletionMethod;   /* SCN_AUTOCSELECTION, SCN_AUTOCCOMPLETED, SCN_USERLISTSELECTION */
 
         /// <summary>
         /// SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION
