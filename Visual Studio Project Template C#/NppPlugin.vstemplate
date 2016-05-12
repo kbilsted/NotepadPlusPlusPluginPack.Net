@@ -42,6 +42,7 @@
         <ProjectItem ReplaceParameters="false" TargetFileName="MenuCmdID_h.cs">MenuCmdID_h.cs</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="Msgs_h.cs">Msgs_h.cs</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="Scintilla_iface.cs">Scintilla_iface.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="ClikeStringArray.cs">ClikeStringArray.cs</ProjectItem>
       </Folder>
       <ProjectItem ReplaceParameters="true" TargetFileName="Main.cs" OpenInEditor="true">Main.cs</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="NppPluginNETBase.cs">NppPluginNETBase.cs</ProjectItem>
