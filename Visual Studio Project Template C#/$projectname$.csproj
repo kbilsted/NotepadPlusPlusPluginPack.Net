@@ -50,6 +50,7 @@
     <Compile Include="Forms\frmMyDlg.Designer.cs">
       <DependentUpon>frmMyDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Integration\Win32.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="GatewayDomain.cs" />
     <Compile Include="ScintillaGateway.cs" />

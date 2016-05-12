@@ -52,6 +52,9 @@
     <Compile Include="..\..\Visual Studio Project Template C#\Integration\ClikeStringArray.cs">
       <Link>Integration\ClikeStringArray.cs</Link>
     </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\Integration\Win32.cs">
+      <Link>Integration\Win32.cs</Link>
+    </Compile>
     <Compile Include="..\..\Visual Studio Project Template C#\ScintillaGateway.cs">
       <Link>ScintillaGateway.cs</Link>
     </Compile>
