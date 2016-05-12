@@ -6,12 +6,9 @@ namespace Kbg.NppPluginNET
 {
     class PluginBase
     {
-        #region " Fields "
         internal static NppData nppData;
         internal static FuncItems _funcItems = new FuncItems();
-        #endregion
 
-        #region " Helper "
         internal static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer)
         {
             SetCommand(index, commandName, functionPointer, new ShortcutKey(), false);
@@ -43,6 +40,5 @@ namespace Kbg.NppPluginNET
             Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_GETCURRENTSCINTILLA, 0, out curScintilla);
             return (curScintilla == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
         }
-        #endregion
     }
 }

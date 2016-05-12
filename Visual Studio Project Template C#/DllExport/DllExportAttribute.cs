@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Kbg.NppPluginNET;
 
 namespace NppPlugin.DllExport
 {
@@ -10,26 +9,20 @@ namespace NppPlugin.DllExport
         public DllExportAttribute()
         {
         }
+
         public DllExportAttribute(string exportName)
             : this(exportName, CallingConvention.StdCall)
         {
         }
+
         public DllExportAttribute(string exportName, CallingConvention callingConvention)
         {
             ExportName = exportName;
             CallingConvention = callingConvention;
         }
-        CallingConvention _callingConvention;
-        public CallingConvention CallingConvention
-        {
-            get { return _callingConvention; }
-            set { _callingConvention = value; }
-        }
-        string _exportName;
-        public string ExportName
-        {
-            get { return _exportName; }
-            set { _exportName = value; }
-        }
+
+        public CallingConvention CallingConvention { get; set; }
+
+        public string ExportName { get; set; }
     }
 }
