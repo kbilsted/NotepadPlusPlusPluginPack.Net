@@ -10,12 +10,12 @@ using System.Runtime.InteropServices;
 
 namespace Kbg.NppPluginNET.PluginInfrastructure
 {
-	/// <summary>
-	/// Compatible with Windows NMHDR.
-	/// hwndFrom is really an environment specific window handle or pointer
-	/// but most clients of Scintilla.h do not have this type visible. 
-	/// </summary>
-	[StructLayout(LayoutKind.Sequential)]
+    /// <summary>
+    /// Compatible with Windows NMHDR.
+    /// hwndFrom is really an environment specific window handle or pointer
+    /// but most clients of Scintilla.h do not have this type visible. 
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
     public struct Sci_NotifyHeader
     {
         public IntPtr hwndFrom; //! environment specific window handle/pointer
@@ -28,7 +28,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     {
         public Sci_NotifyHeader nmhdr;
         private int position;               /* SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
-        public int ch;                     /* SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION */
+        public int character;                     /* SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION */
         public int modifiers;              /* SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE */
         public int modificationType;    /* SCN_MODIFIED */
         public IntPtr text;                /* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_URIDROPPED */
@@ -53,6 +53,12 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION
         /// </summary>
         public Position Position { get { return new Position(position); } }
+
+        /// <summary>
+        /// Character of the notification - eg keydown
+        /// SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION 
+        /// </summary>
+        public char Character { get { return (char) character; } }
     }
 
     [Flags]
