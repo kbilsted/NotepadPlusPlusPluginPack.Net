@@ -1,5 +1,5 @@
 ﻿using System;
-using Kbg.NppPluginNET.Integration;
+using Kbg.NppPluginNET.PluginInfrastructure;
 
 namespace Kbg.NppPluginNET
 {

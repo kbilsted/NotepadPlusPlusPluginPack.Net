@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Kbg.NppPluginNET.Integration
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
     public class ClikeStringArray : IDisposable
     {

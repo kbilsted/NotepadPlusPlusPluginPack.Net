@@ -2,9 +2,8 @@ using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
-using Kbg.NppPluginNET.Integration;
 
-namespace NppPluginNET.Integration
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
     public class Win32
     {

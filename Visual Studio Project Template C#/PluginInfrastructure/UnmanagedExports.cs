@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Kbg.NppPluginNET.Integration;
+using Kbg.NppPluginNET.PluginInfrastructure;
 using NppPlugin.DllExport;
 
 namespace Kbg.NppPluginNET

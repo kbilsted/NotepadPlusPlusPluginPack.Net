@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Kbg.NppPluginNET;
-using NppPluginNET.Integration;
+using Kbg.NppPluginNET.PluginInfrastructure;
 
 namespace Kbg.Demo.Namespace
 {

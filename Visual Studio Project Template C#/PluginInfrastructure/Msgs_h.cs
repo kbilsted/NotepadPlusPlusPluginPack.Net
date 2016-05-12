@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Kbg.NppPluginNET.Integration
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
     class Constants
     {

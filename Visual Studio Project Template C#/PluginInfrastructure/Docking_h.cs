@@ -8,7 +8,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Kbg.NppPluginNET.Integration
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
 
     [Flags]

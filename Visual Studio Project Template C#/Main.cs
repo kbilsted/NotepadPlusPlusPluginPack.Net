@@ -5,13 +5,12 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using Kbg.NppPluginNET.Integration;
+using Kbg.NppPluginNET.PluginInfrastructure;
 
 namespace Kbg.NppPluginNET
 {
     class Main
     {
-        #region " Fields "
         internal const string PluginName = "$safeprojectname$";
         static string iniFilePath = null;
         static bool someSetting = false;
@@ -20,9 +19,7 @@ namespace Kbg.NppPluginNET
         static Bitmap tbBmp = Properties.Resources.star;
         static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
         static Icon tbIcon = null;
-        #endregion
 
-        #region " StartUp/CleanUp "
         internal static void CommandMenuInit()
         {
             StringBuilder sbIniFilePath = new StringBuilder(Win32.MAX_PATH);
@@ -48,13 +45,13 @@ namespace Kbg.NppPluginNET
         {
             Win32.WritePrivateProfileString("SomeSection", "SomeKey", someSetting ? "1" : "0", iniFilePath);
         }
-        #endregion
 
-        #region " Menu functions "
+
         internal static void myMenuFunction()
         {
             MessageBox.Show("Hello N++!");
         }
+
         internal static void myDockableDialog()
         {
             if (frmMyDlg == null)
@@ -91,6 +88,5 @@ namespace Kbg.NppPluginNET
                 Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMSHOW, 0, frmMyDlg.Handle);
             }
         }
-        #endregion
     }
 }

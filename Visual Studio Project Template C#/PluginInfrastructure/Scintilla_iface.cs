@@ -8,14 +8,16 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Kbg.NppPluginNET.Integration
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
-    [StructLayout(LayoutKind.Sequential)]
+	/// <summary>
+	/// Compatible with Windows NMHDR.
+	/// hwndFrom is really an environment specific window handle or pointer
+	/// but most clients of Scintilla.h do not have this type visible. 
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
     public struct Sci_NotifyHeader
     {
-        /* Compatible with Windows NMHDR.
-         * hwndFrom is really an environment specific window handle or pointer
-         * but most clients of Scintilla.h do not have this type visible. */
         public IntPtr hwndFrom; //! environment specific window handle/pointer
         public uint idFrom;     //! CtrlID of the window issuing the notification
         public uint code;       //! The SCN_* notification code

@@ -204,9 +204,9 @@ def printLexIGatewayFile(f):
 def main():
 	f = Face.Face()
 	f.ReadFromFile("../../../notepad-plus-plus/scintilla/include/Scintilla.iface")
-	Regenerate("../../Visual Studio Project Template C#/Integration/Scintilla_iface.cs", "/* ", printLexCSFile(f))
-	Regenerate("../../Visual Studio Project Template C#/ScintillaGateWay.cs", "/* ", printLexGatewayFile(f))
-	Regenerate("../../Visual Studio Project Template C#/IScintillaGateWay.cs", "/* ", printLexIGatewayFile(f))
+	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/Scintilla_iface.cs", "/* ", printLexCSFile(f))
+	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/ScintillaGateWay.cs", "/* ", printLexGatewayFile(f))
+	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/IScintillaGateWay.cs", "/* ", printLexIGatewayFile(f))
 
 
 if __name__ == "__main__":

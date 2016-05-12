@@ -46,44 +46,44 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\Visual Studio Project Template C#\DllExport\DllExportAttribute.cs">
-      <Link>DllExport\DllExportAttribute.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\DllExport\DllExportAttribute.cs">
+      <Link>PluginInfrastructure\DllExport\DllExportAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\Integration\ClikeStringArray.cs">
-      <Link>Integration\ClikeStringArray.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\ClikeStringArray.cs">
+      <Link>PluginInfrastructure\ClikeStringArray.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\Integration\Win32.cs">
-      <Link>Integration\Win32.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\Win32.cs">
+      <Link>PluginInfrastructure\Win32.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\ScintillaGateway.cs">
-      <Link>ScintillaGateway.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\ScintillaGateway.cs">
+      <Link>PluginInfrastructure\ScintillaGateway.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\IScintillaGateway.cs">
-      <Link>IScintillaGateway.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\IScintillaGateway.cs">
+      <Link>PluginInfrastructure\IScintillaGateway.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\GatewayDomain.cs">
-      <Link>GatewayDomain.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\GatewayDomain.cs">
+      <Link>PluginInfrastructure\GatewayDomain.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\Integration\Docking_h.cs">
-      <Link>Integration\Docking_h.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\Docking_h.cs">
+      <Link>PluginInfrastructure\Docking_h.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\Integration\MenuCmdID_h.cs">
-      <Link>Integration\MenuCmdID_h.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\MenuCmdID_h.cs">
+      <Link>PluginInfrastructure\MenuCmdID_h.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\Integration\Msgs_h.cs">
-      <Link>Integration\Msgs_h.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\Msgs_h.cs">
+      <Link>PluginInfrastructure\Msgs_h.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\Integration\Scintilla_iface.cs">
-      <Link>Integration\Scintilla_iface.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\Scintilla_iface.cs">
+      <Link>PluginInfrastructure\Scintilla_iface.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\NppPluginNETBase.cs">
-      <Link>NppPluginNETBase.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\NppPluginNETBase.cs">
+      <Link>PluginInfrastructure\NppPluginNETBase.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\NppPluginNETHelper.cs">
-      <Link>NppPluginNETHelper.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\NppPluginNETHelper.cs">
+      <Link>PluginInfrastructure\NppPluginNETHelper.cs</Link>
     </Compile>
-    <Compile Include="..\..\Visual Studio Project Template C#\UnmanagedExports.cs">
-      <Link>UnmanagedExports.cs</Link>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\UnmanagedExports.cs">
+      <Link>PluginInfrastructure\UnmanagedExports.cs</Link>
     </Compile>
     <Compile Include="Forms\frmGoToLine.cs">
       <SubType>Form</SubType>
@@ -116,7 +116,7 @@
     <Content Include="Properties\star_bmp.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildProjectDirectory)\DllExport\NppPlugin.DllExport.targets" />
+  <Import Project="$(MSBuildProjectDirectory)\PluginInfrastructure\DllExport\NppPlugin.DllExport.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

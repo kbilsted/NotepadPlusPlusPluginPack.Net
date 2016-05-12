@@ -5,7 +5,7 @@
 // found at
 // https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/menuCmdID.h
 
-namespace Kbg.NppPluginNET.Integration
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
     public enum NppMenuCmd : uint
     {
