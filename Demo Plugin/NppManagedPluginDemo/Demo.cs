@@ -33,10 +33,6 @@ namespace Kbg.NppPluginNET
             Kbg.Demo.Namespace.Main.SetToolBarIcon();
         }
 
-        static internal void OnCharAdded(char newChar)
-        {
-        }
-
         public static void OnNotification(ScNotification notification)
         {
             if (notification.Header.code == (uint)SciMsg.SCN_CHARADDED)
@@ -264,59 +260,62 @@ namespace Kbg.Demo.Namespace
             int i = Win32.CheckMenuItem(Win32.GetMenu(PluginBase.nppData._nppHandle), PluginBase._funcItems.Items[9]._cmdID,
                 Win32.MF_BYCOMMAND | (doCloseTag ? Win32.MF_CHECKED : Win32.MF_UNCHECKED));
         }
+
+        static Regex regex = new Regex(@"[\._\-:\w]", RegexOptions.Compiled);
+
         static internal void doInsertHtmlCloseTag(char newChar)
         {
             LangType docType = LangType.L_TEXT;
             Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETCURRENTLANGTYPE, 0, ref docType);
             bool isDocTypeHTML = (docType == LangType.L_HTML || docType == LangType.L_XML || docType == LangType.L_PHP);
-            if (doCloseTag && isDocTypeHTML)
+
+            if (!doCloseTag || !isDocTypeHTML)
+                return;
+
+            if (newChar != '>')
+                return;
+
+            int bufCapacity = 512;
+            var pos = editor.GetCurrentPos();
+            int currentPos = pos.Value;
+            int beginPos = currentPos - (bufCapacity - 1);
+            int startPos = (beginPos > 0) ? beginPos : 0;
+            int size = currentPos - startPos;
+
+            if (size < 3)
+                return;
+
+            using (TextRange tr = new TextRange(startPos, currentPos, bufCapacity))
             {
-                if (newChar == '>')
+                editor.GetTextRange(tr);
+                string buf = tr.lpstrText;
+
+                if (buf[size - 2] == '/')
+                    return;
+
+                int pCur = size - 2;
+                while ((pCur > 0) && (buf[pCur] != '<') && (buf[pCur] != '>'))
+                    pCur--;
+
+                if (buf[pCur] == '<')
                 {
-                    int bufCapacity = 512;
-                    var pos = editor.GetCurrentPos();
-                    int currentPos = pos.Value;
-                    int beginPos = currentPos - (bufCapacity - 1);
-                    int startPos = (beginPos > 0) ? beginPos : 0;
-                    int size = currentPos - startPos;
+                    pCur++;
 
-                    if (size >= 3)
+                    var insertString = new StringBuilder("</");
+
+                    while (regex.IsMatch(buf[pCur].ToString()))
                     {
-                        using (TextRange tr = new TextRange(startPos, currentPos, bufCapacity))
-                        {
-                            editor.GetTextRange(tr);
-                            string buf = tr.lpstrText;
+                        insertString.Append(buf[pCur]);
+                        pCur++;
+                    }
+                    insertString.Append('>');
 
-                            if (buf[size - 2] != '/')
-                            {
-                                StringBuilder insertString = new StringBuilder("</");
-
-                                int pCur = size - 2;
-                                for (; (pCur > 0) && (buf[pCur] != '<') && (buf[pCur] != '>'); )
-                                    pCur--;
-
-                                if (buf[pCur] == '<')
-                                {
-                                    pCur++;
-
-                                    Regex regex = new Regex(@"[\._\-:\w]");
-                                    while (regex.IsMatch(buf[pCur].ToString()))
-                                    {
-                                        insertString.Append(buf[pCur]);
-                                        pCur++;
-                                    }
-                                    insertString.Append('>');
-
-                                    if (insertString.Length > 3)
-                                    {
-                                        editor.BeginUndoAction();
-                                        editor.ReplaceSel(insertString.ToString());
-                                        editor.SetSel(pos, pos);
-                                        editor.EndUndoAction();
-                                    }
-                                }
-                            }
-                        }
+                    if (insertString.Length > 3)
+                    {
+                        editor.BeginUndoAction();
+                        editor.ReplaceSel(insertString.ToString());
+                        editor.SetSel(pos, pos);
+                        editor.EndUndoAction();
                     }
                 }
             }
