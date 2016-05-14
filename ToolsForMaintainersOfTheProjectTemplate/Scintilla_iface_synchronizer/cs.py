@@ -83,6 +83,27 @@ def getParameterList(param1Type, param1Name, param2Type, param2Name):
 	separator = ", " if first and second else ""
 	return first + separator + second
 
+#def printEnumDefinitions(f):
+#	out = []
+#	for name in f.order:
+#		v = f.features[name]
+#
+#		iindent = indent + "    "
+#
+#		if v["FeatureType"] in ["enu"]:
+#			appendComment(indent, out, v)
+#			prefix = v["Value"]
+#			out.append(indent + "public enum " + name)
+#			out.append(indent + "{")
+#			for ename in f.order:
+#				ve = f.features[ename]
+#				if ve["FeatureType"] in ["val"]:
+#					if ename.startswith(prefix):
+#						out.append(iindent + ename[len(prefix):] + " = " + ve["Value"] + "," )
+#
+#			out.append(indent + "}")
+#	return out
+
 def printLexGatewayFile(f):
 	out = []
 	for name in f.order:
@@ -207,6 +228,7 @@ def main():
 	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/Scintilla_iface.cs", "/* ", printLexCSFile(f))
 	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/ScintillaGateWay.cs", "/* ", printLexGatewayFile(f))
 	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/IScintillaGateWay.cs", "/* ", printLexIGatewayFile(f))
+#	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/gatewaydomain.cs", "/* ", printEnumDefinitions(f))
 
 
 if __name__ == "__main__":

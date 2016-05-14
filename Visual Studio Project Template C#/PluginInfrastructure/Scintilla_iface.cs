@@ -13,7 +13,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     /// <summary>
     /// Compatible with Windows NMHDR.
     /// hwndFrom is really an environment specific window handle or pointer
-    /// but most clients of Scintilla.h do not have this type visible. 
+    /// but most clients of Scintilla.h do not have this type visible.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct ScNotificationHeader
@@ -59,7 +59,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 
         /// <summary>
         /// Character of the notification - eg keydown
-        /// SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION 
+        /// SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION
         /// </summary>
         public char Character { get { return (char) character; } }
     }

@@ -113,6 +113,8 @@ class Face:
 						self.features[name] = { 
 							"FeatureType": featureType, 
 							"Category": currentCategory, 
-							"Value": value }
+							"Value": value,
+							"Comment": currentComment
+							}
 						self.order.append(name)
 

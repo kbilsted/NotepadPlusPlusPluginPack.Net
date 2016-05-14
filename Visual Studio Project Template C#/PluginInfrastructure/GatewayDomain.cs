@@ -7,9 +7,9 @@ using Kbg.NppPluginNET.PluginInfrastructure;
 namespace Kbg.NppPluginNET
 {
     /// <summary>
-    /// Colours are set using the RGB format (Red, Green, Blue). The intensity of each colour is set in the range 0 to 255. 
-    /// If you have three such intensities, they are combined as: red | (green &lt;&lt; 8) | (blue &lt;&lt; 16). 
-    /// If you set all intensities to 255, the colour is white. If you set all intensities to 0, the colour is black. 
+    /// Colours are set using the RGB format (Red, Green, Blue). The intensity of each colour is set in the range 0 to 255.
+    /// If you have three such intensities, they are combined as: red | (green &lt;&lt; 8) | (blue &lt;&lt; 16).
+    /// If you set all intensities to 255, the colour is white. If you set all intensities to 0, the colour is black.
     /// When you set a colour, you are making a request. What you will get depends on the capabilities of the system and the current screen mode.
     /// </summary>
     public class Colour
@@ -49,17 +49,17 @@ namespace Kbg.NppPluginNET
     }
 
     /// <summary>
-    /// Positions within the Scintilla document refer to a character or the gap before that character. 
+    /// Positions within the Scintilla document refer to a character or the gap before that character.
     /// The first character in a document is 0, the second 1 and so on. If a document contains nLen characters, the last character is numbered nLen-1. The caret exists between character positions and can be located from before the first character (0) to after the last character (nLen).
     ///
-    /// There are places where the caret can not go where two character bytes make up one character. 
-    /// This occurs when a DBCS character from a language like Japanese is included in the document or when line ends are marked with the CP/M 
+    /// There are places where the caret can not go where two character bytes make up one character.
+    /// This occurs when a DBCS character from a language like Japanese is included in the document or when line ends are marked with the CP/M
     /// standard of a carriage return followed by a line feed.The INVALID_POSITION constant(-1) represents an invalid position within the document.
     ///
-    /// All lines of text in Scintilla are the same height, and this height is calculated from the largest font in any current style.This restriction 
+    /// All lines of text in Scintilla are the same height, and this height is calculated from the largest font in any current style.This restriction
     /// is for performance; if lines differed in height then calculations involving positioning of text would require the text to be styled first.
     ///
-    /// If you use messages, there is nothing to stop you setting a position that is in the middle of a CRLF pair, or in the middle of a 2 byte character. 
+    /// If you use messages, there is nothing to stop you setting a position that is in the middle of a CRLF pair, or in the middle of a 2 byte character.
     /// However, keyboard commands will not move the caret into such positions.
     /// </summary>
     public class Position : IEquatable<Position>
@@ -123,14 +123,14 @@ namespace Kbg.NppPluginNET
     }
 
     /// <summary>
-    /// Class containing key and modifiers 
+    /// Class containing key and modifiers
     ///
     /// The key code is a visible or control character or a key from the SCK_* enumeration, which contains:
     /// SCK_ADD, SCK_BACK, SCK_DELETE, SCK_DIVIDE, SCK_DOWN, SCK_END, SCK_ESCAPE, SCK_HOME, SCK_INSERT, SCK_LEFT, SCK_MENU, SCK_NEXT(Page Down), SCK_PRIOR(Page Up), S
     /// CK_RETURN, SCK_RIGHT, SCK_RWIN, SCK_SUBTRACT, SCK_TAB, SCK_UP, and SCK_WIN.
     ///
-    /// The modifiers are a combination of zero or more of SCMOD_ALT, SCMOD_CTRL, SCMOD_SHIFT, SCMOD_META, and SCMOD_SUPER. 
-    /// On OS X, the Command key is mapped to SCMOD_CTRL and the Control key to SCMOD_META.SCMOD_SUPER is only available on GTK+ which is commonly the Windows key. 
+    /// The modifiers are a combination of zero or more of SCMOD_ALT, SCMOD_CTRL, SCMOD_SHIFT, SCMOD_META, and SCMOD_SUPER.
+    /// On OS X, the Command key is mapped to SCMOD_CTRL and the Control key to SCMOD_META.SCMOD_SUPER is only available on GTK+ which is commonly the Windows key.
     /// If you are building a table, you might want to use SCMOD_NORM, which has the value 0, to mean no modifiers.
     /// </summary>
     public class KeyModifier
@@ -139,11 +139,11 @@ namespace Kbg.NppPluginNET
 
         /// <summary>
         /// The key code is a visible or control character or a key from the SCK_* enumeration, which contains:
-        /// SCK_ADD, SCK_BACK, SCK_DELETE, SCK_DIVIDE, SCK_DOWN, SCK_END, SCK_ESCAPE, SCK_HOME, SCK_INSERT, SCK_LEFT, SCK_MENU, SCK_NEXT(Page Down), SCK_PRIOR(Page Up), 
+        /// SCK_ADD, SCK_BACK, SCK_DELETE, SCK_DIVIDE, SCK_DOWN, SCK_END, SCK_ESCAPE, SCK_HOME, SCK_INSERT, SCK_LEFT, SCK_MENU, SCK_NEXT(Page Down), SCK_PRIOR(Page Up),
         /// SCK_RETURN, SCK_RIGHT, SCK_RWIN, SCK_SUBTRACT, SCK_TAB, SCK_UP, and SCK_WIN.
         ///
-        /// The modifiers are a combination of zero or more of SCMOD_ALT, SCMOD_CTRL, SCMOD_SHIFT, SCMOD_META, and SCMOD_SUPER. 
-        /// On OS X, the Command key is mapped to SCMOD_CTRL and the Control key to SCMOD_META.SCMOD_SUPER is only available on GTK+ which is commonly the Windows key. 
+        /// The modifiers are a combination of zero or more of SCMOD_ALT, SCMOD_CTRL, SCMOD_SHIFT, SCMOD_META, and SCMOD_SUPER.
+        /// On OS X, the Command key is mapped to SCMOD_CTRL and the Control key to SCMOD_META.SCMOD_SUPER is only available on GTK+ which is commonly the Windows key.
         /// If you are building a table, you might want to use SCMOD_NORM, which has the value 0, to mean no modifiers.
         /// </summary>
         public KeyModifier(SciMsg SCK_KeyCode, SciMsg SCMOD_modifier)
@@ -236,4 +236,9 @@ namespace Kbg.NppPluginNET
             Dispose();
         }
     }
+
+
+	/* ++Autogenerated -- start of section automatically generated from Scintilla.iface */
+	/* --Autogenerated -- end of section automatically generated from Scintilla.iface */
+
 }
