@@ -1,3 +1,4 @@
+﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
 using System;
 using System.IO;
 using System.Text;

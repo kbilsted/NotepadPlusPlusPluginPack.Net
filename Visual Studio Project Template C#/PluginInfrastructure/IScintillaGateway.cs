@@ -1,4 +1,5 @@
-﻿using System;
+﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
+using System;
 using Kbg.NppPluginNET.PluginInfrastructure;
 
 namespace Kbg.NppPluginNET
@@ -9,6 +10,9 @@ namespace Kbg.NppPluginNET
     }
 
 	/// <summary>
+	/// This it the plugin-writers primary interface to Notepad++/Scintilla.
+	/// It takes away all the complexity with command numbers and Int-pointer casting.
+	///
 	/// See http://www.scintilla.org/ScintillaDoc.html for further details.
 	/// </summary>
 	public interface IScintillaGateway
@@ -18,9 +22,6 @@ namespace Kbg.NppPluginNET
         unsafe string GetSelectedText();
         unsafe void ReplaceSelectedText(string newText);
         unsafe void AppendTextAndMoveCursor(string text);
-
-
-
 
 
 
