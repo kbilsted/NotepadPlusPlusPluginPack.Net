@@ -5,13 +5,12 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using NppPluginNET;
+using Kbg.NppPluginNET.PluginInfrastructure;
 
-namespace $safeprojectname$
+namespace Kbg.NppPluginNET
 {
     class Main
     {
-        #region " Fields "
         internal const string PluginName = "$safeprojectname$";
         static string iniFilePath = null;
         static bool someSetting = false;
@@ -20,9 +19,11 @@ namespace $safeprojectname$
         static Bitmap tbBmp = Properties.Resources.star;
         static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
         static Icon tbIcon = null;
-        #endregion
 
-        #region " StartUp/CleanUp "
+        public static void OnNotification(SCNotification notification)
+        {  
+        }
+
         internal static void CommandMenuInit()
         {
             StringBuilder sbIniFilePath = new StringBuilder(Win32.MAX_PATH);
@@ -35,6 +36,7 @@ namespace $safeprojectname$
             PluginBase.SetCommand(0, "MyMenuCommand", myMenuFunction, new ShortcutKey(false, false, false, Keys.None));
             PluginBase.SetCommand(1, "MyDockableDialog", myDockableDialog); idMyDlg = 1;
         }
+
         internal static void SetToolBarIcon()
         {
             toolbarIcons tbIcons = new toolbarIcons();
@@ -44,17 +46,18 @@ namespace $safeprojectname$
             Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_ADDTOOLBARICON, PluginBase._funcItems.Items[idMyDlg]._cmdID, pTbIcons);
             Marshal.FreeHGlobal(pTbIcons);
         }
+
         internal static void PluginCleanUp()
         {
             Win32.WritePrivateProfileString("SomeSection", "SomeKey", someSetting ? "1" : "0", iniFilePath);
         }
-        #endregion
 
-        #region " Menu functions "
+
         internal static void myMenuFunction()
         {
             MessageBox.Show("Hello N++!");
         }
+
         internal static void myDockableDialog()
         {
             if (frmMyDlg == null)
@@ -91,6 +94,5 @@ namespace $safeprojectname$
                 Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMSHOW, 0, frmMyDlg.Handle);
             }
         }
-        #endregion
     }
 }

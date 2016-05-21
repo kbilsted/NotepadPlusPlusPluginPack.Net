@@ -1,4 +1,4 @@
-﻿namespace $safeprojectname$
+﻿namespace Kbg.NppPluginNET
 {
     partial class frmMyDlg
     {

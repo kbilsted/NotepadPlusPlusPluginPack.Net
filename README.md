@@ -3,11 +3,11 @@
 This is a fork of UFO's plugin package updated for VS2015
 
 ## Getting started
-  1. Download a [release](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases/)
-  2. Place the visual studio project template in the visual studio path (see [instructions](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/blob/master/Visual%20Studio%20Project%20Template%20C%23/HOW-TO-INSTALL-ME.txt) inside the release)
-  3. Create a new Notepad++ project inside Visual studio
-  4. Build and copy dll to the Notepad++/plugins folder
-  5. DONE!
+  1. Download a [release](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases/) and unzip it
+  2. Place the visual studio project template (the `Visual Studio Project Template C#\NppPlugin.zip`) in the visual studio path (see [instructions](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/blob/master/Visual%20Studio%20Project%20Template%20C%23/HOW-TO-INSTALL-ME.txt) inside the release)
+  3. Create a new *Notepad++ project* inside Visual studio
+  4. Build (building will copy the dll to the Notepad++/plugins folder)
+  5. Start Notepad++ and activate your plugin from the plugins menu
 
 ## Content information
 This package contains two folders:

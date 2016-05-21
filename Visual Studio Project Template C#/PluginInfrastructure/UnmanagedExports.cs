@@ -1,5 +1,7 @@
-﻿using System;
+﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
+using System;
 using System.Runtime.InteropServices;
+using Kbg.NppPluginNET.PluginInfrastructure;
 using NppPlugin.DllExport;
 
 namespace Kbg.NppPluginNET
@@ -44,20 +46,20 @@ namespace Kbg.NppPluginNET
         [DllExport(CallingConvention = CallingConvention.Cdecl)]
         static void beNotified(IntPtr notifyCode)
         {
-            SCNotification nc = (SCNotification)Marshal.PtrToStructure(notifyCode, typeof(SCNotification));
-            if (nc.nmhdr.code == (uint)NppMsg.NPPN_TBMODIFICATION)
+            ScNotification notification = (ScNotification)Marshal.PtrToStructure(notifyCode, typeof(ScNotification));
+            if (notification.Header.code == (uint)NppMsg.NPPN_TBMODIFICATION)
             {
                 PluginBase._funcItems.RefreshItems();
                 Main.SetToolBarIcon();
             }
-            else if (nc.nmhdr.code == (uint)SciMsg.SCN_CHARADDED)
-            {
-                Main.OnCharAdded((char)nc.ch);
-            }
-            else if (nc.nmhdr.code == (uint)NppMsg.NPPN_SHUTDOWN)
+            else if (notification.Header.code == (uint)NppMsg.NPPN_SHUTDOWN)
             {
                 Main.PluginCleanUp();
                 Marshal.FreeHGlobal(_ptrPluginName);
+            }
+            else
+            {
+	            Main.OnNotification(notification);
             }
         }
     }

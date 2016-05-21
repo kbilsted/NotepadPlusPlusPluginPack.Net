@@ -1,11 +1,11 @@
-// NPP plugin for .Net by Kasper Graversen
+ï»¿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
 //
 // This file should stay in sync with the CPP project file
 // "notepad-plus-plus/PowerEditor/src/menuCmdID.h"
 // found at
 // https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/PowerEditor/src/menuCmdID.h
 
-namespace Kbg.NppPluginNET
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
     public enum NppMenuCmd : uint
     {
@@ -31,7 +31,7 @@ namespace Kbg.NppPluginNET
         IDM_FILE_DELETE = (IDM_FILE + 16),
         IDM_FILE_RENAME = (IDM_FILE + 17),
 
-        // A mettre à jour si on ajoute nouveau menu item dans le menu "File"
+        // A mettre ï¿½ jour si on ajoute nouveau menu item dans le menu "File"
         IDM_FILEMENU_LASTONE = IDM_FILE_RENAME,
 
         IDM_EDIT = (IDM + 2000),

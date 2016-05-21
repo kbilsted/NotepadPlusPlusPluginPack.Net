@@ -1,4 +1,4 @@
-// NPP plugin for .Net by Kasper Graversen
+﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
 //
 // This file should stay in sync with the CPP project file
 // "notepad-plus-plus/scintilla/include/Scintilla.iface"
@@ -8,44 +8,60 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Kbg.NppPluginNET
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
+    /// <summary>
+    /// Compatible with Windows NMHDR.
+    /// hwndFrom is really an environment specific window handle or pointer
+    /// but most clients of Scintilla.h do not have this type visible.
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct Sci_NotifyHeader
+    public struct ScNotificationHeader
     {
-        /* Compatible with Windows NMHDR.
-         * hwndFrom is really an environment specific window handle or pointer
-         * but most clients of Scintilla.h do not have this type visible. */
         public IntPtr hwndFrom; //! environment specific window handle/pointer
         public uint idFrom;     //! CtrlID of the window issuing the notification
         public uint code;       //! The SCN_* notification code
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SCNotification
+    public struct ScNotification
     {
-        public Sci_NotifyHeader nmhdr;
-        public int position;               /* SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
-        public int ch;                     /* SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION */
-        public int modifiers;              /* SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE */
-        public int modificationType;    /* SCN_MODIFIED */
-        public IntPtr text;                /* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_URIDROPPED */
-        public int length;                /* SCN_MODIFIED */
-        public int linesAdded;            /* SCN_MODIFIED */
-        public int message;                /* SCN_MACRORECORD */
+        public ScNotificationHeader Header;
+        private int position;               /* SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
+        public int character;                     /* SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION */
+        public int Mmodifiers;              /* SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE */
+        public int ModificationType;    /* SCN_MODIFIED */
+        public IntPtr TextPointer;                /* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_URIDROPPED */
+        public int Length;                /* SCN_MODIFIED */
+        public int LinesAdded;            /* SCN_MODIFIED */
+        public int Message;                /* SCN_MACRORECORD */
         public uint wParam;                /* SCN_MACRORECORD */
         public int lParam;                /* SCN_MACRORECORD */
-        public int line;                /* SCN_MODIFIED */
-        public int foldLevelNow;        /* SCN_MODIFIED */
-        public int foldLevelPrev;        /* SCN_MODIFIED */
-        public int margin;                /* SCN_MARGINCLICK */
-        public int listType;            /* SCN_USERLISTSELECTION */
-        public int x;                    /* SCN_DWELLSTART, SCN_DWELLEND */
-        public int y;                    /* SCN_DWELLSTART, SCN_DWELLEND */
-        public int token;                /* SCN_MODIFIED with SC_MOD_CONTAINER */
-        public int annotationLinesAdded;/* SC_MOD_CHANGEANNOTATION */
-        public int updated;                   /* SCN_UPDATEUI */
-        public int listCompletionMethod;   /* SCN_AUTOCSELECTION, SCN_AUTOCCOMPLETED, SCN_USERLISTSELECTION */
+        /// <summary>
+        /// 0-based index
+        /// </summary>
+        public int LineNumber;                /* SCN_MODIFIED */
+        public int FoldLevelNow;        /* SCN_MODIFIED */
+        public int FoldLevelPrev;        /* SCN_MODIFIED */
+        public int Margin;                /* SCN_MARGINCLICK */
+        public int ListType;            /* SCN_USERLISTSELECTION */
+        public int X;                    /* SCN_DWELLSTART, SCN_DWELLEND */
+        public int Y;                    /* SCN_DWELLSTART, SCN_DWELLEND */
+        public int Token;                /* SCN_MODIFIED with SC_MOD_CONTAINER */
+        public int AnnotationLinesAdded;/* SC_MOD_CHANGEANNOTATION */
+        public int Updated;                   /* SCN_UPDATEUI */
+        public int ListCompletionMethod;   /* SCN_AUTOCSELECTION, SCN_AUTOCCOMPLETED, SCN_USERLISTSELECTION */
+
+        /// <summary>
+        /// SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION
+        /// </summary>
+        public Position Position { get { return new Position(position); } }
+
+        /// <summary>
+        /// Character of the notification - eg keydown
+        /// SCN_CHARADDED, SCN_KEY, SCN_AUTOCCOMPLETE, SCN_AUTOCSELECTION, SCN_USERLISTSELECTION
+        /// </summary>
+        public char Character { get { return (char) character; } }
     }
 
     [Flags]
@@ -2940,81 +2956,30 @@ namespace Kbg.NppPluginNET
         SC_SEARCHRESULT_LINEBUFFERMAXLENGTH = 1024
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Sci_CharacterRange
+    public class TextToFind : IDisposable
     {
-        public Sci_CharacterRange(int cpmin, int cpmax) { cpMin = cpmin; cpMax = cpmax; }
-        public int cpMin;
-        public int cpMax;
-    }
-
-    public class Sci_TextRange : IDisposable
-    {
-        _Sci_TextRange _sciTextRange;
-        IntPtr _ptrSciTextRange;
-        bool _disposed = false;
-
-        public Sci_TextRange(Sci_CharacterRange chrRange, int stringCapacity)
-        {
-            _sciTextRange.chrg = chrRange;
-            _sciTextRange.lpstrText = Marshal.AllocHGlobal(stringCapacity);
-        }
-        public Sci_TextRange(int cpmin, int cpmax, int stringCapacity)
-        {
-            _sciTextRange.chrg.cpMin = cpmin;
-            _sciTextRange.chrg.cpMax = cpmax;
-            _sciTextRange.lpstrText = Marshal.AllocHGlobal(stringCapacity);
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        struct _Sci_TextRange
-        {
-            public Sci_CharacterRange chrg;
-            public IntPtr lpstrText;
-        }
-
-        public IntPtr NativePointer { get { _initNativeStruct(); return _ptrSciTextRange; } }
-        public string lpstrText { get { _readNativeStruct(); return Marshal.PtrToStringAnsi(_sciTextRange.lpstrText); } }
-        public Sci_CharacterRange chrg { get { _readNativeStruct(); return _sciTextRange.chrg; } set { _sciTextRange.chrg = value; _initNativeStruct(); } }
-        void _initNativeStruct()
-        {
-            if (_ptrSciTextRange == IntPtr.Zero)
-                _ptrSciTextRange = Marshal.AllocHGlobal(Marshal.SizeOf(_sciTextRange));
-            Marshal.StructureToPtr(_sciTextRange, _ptrSciTextRange, false);
-        }
-        void _readNativeStruct()
-        {
-            if (_ptrSciTextRange != IntPtr.Zero)
-                _sciTextRange = (_Sci_TextRange)Marshal.PtrToStructure(_ptrSciTextRange, typeof(_Sci_TextRange));
-        }
-
-        public void Dispose()
-        {
-            if (!_disposed)
-            {
-                if (_sciTextRange.lpstrText != IntPtr.Zero) Marshal.FreeHGlobal(_sciTextRange.lpstrText);
-                if (_ptrSciTextRange != IntPtr.Zero) Marshal.FreeHGlobal(_ptrSciTextRange);
-                _disposed = true;
-            }
-        }
-        ~Sci_TextRange()
-        {
-            Dispose();
-        }
-    }
-
-    public class Sci_TextToFind : IDisposable
-    {
-        _Sci_TextToFind _sciTextToFind;
+        Sci_TextToFind _sciTextToFind;
         IntPtr _ptrSciTextToFind;
         bool _disposed = false;
 
-        public Sci_TextToFind(Sci_CharacterRange chrRange, string searchText)
+        /// <summary>
+        /// text to find
+        /// </summary>
+        /// <param name="chrRange">range to search</param>
+        /// <param name="searchText">the search pattern</param>
+        public TextToFind(CharacterRange chrRange, string searchText)
         {
             _sciTextToFind.chrg = chrRange;
             _sciTextToFind.lpstrText = Marshal.StringToHGlobalAnsi(searchText);
         }
-        public Sci_TextToFind(int cpmin, int cpmax, string searchText)
+
+        /// <summary>
+        /// text to find
+        /// </summary>
+        /// <param name="cpmin">range to search</param>
+        /// <param name="cpmax">range to search</param>
+        /// <param name="searchText">the search pattern</param>
+        public TextToFind(int cpmin, int cpmax, string searchText)
         {
             _sciTextToFind.chrg.cpMin = cpmin;
             _sciTextToFind.chrg.cpMax = cpmax;
@@ -3022,28 +2987,31 @@ namespace Kbg.NppPluginNET
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        struct _Sci_TextToFind
+        struct Sci_TextToFind
         {
-            public Sci_CharacterRange chrg;
+            public CharacterRange chrg;
             public IntPtr lpstrText;
-            public Sci_CharacterRange chrgText;
+            public CharacterRange chrgText;
         }
 
         public IntPtr NativePointer { get { _initNativeStruct(); return _ptrSciTextToFind; } }
         public string lpstrText { set { _freeNativeString(); _sciTextToFind.lpstrText = Marshal.StringToHGlobalAnsi(value); } }
-        public Sci_CharacterRange chrg { get { _readNativeStruct(); return _sciTextToFind.chrg; } set { _sciTextToFind.chrg = value; _initNativeStruct(); } }
-        public Sci_CharacterRange chrgText { get { _readNativeStruct(); return _sciTextToFind.chrgText; } }
+        public CharacterRange chrg { get { _readNativeStruct(); return _sciTextToFind.chrg; } set { _sciTextToFind.chrg = value; _initNativeStruct(); } }
+        public CharacterRange chrgText { get { _readNativeStruct(); return _sciTextToFind.chrgText; } }
+
         void _initNativeStruct()
         {
             if (_ptrSciTextToFind == IntPtr.Zero)
                 _ptrSciTextToFind = Marshal.AllocHGlobal(Marshal.SizeOf(_sciTextToFind));
             Marshal.StructureToPtr(_sciTextToFind, _ptrSciTextToFind, false);
         }
+
         void _readNativeStruct()
         {
             if (_ptrSciTextToFind != IntPtr.Zero)
-                _sciTextToFind = (_Sci_TextToFind)Marshal.PtrToStructure(_ptrSciTextToFind, typeof(_Sci_TextToFind));
+                _sciTextToFind = (Sci_TextToFind)Marshal.PtrToStructure(_ptrSciTextToFind, typeof(Sci_TextToFind));
         }
+
         void _freeNativeString()
         {
             if (_sciTextToFind.lpstrText != IntPtr.Zero) Marshal.FreeHGlobal(_sciTextToFind.lpstrText);
@@ -3058,7 +3026,8 @@ namespace Kbg.NppPluginNET
                 _disposed = true;
             }
         }
-        ~Sci_TextToFind()
+
+        ~TextToFind()
         {
             Dispose();
         }

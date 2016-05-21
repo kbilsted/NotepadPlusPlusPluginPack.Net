@@ -1,4 +1,4 @@
-// NPP plugin for .Net by Kasper Graversen
+﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
 //
 // This file should stay in sync with the CPP project file
 // "notepad-plus-plus/PowerEditor/src/WinControls/DockingWnd/Docking.h"
@@ -8,7 +8,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Kbg.NppPluginNET
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
 
     [Flags]
