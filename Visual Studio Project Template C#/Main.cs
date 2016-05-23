@@ -20,7 +20,7 @@ namespace Kbg.NppPluginNET
         static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
         static Icon tbIcon = null;
 
-        public static void OnNotification(SCNotification notification)
+        public static void OnNotification(ScNotification notification)
         {  
         }
 
