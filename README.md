@@ -62,7 +62,6 @@ This package contains two folders:
     * Robert Giesecke: http://sites.google.com/site/robertgiesecke/Home/uploads/csharpprojecttemplateforunmanagedexports https://www.nuget.org/packages/UnmanagedExports
 
 
-## Requirements:
-  * works with .NET Runtime 2.0 and above
-  * UNICODE only! ANSI is doable, but not supported so far
+## About me
 
+I blog at http://firstclassthoughts.co.uk/ on code readability and quality
