@@ -10,6 +10,34 @@ This is a fork of UFO's plugin package updated for VS2015
   5. Build (building will copy the dll to the `Notepad++/plugins` folder)
   6. Start Notepad++ and activate your plugin from the plugins menu
 
+
+## Overall plugin architecture
+
+Plugins can interact with Notepad++ or the underlying Scintilla engine. The plugin pack provides two classes to make this interaction easier. This is `NotepadPlusPlusGateway` and `ScintillaGateWay` which are thin layers making interaction more pleasant (and testable!). 
+
+If you are interested in low-level access you can use the `Win32` api also included in the plugin pack. 
+
+The architecture of the plugin is.
+
+
+                   +-----------+ +-----------+
+                   | scintilla | | Notepad++ |
+                   +-----------+ +-----------+
+                        ^             ^
+                        |             |
+               +--------+--------+----+------------+                   
+               |                 |                 |
+     +------------------+ +----------------+ +-----------+ 
+     | scintillaGateway | | NotepadGateway | | Win32     |
+     +------------------+ +----------------+ +-----------+ 
+          ^                     ^                ^        
+          |                     |                |        
+          +-----------------+---+----------------+                   
+                            |              
+                       +-----------+ 
+                       | plugin    |
+                       +-----------+ 
+
 ## Content information
 This package contains two folders:
 
