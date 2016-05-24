@@ -168,21 +168,21 @@ namespace Kbg.Demo.Namespace
             {    
                 for ( ; i >= -10; i--)
                 {
-                    editor.SetZoomLevel(i);
+                    editor.SetZoom(i);
                     Thread.Sleep(30);
                 }
                 Thread.Sleep(100);
                 for ( ; i <= 20 ; i++)
                 {
                     Thread.Sleep(30);
-                    editor.SetZoomLevel(i);
+                    editor.SetZoom(i);
                 }
                 Thread.Sleep(100);
             }
             for ( ; i >= currentZoomLevel ; i--)
             {
                 Thread.Sleep(30);
-                editor.SetZoomLevel(i);
+                editor.SetZoom(i);
             }
         }
 

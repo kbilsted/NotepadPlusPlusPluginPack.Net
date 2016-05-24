@@ -18,9 +18,6 @@ namespace Kbg.NppPluginNET
 	public interface IScintillaGateway
     {
         int GetSelectionLength();
-        void SetZoomLevel(int zoomLevel);
-        unsafe string GetSelectedText();
-        unsafe void ReplaceSelectedText(string newText);
         unsafe void AppendTextAndMoveCursor(string text);
 
 

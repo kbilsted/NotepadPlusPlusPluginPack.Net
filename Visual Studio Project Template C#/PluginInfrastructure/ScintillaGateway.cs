@@ -19,7 +19,7 @@ namespace Kbg.NppPluginNET
 	///
 	/// See http://www.scintilla.org/ScintillaDoc.html for further details.
 	/// </summary>
-	public class ScintillaGateway : IScintillaGateway
+    public class ScintillaGateway : IScintillaGateway
     {
         private const int Unused = 0;
 
@@ -32,38 +32,8 @@ namespace Kbg.NppPluginNET
 
         public int GetSelectionLength()
         {
-            var selectionLength = (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETSELTEXT, 0, 0);
+            var selectionLength = (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETSELTEXT, Unused, Unused);
             return selectionLength;
-        }
-
-        public void SetZoomLevel(int zoomLevel)
-        {
-            Win32.SendMessage(scintilla, SciMsg.SCI_SETZOOM, zoomLevel, 0);
-        }
-
-        public unsafe string GetSelectedText()
-        {
-            var selectionLength = GetSelectionLength();
-            if (selectionLength == 0)
-                return "";
-
-            var buffer = new byte[selectionLength + 1];
-            fixed (byte* ptr = buffer)
-            {
-                Win32.SendMessage(scintilla, SciMsg.SCI_GETSELTEXT, 0, (IntPtr)ptr);
-            }
-
-            var selected = Encoding.UTF8.GetString(buffer).TrimEnd('\0');
-            return selected;
-        }
-
-        public unsafe void AppendText(string text)
-        {
-            byte[] buffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* ptr = buffer)
-            {
-                Win32.SendMessage(scintilla, SciMsg.SCI_APPENDTEXT, buffer.Length, (IntPtr)ptr);
-            }
         }
 
         public unsafe void AppendTextAndMoveCursor(string text)
@@ -75,16 +45,6 @@ namespace Kbg.NppPluginNET
                 GotoPos(new Position(GetCurrentPos().Value + buffer.Length));
             }
         }
-
-        public unsafe void ReplaceSelectedText(string newText)
-        {
-            byte[] buffer = Encoding.UTF8.GetBytes(newText);
-            fixed (byte* ptr = buffer)
-            {
-                Win32.SendMessage(scintilla, SciMsg.SCI_REPLACESEL, Unused, (IntPtr)ptr);
-            }
-        }
-
 
 
 
