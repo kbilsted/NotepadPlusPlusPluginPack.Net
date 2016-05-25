@@ -51,10 +51,13 @@ This package contains two folders:
     It demonstrates the same functionality as the original demo plugin by Don Ho:
     http://download.tuxfamily.org/nppplugins/NppPluginDemo/NppPluginDemo.zip
 
-    
+## Versioning
+Until we reach v1.0 expect a bit of chaos and breaking changes.
+
+From v1.0 and onwards we will turn over to semantic versioning
+
     
 ## Credits
-
   * For the main work on the plugin package
     * A Guy called "Ufo" - merging in v0.5 http://sourceforge.net/projects/sourcecookifier/files/other%20plugins/NppPlugin.NET.v0.5.zip/download and v0.7 https://bitbucket.org/uph0/npppluginnet 
   * The DllExport technique:
