@@ -21,21 +21,21 @@ The architecture of the plugin is.
 
 
                    +-----------+ +-----------+
-                   | scintilla | | Notepad++ |
+                   | Scintilla | | Notepad++ |
                    +-----------+ +-----------+
                         ^             ^
                         |             |
                +--------+--------+----+------------+                   
                |                 |                 |
      +------------------+ +----------------+ +-----------+ 
-     | scintillaGateway | | NotepadGateway | | Win32     |
+     | ScintillaGateway | | NotepadGateway | | Win32     |
      +------------------+ +----------------+ +-----------+ 
           ^                     ^                ^        
           |                     |                |        
           +-----------------+---+----------------+                   
                             |              
                        +-----------+ 
-                       | plugin    |
+                       | Plugin    |
                        +-----------+ 
 
 ## Content information
