@@ -2302,7 +2302,7 @@ namespace Kbg.NppPluginNET
         /// <summary>Move the selected lines down one line, shifting the line below before the selection (Scintilla feature 2621)</summary>
         void MoveSelectedLinesDown();
 
-        /// <summary>Set the identifier reported as idFrom in notification messages. (Scintilla feature 2622)</summary>
+        /// <summary>Set the identifier reported as IdFrom in notification messages. (Scintilla feature 2622)</summary>
         void SetIdentifier(int identifier);
 
         /// <summary>Get the identifier. (Scintilla feature 2623)</summary>

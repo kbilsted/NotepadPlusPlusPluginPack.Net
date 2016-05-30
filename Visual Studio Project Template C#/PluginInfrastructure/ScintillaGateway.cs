@@ -4598,7 +4598,7 @@ namespace Kbg.NppPluginNET
             IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_MOVESELECTEDLINESDOWN, Unused, Unused);
         }
 
-        /// <summary>Set the identifier reported as idFrom in notification messages. (Scintilla feature 2622)</summary>
+        /// <summary>Set the identifier reported as IdFrom in notification messages. (Scintilla feature 2622)</summary>
         public void SetIdentifier(int identifier)
         {
             IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETIDENTIFIER, identifier, Unused);

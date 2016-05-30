@@ -18,9 +18,16 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     [StructLayout(LayoutKind.Sequential)]
     public struct ScNotificationHeader
     {
-        public IntPtr hwndFrom; //! environment specific window handle/pointer
-        public uint idFrom;     //! CtrlID of the window issuing the notification
         public uint code;       //! The SCN_* notification code
+		/// <summary>
+		/// environment specific window handle/pointer
+		/// </summary>
+		public IntPtr hwndFrom; 
+
+		/// <summary>
+		/// CtrlID of the window issuing the notification
+		/// </summary>
+		public uint IdFrom;   
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -2537,7 +2544,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// Move the selected lines down one line, shifting the line below before the selection
         SCI_MOVESELECTEDLINESDOWN = 2621,
 
-        /// Set the identifier reported as idFrom in notification messages.
+        /// Set the identifier reported as IdFrom in notification messages.
         SCI_SETIDENTIFIER = 2622,
 
         /// Get the identifier.

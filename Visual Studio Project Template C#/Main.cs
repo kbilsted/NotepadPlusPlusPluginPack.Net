@@ -22,6 +22,7 @@ namespace Kbg.NppPluginNET
 
         public static void OnNotification(ScNotification notification)
         {  
+            // This method is invoked whenever something is happening in notepad++
         }
 
         internal static void CommandMenuInit()
