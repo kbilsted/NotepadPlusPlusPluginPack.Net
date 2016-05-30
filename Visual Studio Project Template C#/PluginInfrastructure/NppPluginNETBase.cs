@@ -13,14 +13,17 @@ namespace Kbg.NppPluginNET
         {
             SetCommand(index, commandName, functionPointer, new ShortcutKey(), false);
         }
+		
         internal static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, ShortcutKey shortcut)
         {
             SetCommand(index, commandName, functionPointer, shortcut, false);
         }
+		
         internal static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, bool checkOnInit)
         {
             SetCommand(index, commandName, functionPointer, new ShortcutKey(), checkOnInit);
         }
+		
         internal static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, ShortcutKey shortcut, bool checkOnInit)
         {
             FuncItem funcItem = new FuncItem();
