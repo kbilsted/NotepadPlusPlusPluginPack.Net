@@ -36,7 +36,7 @@ namespace Kbg.NppPluginNET
 
         public static void OnNotification(ScNotification notification)
         {
-            if (notification.Header.code == (uint)SciMsg.SCN_CHARADDED)
+            if (notification.Header.Code == (uint)SciMsg.SCN_CHARADDED)
             {
                 Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag((char)notification.Character);
             }

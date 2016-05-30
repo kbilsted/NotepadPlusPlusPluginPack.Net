@@ -171,13 +171,13 @@ namespace Kbg.NppPluginNET
 
         DMN_FIRST = 1050,
             DMN_CLOSE                    = (DMN_FIRST + 1),
-            //nmhdr.code = DWORD(DMN_CLOSE, 0));
+            //nmhdr.Code = DWORD(DMN_CLOSE, 0));
             //nmhdr.hwndFrom = hwndNpp;
             //nmhdr.IdFrom = ctrlIdNpp;
 
             DMN_DOCK                    = (DMN_FIRST + 2),
             DMN_FLOAT                    = (DMN_FIRST + 3)
-            //nmhdr.code = DWORD(DMN_XXX, int newContainer);
+            //nmhdr.Code = DWORD(DMN_XXX, int newContainer);
             //nmhdr.hwndFrom = hwndNpp;
             //nmhdr.IdFrom = ctrlIdNpp;
     }

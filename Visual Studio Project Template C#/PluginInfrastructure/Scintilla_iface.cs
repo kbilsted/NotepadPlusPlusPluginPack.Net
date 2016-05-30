@@ -18,7 +18,6 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     [StructLayout(LayoutKind.Sequential)]
     public struct ScNotificationHeader
     {
-        public uint code;       //! The SCN_* notification code
 		/// <summary>
 		/// environment specific window handle/pointer
 		/// </summary>
@@ -28,6 +27,10 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 		/// CtrlID of the window issuing the notification
 		/// </summary>
 		public uint IdFrom;   
+        /// <summary>
+        /// The SCN_* notification Code
+        /// </summary>
+        public uint Code;       
     }
 
     [StructLayout(LayoutKind.Sequential)]
