@@ -63,6 +63,6 @@ This package contains two folders:
 
 
 ## Requirements:
-  * works with .NET Runtime 2.0 and above
-  * UNICODE only! ANSI is doable, but not supported so far
+  * works with .NET Runtime 3.5 and above (can easily be reduced to .Net runtime 2.0 if needed)
+  * UNICODE plugins only.
 
