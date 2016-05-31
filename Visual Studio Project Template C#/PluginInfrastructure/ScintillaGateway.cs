@@ -25,6 +25,9 @@ namespace Kbg.NppPluginNET
 
         private readonly IntPtr scintilla;
 
+        public static readonly int LengthZeroTerminator = "\0".Length;
+
+
         public ScintillaGateway(IntPtr scintilla)
         {
             this.scintilla = scintilla;
@@ -32,7 +35,7 @@ namespace Kbg.NppPluginNET
 
         public int GetSelectionLength()
         {
-            var selectionLength = (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETSELTEXT, Unused, Unused);
+            var selectionLength = (int) Win32.SendMessage(scintilla, SciMsg.SCI_GETSELTEXT, Unused, Unused) - LengthZeroTerminator;
             return selectionLength;
         }
 
