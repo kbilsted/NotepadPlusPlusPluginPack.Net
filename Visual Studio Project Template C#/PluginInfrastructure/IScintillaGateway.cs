@@ -9,16 +9,16 @@ namespace Kbg.NppPluginNET
         void FileNew();
     }
 
-	/// <summary>
-	/// This it the plugin-writers primary interface to Notepad++/Scintilla.
-	/// It takes away all the complexity with command numbers and Int-pointer casting.
-	///
-	/// See http://www.scintilla.org/ScintillaDoc.html for further details.
-	/// </summary>
-	public interface IScintillaGateway
+    /// <summary>
+    /// This it the plugin-writers primary interface to Notepad++/Scintilla.
+    /// It takes away all the complexity with command numbers and Int-pointer casting.
+    ///
+    /// See http://www.scintilla.org/ScintillaDoc.html for further details.
+    /// </summary>
+    public interface IScintillaGateway
     {
         int GetSelectionLength();
-        unsafe void AppendTextAndMoveCursor(string text);
+        void AppendTextAndMoveCursor(string text);
 
 
 

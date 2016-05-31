@@ -13,12 +13,12 @@ namespace Kbg.NppPluginNET
         }
     }
 
-	/// <summary>
-	/// This it the plugin-writers primary interface to Notepad++/Scintilla.
-	/// It takes away all the complexity with command numbers and Int-pointer casting.
-	///
-	/// See http://www.scintilla.org/ScintillaDoc.html for further details.
-	/// </summary>
+    /// <summary>
+    /// This it the plugin-writers primary interface to Notepad++/Scintilla.
+    /// It takes away all the complexity with command numbers and Int-pointer casting.
+    ///
+    /// See http://www.scintilla.org/ScintillaDoc.html for further details.
+    /// </summary>
     public class ScintillaGateway : IScintillaGateway
     {
         private const int Unused = 0;
@@ -31,19 +31,15 @@ namespace Kbg.NppPluginNET
         }
 
         public int GetSelectionLength()
+        public void AppendTextAndMoveCursor(string text)
         {
             var selectionLength = (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETSELTEXT, Unused, Unused);
             return selectionLength;
+            AppendText(text.Length, text);
+            GotoPos(new Position(GetCurrentPos().Value + text.Length));
         }
 
-        public unsafe void AppendTextAndMoveCursor(string text)
         {
-            byte[] buffer = Encoding.UTF8.GetBytes(text);
-            fixed (byte* ptr = buffer)
-            {
-                Win32.SendMessage(scintilla, SciMsg.SCI_APPENDTEXT, buffer.Length, (IntPtr)ptr);
-                GotoPos(new Position(GetCurrentPos().Value + buffer.Length));
-            }
         }
 
 
