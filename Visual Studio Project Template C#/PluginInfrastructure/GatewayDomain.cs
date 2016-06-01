@@ -88,7 +88,7 @@ namespace Kbg.NppPluginNET
 
         public static bool operator ==(Position a, Position b)
         {
-            return a.pos == b.pos;
+            return ReferenceEquals(a, b) || a.pos == b.pos;
         }
 
         public static bool operator !=(Position a, Position b)
