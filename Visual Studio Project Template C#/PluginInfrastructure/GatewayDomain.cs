@@ -106,7 +106,21 @@ namespace Kbg.NppPluginNET
             return a.Value < b.Value;
         }
 
-        public override string ToString()
+        public static Position Min(Position a, Position b)
+        {
+            if (a < b)
+                return a;
+            return b;
+        }
+
+		public static Position Max(Position a, Position b)
+		{
+			if (a > b)
+				return a;
+			return b;
+		}
+
+		public override string ToString()
         {
             return "Postion: " + pos;
         }
