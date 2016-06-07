@@ -1,4 +1,4 @@
-﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
+﻿// NPP plugin platform for .Net v0.91.52 by Kasper B. Graversen etc.
 //
 // This file should stay in sync with the CPP project file
 // "notepad-plus-plus/scintilla/include/Scintilla.iface"
