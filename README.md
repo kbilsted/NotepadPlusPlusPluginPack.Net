@@ -17,6 +17,17 @@ This is a fork of UFO's plugin package updated for VS2015
   6. Start Notepad++ and activate your plugin from the plugins menu
 
 
+## Upgrading to a newer version
+  * Upgrading the pluging package
+    *  simply by replacing the `NppPlugin.zip` from your visual studio (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"`) with a newer version
+  * Upgrading plugings using the plugin pack. 
+    * Delete the folder `PluginInfrastructure` and copy over that folder from a newer version of `NppPlugin.zip`
+
+## Plugins using the pluginpack
+
+  * https://github.com/kbilsted/NppPluginGuidHelper
+  
+
 ## Overall plugin architecture
 
 Plugins can interact with Notepad++ or the underlying Scintilla engine. The plugin pack provides two classes to make this interaction easier. This is `NotepadPlusPlusGateway` and `ScintillaGateWay` which are thin layers making interaction more pleasant (and testable!). 
