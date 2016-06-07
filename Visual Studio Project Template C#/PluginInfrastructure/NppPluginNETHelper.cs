@@ -1,4 +1,4 @@
-﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
+﻿// NPP plugin platform for .Net v0.91.52 by Kasper B. Graversen etc.
 using System;
 using System.Text;
 using System.Windows.Forms;
@@ -171,15 +171,15 @@ namespace Kbg.NppPluginNET
 
         DMN_FIRST = 1050,
             DMN_CLOSE                    = (DMN_FIRST + 1),
-            //nmhdr.code = DWORD(DMN_CLOSE, 0));
+            //nmhdr.Code = DWORD(DMN_CLOSE, 0));
             //nmhdr.hwndFrom = hwndNpp;
-            //nmhdr.idFrom = ctrlIdNpp;
+            //nmhdr.IdFrom = ctrlIdNpp;
 
             DMN_DOCK                    = (DMN_FIRST + 2),
             DMN_FLOAT                    = (DMN_FIRST + 3)
-            //nmhdr.code = DWORD(DMN_XXX, int newContainer);
+            //nmhdr.Code = DWORD(DMN_XXX, int newContainer);
             //nmhdr.hwndFrom = hwndNpp;
-            //nmhdr.idFrom = ctrlIdNpp;
+            //nmhdr.IdFrom = ctrlIdNpp;
     }
 
     [StructLayout(LayoutKind.Sequential)]

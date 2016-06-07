@@ -2,6 +2,12 @@
 
 This is a fork of UFO's plugin package updated for VS2015
 
+[![Build status](https://ci.appveyor.com/api/projects/status/5f0ui9y2ujugh6wt/branch/master?svg=true)](https://ci.appveyor.com/project/kbilsted/notepadpluspluspluginpack-net/branch/master)
+[![License](http://img.shields.io/badge/License-Apache_2-red.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Stats](https://img.shields.io/badge/Code_lines-5,0_K-ff69b4.svg)]()
+[![Stats](https://img.shields.io/badge/Doc_lines-3,1_K-ff69b4.svg)]()
+
+
 ## Getting started
   1. Download a [release](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases/) and unzip it
   2. Place the visual studio project template (the `Visual Studio Project Template C#\NppPlugin.zip`) in the visual studio path (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"` but see [instructions](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/blob/master/Visual%20Studio%20Project%20Template%20C%23/HOW-TO-INSTALL-ME.txt) inside the release)
@@ -63,6 +69,11 @@ From v1.0 and onwards we will turn over to semantic versioning
   * The DllExport technique:
     * Dark Daskin: http://www.codeproject.com/KB/dotnet/DllExporter.aspx
     * Robert Giesecke: http://sites.google.com/site/robertgiesecke/Home/uploads/csharpprojecttemplateforunmanagedexports https://www.nuget.org/packages/UnmanagedExports
+
+
+## Requirements:
+  * works with .NET Runtime 3.5 and above (can easily be reduced to .Net runtime 2.0 if needed)
+  * UNICODE plugins only.
 
 
 ## About me

@@ -1,4 +1,4 @@
-﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
+﻿// NPP plugin platform for .Net v0.91.52 by Kasper B. Graversen etc.
 using System;
 using System.IO;
 using System.Text;
@@ -36,7 +36,7 @@ namespace Kbg.NppPluginNET
 
         public static void OnNotification(ScNotification notification)
         {
-            if (notification.Header.code == (uint)SciMsg.SCN_CHARADDED)
+            if (notification.Header.Code == (uint)SciMsg.SCN_CHARADDED)
             {
                 Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag((char)notification.Character);
             }
@@ -168,21 +168,21 @@ namespace Kbg.Demo.Namespace
             {    
                 for ( ; i >= -10; i--)
                 {
-                    editor.SetZoomLevel(i);
+                    editor.SetZoom(i);
                     Thread.Sleep(30);
                 }
                 Thread.Sleep(100);
                 for ( ; i <= 20 ; i++)
                 {
                     Thread.Sleep(30);
-                    editor.SetZoomLevel(i);
+                    editor.SetZoom(i);
                 }
                 Thread.Sleep(100);
             }
             for ( ; i >= currentZoomLevel ; i--)
             {
                 Thread.Sleep(30);
-                editor.SetZoomLevel(i);
+                editor.SetZoom(i);
             }
         }
 

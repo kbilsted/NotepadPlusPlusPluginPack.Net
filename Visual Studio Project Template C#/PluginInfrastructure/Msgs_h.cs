@@ -1,4 +1,4 @@
-﻿// NPP plugin platform for .Net v0.90 by Kasper B. Graversen etc.
+﻿// NPP plugin platform for .Net v0.91.52 by Kasper B. Graversen etc.
 //
 // This file should stay in sync with the CPP project file
 // "notepad-plus-plus/PowerEditor/src/MISC/PluginsManager/Notepad_plus_msgs.h"
@@ -418,69 +418,69 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         // Notification codes
         NPPN_FIRST = 1000,
         NPPN_READY = (NPPN_FIRST + 1), // To notify plugins that all the procedures of launchment of notepad++ are done.
-                                       //scnNotification->nmhdr.code = NPPN_READY;
+                                       //scnNotification->nmhdr.Code = NPPN_READY;
                                        //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                       //scnNotification->nmhdr.idFrom = 0;
+                                       //scnNotification->nmhdr.IdFrom = 0;
 
         NPPN_TBMODIFICATION = (NPPN_FIRST + 2), // To notify plugins that toolbar icons can be registered
-                                                //scnNotification->nmhdr.code = NPPN_TB_MODIFICATION;
+                                                //scnNotification->nmhdr.Code = NPPN_TB_MODIFICATION;
                                                 //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                                //scnNotification->nmhdr.idFrom = 0;
+                                                //scnNotification->nmhdr.IdFrom = 0;
 
         NPPN_FILEBEFORECLOSE = (NPPN_FIRST + 3), // To notify plugins that the current file is about to be closed
-                                                 //scnNotification->nmhdr.code = NPPN_FILEBEFORECLOSE;
+                                                 //scnNotification->nmhdr.Code = NPPN_FILEBEFORECLOSE;
                                                  //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                                 //scnNotification->nmhdr.idFrom = BufferID;
+                                                 //scnNotification->nmhdr.IdFrom = BufferID;
 
         NPPN_FILEOPENED = (NPPN_FIRST + 4), // To notify plugins that the current file is just opened
-                                            //scnNotification->nmhdr.code = NPPN_FILEOPENED;
+                                            //scnNotification->nmhdr.Code = NPPN_FILEOPENED;
                                             //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                            //scnNotification->nmhdr.idFrom = BufferID;
+                                            //scnNotification->nmhdr.IdFrom = BufferID;
 
         NPPN_FILECLOSED = (NPPN_FIRST + 5), // To notify plugins that the current file is just closed
-                                            //scnNotification->nmhdr.code = NPPN_FILECLOSED;
+                                            //scnNotification->nmhdr.Code = NPPN_FILECLOSED;
                                             //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                            //scnNotification->nmhdr.idFrom = BufferID;
+                                            //scnNotification->nmhdr.IdFrom = BufferID;
 
         NPPN_FILEBEFOREOPEN = (NPPN_FIRST + 6), // To notify plugins that the current file is about to be opened
-                                                //scnNotification->nmhdr.code = NPPN_FILEBEFOREOPEN;
+                                                //scnNotification->nmhdr.Code = NPPN_FILEBEFOREOPEN;
                                                 //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                                //scnNotification->nmhdr.idFrom = BufferID;
+                                                //scnNotification->nmhdr.IdFrom = BufferID;
 
         NPPN_FILEBEFORESAVE = (NPPN_FIRST + 7), // To notify plugins that the current file is about to be saved
-                                                //scnNotification->nmhdr.code = NPPN_FILEBEFOREOPEN;
+                                                //scnNotification->nmhdr.Code = NPPN_FILEBEFOREOPEN;
                                                 //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                                //scnNotification->nmhdr.idFrom = BufferID;
+                                                //scnNotification->nmhdr.IdFrom = BufferID;
 
         NPPN_FILESAVED = (NPPN_FIRST + 8), // To notify plugins that the current file is just saved
-                                           //scnNotification->nmhdr.code = NPPN_FILESAVED;
+                                           //scnNotification->nmhdr.Code = NPPN_FILESAVED;
                                            //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                           //scnNotification->nmhdr.idFrom = BufferID;
+                                           //scnNotification->nmhdr.IdFrom = BufferID;
 
         NPPN_SHUTDOWN = (NPPN_FIRST + 9), // To notify plugins that Notepad++ is about to be shutdowned.
-                                          //scnNotification->nmhdr.code = NPPN_SHUTDOWN;
+                                          //scnNotification->nmhdr.Code = NPPN_SHUTDOWN;
                                           //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                          //scnNotification->nmhdr.idFrom = 0;
+                                          //scnNotification->nmhdr.IdFrom = 0;
 
         NPPN_BUFFERACTIVATED = (NPPN_FIRST + 10), // To notify plugins that a buffer was activated (put to foreground).
-                                                  //scnNotification->nmhdr.code = NPPN_BUFFERACTIVATED;
+                                                  //scnNotification->nmhdr.Code = NPPN_BUFFERACTIVATED;
                                                   //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                                  //scnNotification->nmhdr.idFrom = activatedBufferID;
+                                                  //scnNotification->nmhdr.IdFrom = activatedBufferID;
 
         NPPN_LANGCHANGED = (NPPN_FIRST + 11), // To notify plugins that the language in the current doc is just changed.
-                                              //scnNotification->nmhdr.code = NPPN_LANGCHANGED;
+                                              //scnNotification->nmhdr.Code = NPPN_LANGCHANGED;
                                               //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                              //scnNotification->nmhdr.idFrom = currentBufferID;
+                                              //scnNotification->nmhdr.IdFrom = currentBufferID;
 
         NPPN_WORDSTYLESUPDATED = (NPPN_FIRST + 12), // To notify plugins that user initiated a WordStyleDlg change.
-                                                    //scnNotification->nmhdr.code = NPPN_WORDSTYLESUPDATED;
+                                                    //scnNotification->nmhdr.Code = NPPN_WORDSTYLESUPDATED;
                                                     //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                                    //scnNotification->nmhdr.idFrom = currentBufferID;
+                                                    //scnNotification->nmhdr.IdFrom = currentBufferID;
 
         NPPN_SHORTCUTREMAPPED = (NPPN_FIRST + 13), // To notify plugins that plugin command shortcut is remapped.
-                                                   //scnNotification->nmhdr.code = NPPN_SHORTCUTSREMAPPED;
+                                                   //scnNotification->nmhdr.Code = NPPN_SHORTCUTSREMAPPED;
                                                    //scnNotification->nmhdr.hwndFrom = ShortcutKeyStructurePointer;
-                                                   //scnNotification->nmhdr.idFrom = cmdID;
+                                                   //scnNotification->nmhdr.IdFrom = cmdID;
                                                    //where ShortcutKeyStructurePointer is pointer of struct ShortcutKey:
                                                    //struct ShortcutKey {
                                                    //    bool _isCtrl;
@@ -490,19 +490,19 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
                                                    //};
 
         NPPN_FILEBEFORELOAD = (NPPN_FIRST + 14), // To notify plugins that the current file is about to be loaded
-                                                 //scnNotification->nmhdr.code = NPPN_FILEBEFOREOPEN;
+                                                 //scnNotification->nmhdr.Code = NPPN_FILEBEFOREOPEN;
                                                  //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                                 //scnNotification->nmhdr.idFrom = NULL;
+                                                 //scnNotification->nmhdr.IdFrom = NULL;
 
         NPPN_FILELOADFAILED = (NPPN_FIRST + 15),  // To notify plugins that file open operation failed
-                                                  //scnNotification->nmhdr.code = NPPN_FILEOPENFAILED;
+                                                  //scnNotification->nmhdr.Code = NPPN_FILEOPENFAILED;
                                                   //scnNotification->nmhdr.hwndFrom = hwndNpp;
-                                                  //scnNotification->nmhdr.idFrom = BufferID;
+                                                  //scnNotification->nmhdr.IdFrom = BufferID;
 
         NPPN_READONLYCHANGED = (NPPN_FIRST + 16),  // To notify plugins that current document change the readonly status,
-                                                   //scnNotification->nmhdr.code = NPPN_READONLYCHANGED;
+                                                   //scnNotification->nmhdr.Code = NPPN_READONLYCHANGED;
                                                    //scnNotification->nmhdr.hwndFrom = bufferID;
-                                                   //scnNotification->nmhdr.idFrom = docStatus;
+                                                   //scnNotification->nmhdr.IdFrom = docStatus;
                                                    // where bufferID is BufferID
                                                    //       docStatus can be combined by DOCSTAUS_READONLY and DOCSTAUS_BUFFERDIRTY
 
