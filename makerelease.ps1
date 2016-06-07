@@ -23,7 +23,7 @@ function replaceVersionInfo($version)
 cd 'Visual Studio Project Template C#'
 $filename = "NppPlugin" + $version + ".zip"
 write-host "# zip the projectTemplate '$filename'" -foreground green
-& 'C:\Program Files\7-Zip\7z.exe' a -tzip $filename *
+& 'C:\Program Files\7-Zip\7z.exe' a -tzip $filename * -xr!bin -xr!obj
 
 
 $vsTemplatepath = [Environment]::GetFolderPath("MyDocuments")+'\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\'
@@ -35,7 +35,9 @@ copy $filename $($vsTemplatepath)
 write-host "# Zip template and all source files" -foreground green
 cd ..
 replaceVersionInfo($version)
-& 'C:\Program Files\7-Zip\7z.exe' a -tzip c:\temp\nppDemoAndProjectTemplate$($version).zip * 
+$releaseFilename = "c:\temp\nppDemoAndProjectTemplate$($version).zip"
+rm $releaseFilename 
+& 'C:\Program Files\7-Zip\7z.exe' a -tzip $releaseFilename *  -xr!bin -xr!obj -xr'!.git'
 
 
 write-host "# remove temp files" -foreground green
