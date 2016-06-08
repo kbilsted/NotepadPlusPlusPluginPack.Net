@@ -1,4 +1,4 @@
-$version = "0.91.52"
+$version = "0.91.57"
 
 
 function replaceVersionInfo($version)
@@ -36,7 +36,7 @@ write-host "# Zip template and all source files" -foreground green
 cd ..
 replaceVersionInfo($version)
 $releaseFilename = "c:\temp\nppDemoAndProjectTemplate$($version).zip"
-rm $releaseFilename 
+rm '$($releaseFilename)*'
 & 'C:\Program Files\7-Zip\7z.exe' a -tzip $releaseFilename *  -xr!bin -xr!obj -xr'!.git'
 
 
