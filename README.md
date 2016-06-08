@@ -1,5 +1,7 @@
 # NppPlugin .NET package for VS2015 and beyond...
 
+What is this? Its a simple template for very fast and easy building plugins for Notepad++ in C#/.Net
+
 This is a fork of UFO's plugin package updated for VS2015
 
 [![Build status](https://ci.appveyor.com/api/projects/status/5f0ui9y2ujugh6wt/branch/master?svg=true)](https://ci.appveyor.com/project/kbilsted/notepadpluspluspluginpack-net/branch/master)
@@ -9,8 +11,8 @@ This is a fork of UFO's plugin package updated for VS2015
 
 
 ## Getting started
-  1. Download a [release](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases/) and unzip it
-  2. Place the visual studio project template (the `Visual Studio Project Template C#\NppPlugin.zip`) in the visual studio path (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"` but see [instructions](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/blob/master/Visual%20Studio%20Project%20Template%20C%23/HOW-TO-INSTALL-ME.txt) inside the release)
+  1. Download a [release](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases/) 
+  2. Place the visual studio project template (the `NppPlugin.zip`) in the visual studio path (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"`)
   3. Ensure you have installed **Visual C++** from the visual studio installer otherwise your project wont build
   4. Create a new project inside Visual studio using `file -> new -> project -> visual C# -> Notepad++ project`
   5. Build (building will copy the dll to the `Notepad++/plugins` folder)
@@ -23,12 +25,18 @@ This is a fork of UFO's plugin package updated for VS2015
   * Upgrading plugings using the plugin pack. 
     * Delete the folder `PluginInfrastructure` and copy over that folder from a newer version of `NppPlugin.zip`
 
-## Plugins using the pluginpack
+
+## Plugins using this pluginpack
 
   * https://github.com/kbilsted/NppPluginGuidHelper
   
 
-## Overall plugin architecture
+## How to start coding plugins
+
+First read the the demo-plugin code. It is actively being maintaned - see https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/tree/master/Demo%20Plugin it is a spin-off of Don Ho's
+    http://download.tuxfamily.org/nppplugins/NppPluginDemo/NppPluginDemo.zip
+
+#### Overall plugin architecture
 
 Plugins can interact with Notepad++ or the underlying Scintilla engine. The plugin pack provides two classes to make this interaction easier. This is `NotepadPlusPlusGateway` and `ScintillaGateWay` which are thin layers making interaction more pleasant (and testable!). 
 
@@ -54,19 +62,6 @@ The architecture of the plugin is.
                        +-----------+ 
                        | Plugin    |
                        +-----------+ 
-
-## Content information
-This package contains two folders:
-
-  1. Templates:
-    Simple templates for very fast and even easier building of .NET plugins for Notepad++.
-    Setting up a plugin for N++ has never ever been as easy as with this package.
-    Please see the containing txt files for further installation information.
-
-  2. Demo:
-    An example .NET plugin for Notepad++, build upon the template above.
-    It demonstrates the same functionality as the original demo plugin by Don Ho:
-    http://download.tuxfamily.org/nppplugins/NppPluginDemo/NppPluginDemo.zip
 
 ## Versioning
 Until we reach v1.0 expect a bit of chaos and breaking changes.

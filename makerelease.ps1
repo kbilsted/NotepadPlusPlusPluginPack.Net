@@ -30,15 +30,9 @@ $vsTemplatepath = [Environment]::GetFolderPath("MyDocuments")+'\Visual Studio 20
 write-host "# Copy projectTemplate to VS: '$vsTemplatepath'" -foreground green
 del "$($vsTemplatepath)\nppplugin*.zip"
 copy $filename $($vsTemplatepath)
-
-
-write-host "# Zip template and all source files" -foreground green
-cd ..
-replaceVersionInfo($version)
-$releaseFilename = "c:\temp\nppDemoAndProjectTemplate$($version).zip"
-rm '$($releaseFilename)*'
-& 'C:\Program Files\7-Zip\7z.exe' a -tzip $releaseFilename *  -xr!bin -xr!obj -xr'!.git'
-
+copy $filename c:\temp\
 
 write-host "# remove temp files" -foreground green
-rm 'Visual Studio Project Template C#\NppPlugin*.zip'
+rm $filename
+
+cd ..
