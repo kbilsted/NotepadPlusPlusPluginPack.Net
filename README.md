@@ -13,7 +13,8 @@ This is a fork of UFO's plugin package updated for VS2015
 ## Getting started
   1. Download a [release](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases/) 
   2. Place the visual studio project template (the `NppPlugin.zip`) in the visual studio path (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"`)
-  3. Ensure you have installed **Visual C++** from the visual studio installer otherwise your project wont build
+  3. Ensure you have installed **Visual C++** from the visual studio installer otherwise your project wont build<br>
+  ![install CPP](/documentation/installcpp.png)
   4. Create a new project inside Visual studio using `file -> new -> project -> visual C# -> Notepad++ project`
   5. Build (building will copy the dll to the `Notepad++/plugins` folder)
   6. Start Notepad++ and activate your plugin from the plugins menu
@@ -29,6 +30,8 @@ This is a fork of UFO's plugin package updated for VS2015
 ## Plugins using this pluginpack
 
   * https://github.com/kbilsted/NppPluginGuidHelper
+  * https://github.com/zkirkland/FirstUpper
+  * https://github.com/kbilsted/NppPluginCutNCopyLine
   
 
 ## How to start coding plugins
@@ -62,6 +65,16 @@ The architecture of the plugin is.
                        +-----------+ 
                        | Plugin    |
                        +-----------+ 
+
+### How to debug plugins
+
+  * start notepad++
+  * in Visualstudio: debug -> attach to process... -> notepad++.exe
+
+you can now set breakpoints and step-execute. (currently not working in v6.9.2 https://github.com/notepad-plus-plus/notepad-plus-plus/issues/1964) 
+  
+   * you can make this process easier by setting the "start action" in the project -> properties -> debug to start notepad++.exe - then you can simply build and hit `F5`.
+
 
 ## Versioning
 Until we reach v1.0 expect a bit of chaos and breaking changes.
