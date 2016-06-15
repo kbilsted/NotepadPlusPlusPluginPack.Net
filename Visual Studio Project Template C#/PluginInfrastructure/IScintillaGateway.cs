@@ -7,6 +7,10 @@ namespace Kbg.NppPluginNET
     public interface INotepadPPGateway
     {
         void FileNew();
+
+        string GetCurrentFilePath();
+        unsafe string GetFilePath(int bufferId);
+        void SetCurrentLanguage(LangType language);
     }
 
     /// <summary>
