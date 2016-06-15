@@ -7,9 +7,11 @@ namespace Kbg.NppPluginNET
 {
     public class NotepadPPGateway : INotepadPPGateway
     {
+        private const int Unused = 0;
+
         public void FileNew()
         {
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, 0, NppMenuCmd.IDM_FILE_NEW);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, Unused, NppMenuCmd.IDM_FILE_NEW);
         }
     }
 
