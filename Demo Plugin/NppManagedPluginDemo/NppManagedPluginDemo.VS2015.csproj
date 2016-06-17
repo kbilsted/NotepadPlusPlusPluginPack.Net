@@ -52,6 +52,12 @@
     <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\ClikeStringArray.cs">
       <Link>PluginInfrastructure\ClikeStringArray.cs</Link>
     </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\Preference_h.cs">
+      <Link>PluginInfrastructure\Preference_h.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\Resource_h.cs">
+      <Link>PluginInfrastructure\Resource_h.cs</Link>
+    </Compile>
     <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\Win32.cs">
       <Link>PluginInfrastructure\Win32.cs</Link>
     </Compile>

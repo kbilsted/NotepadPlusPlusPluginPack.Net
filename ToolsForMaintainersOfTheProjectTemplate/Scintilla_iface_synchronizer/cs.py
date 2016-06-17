@@ -1,3 +1,5 @@
+# requires the notepad++ project is cloned in a folder next to this plugin pack 
+
 import Face
 from FileGenerator import Regenerate
 

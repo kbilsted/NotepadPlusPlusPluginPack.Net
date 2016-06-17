@@ -12,6 +12,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     class Constants
     {
         public const int WM_USER = 0x400;
+        public const int NPPMSG = WM_USER + 1000;
     }
 
     public enum LangType

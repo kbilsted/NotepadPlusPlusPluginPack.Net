@@ -46,6 +46,9 @@
         <ProjectItem ReplaceParameters="false" TargetFileName="Win32.cs">Win32.cs</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="NppPluginNETBase.cs">NppPluginNETBase.cs</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="NppPluginNETHelper.cs">NppPluginNETHelper.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Preference_h.cs">Preference_h.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Resource_h.cs">Resource_h.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="NotepadPPGateway.cs">NotepadPPGateway.cs</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="ScintillaGateway.cs">ScintillaGateway.cs</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="IScintillaGateway.cs">IScintillaGateway.cs</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="GatewayDomain.cs">GatewayDomain.cs</ProjectItem>

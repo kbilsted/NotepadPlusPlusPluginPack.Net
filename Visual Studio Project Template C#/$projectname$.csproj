@@ -61,6 +61,8 @@
     <Compile Include="PluginInfrastructure\MenuCmdID_h.cs" />
     <Compile Include="PluginInfrastructure\Scintilla_iface.cs" />
     <Compile Include="PluginInfrastructure\Msgs_h.cs" />
+    <Compile Include="PluginInfrastructure\Preference_h.cs" />
+    <Compile Include="PluginInfrastructure\Resource_h.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
