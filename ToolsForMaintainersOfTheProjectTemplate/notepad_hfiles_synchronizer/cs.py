@@ -13,7 +13,7 @@ class Line:
 		return self.parsedContent == None and self.comment == ""
 
 	def isComment(self):
-		return self.content == "" and self.comment != ""
+		return self.comment != ""
 
 	def isDefinition(self):
 		return self.parsedContent != None
@@ -41,24 +41,43 @@ def parseFile(name):
 		allLines.append(parseLine(line))
 	return allLines
 
-def printFile(name):
+
+def getComments(j, lines):
+	out = []
+	anyComment = False
+	while j < len(lines) and lines[j].isComment():
+		if len(out) == 0: 
+			out.append("        /// <summary>")
+		out.append("        /%s" %(lines[j].comment))
+		j = j + 1
+	if len(out) > 0:
+		out.append("        /// </summary>")
+	return out
+
+
+def printFile(name, addComments):
 	out = []
 	lines = parseFile(name)
 
 	for i in range(0, len(lines)):
+		# blank lines
 		if not lines[i].isDefinition():
 			if i+1 >= len(lines) or lines[i+1].isDefinition():
 				out.append("")
+		# definitions
 		elif lines[i].isDefinition():
+			if addComments == True:
+				out.extend(getComments(i+1, lines))
 			value = lines[i].parsedContent.group("value")
 			value = value.replace("WM_USER","Constants.WM_USER")
 			value = value.replace("NPPMSG","Constants.NPPMSG")
-			out.append ("        %s = %s," %(lines[i].parsedContent.group("name"), value))
+			name = lines[i].parsedContent.group("name")
+			out.append ("        %s = %s," %(name, value))
 	return out
 
 if __name__ == "__main__":
-	preffile = printFile("../../../notepad-plus-plus/PowerEditor/src/WinControls/Preference/preference_rc.h")
+	preffile = printFile("../../../notepad-plus-plus/PowerEditor/src/WinControls/Preference/preference_rc.h", False)
 	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/Preference_h.cs", "/* ", preffile)
 
-	resourcefile = printFile("../../../notepad-plus-plus/PowerEditor/src/resource.h")
-	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/resource_h.cs", "/* ", resourcefile)
+	resourcefile = printFile("../../../notepad-plus-plus/PowerEditor/src/resource.h", False)
+	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/Resource_h.cs", "/* ", resourcefile)
