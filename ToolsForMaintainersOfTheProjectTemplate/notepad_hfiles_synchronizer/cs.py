@@ -81,3 +81,6 @@ if __name__ == "__main__":
 
 	resourcefile = printFile("../../../notepad-plus-plus/PowerEditor/src/resource.h", False)
 	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/Resource_h.cs", "/* ", resourcefile)
+
+	msgsfile = printFile("../../../notepad-plus-plus/PowerEditor/src/MISC/PluginsManager/Notepad_plus_msgs.h", True)
+	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/Msgs_h.cs", "/* ", msgsfile)
