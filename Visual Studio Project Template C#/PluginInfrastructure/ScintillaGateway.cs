@@ -5,41 +5,6 @@ using Kbg.NppPluginNET.PluginInfrastructure;
 
 namespace Kbg.NppPluginNET
 {
-    public class NotepadPPGateway : INotepadPPGateway
-    {
-        private const int Unused = 0;
-
-        public void FileNew()
-        {
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, Unused, NppMenuCmd.IDM_FILE_NEW);
-        }
-
-        /// <summary>
-        /// Gets the path of the current document.
-        /// </summary>
-        public string GetCurrentFilePath()
-        {
-            var path = new StringBuilder(2000);
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETFULLCURRENTPATH, 0, path);
-            return path.ToString();
-        }
-
-        /// <summary>
-        /// Gets the path of the current document.
-        /// </summary>
-        public unsafe string GetFilePath(int bufferId)
-        {
-            var path = new StringBuilder(2000);
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETFULLPATHFROMBUFFERID, bufferId, path);
-            return path.ToString();
-        }
-
-        public void SetCurrentLanguage(LangType language)
-        {
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETCURRENTLANGTYPE, Unused, (int) language);
-        }
-    }
-
     /// <summary>
     /// This it the plugin-writers primary interface to Notepad++/Scintilla.
     /// It takes away all the complexity with command numbers and Int-pointer casting.

@@ -4,14 +4,6 @@ using Kbg.NppPluginNET.PluginInfrastructure;
 
 namespace Kbg.NppPluginNET
 {
-    public interface INotepadPPGateway
-    {
-        void FileNew();
-
-        string GetCurrentFilePath();
-        unsafe string GetFilePath(int bufferId);
-        void SetCurrentLanguage(LangType language);
-    }
 
     /// <summary>
     /// This it the plugin-writers primary interface to Notepad++/Scintilla.

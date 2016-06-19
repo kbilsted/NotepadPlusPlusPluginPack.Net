@@ -53,6 +53,7 @@
     <Compile Include="PluginInfrastructure\Win32.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="PluginInfrastructure\GatewayDomain.cs" />
+    <Compile Include="PluginInfrastructure\NotepadPPGateway.cs" />
     <Compile Include="PluginInfrastructure\ScintillaGateway.cs" />
     <Compile Include="PluginInfrastructure\IScintillaGateway.cs" />
     <Compile Include="PluginInfrastructure\NppPluginNETBase.cs" />
