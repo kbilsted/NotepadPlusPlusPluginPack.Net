@@ -1,4 +1,4 @@
-﻿// NPP plugin platform for .Net v0.91.57 by Kasper B. Graversen etc.
+﻿// NPP plugin platform for .Net v0.92.76 by Kasper B. Graversen etc.
 using System;
 using System.Text;
 

@@ -1,4 +1,4 @@
-$version = "0.91.71"
+$version = "0.92.76"
 
 
 function replaceVersionInfo($version)
@@ -21,6 +21,9 @@ function replaceVersionInfo($version)
 }
 
 cd 'Visual Studio Project Template C#'
+
+replaceVersionInfo($version)
+
 $filename = "NppPlugin" + $version + ".zip"
 write-host "# zip the projectTemplate '$filename'" -foreground green
 & 'C:\Program Files\7-Zip\7z.exe' a -tzip $filename * -xr!bin -xr!obj
