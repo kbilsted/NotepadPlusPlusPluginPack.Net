@@ -52,4 +52,18 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 			Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETCURRENTLANGTYPE, Unused, (int) language);
 		}
 	}
+
+	/// <summary>
+	/// This class holds helpers for sending messages defined in the Resource_h.cs file. It is at the moment
+	/// incomplete. Please help fill in the blanks.
+	/// </summary>
+	class NppResource
+	{
+		private const int Unused = 0;
+
+		public void ClearIndicator()
+		{
+			Win32.SendMessage(PluginBase.nppData._nppHandle, (NppMsg) Resource.NPPM_INTERNAL_CLEARINDICATOR, Unused, Unused);
+		}
+	}
 }

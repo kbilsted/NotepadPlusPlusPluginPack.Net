@@ -55,6 +55,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         public const int MF_BYCOMMAND = 0;
         public const int MF_CHECKED = 8;
         public const int MF_UNCHECKED = 0;
+
         [DllImport("user32")]
         public static extern IntPtr GetMenu(IntPtr hWnd);
         [DllImport("user32")]
