@@ -78,7 +78,7 @@ namespace Kbg.Demo.Namespace
 
             // get path of plugin configuration
             StringBuilder sbIniFilePath = new StringBuilder(Win32.MAX_PATH);
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETPLUGINSCONFIGDIR, Win32.MAX_PATH, sbIniFilePath);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETPLUGINSCONFIGDIR, Win32.MAX_PATH, sbIniFilePath);
             iniFilePath = sbIniFilePath.ToString();
 
             // if config path doesn't exist, we create it
@@ -134,7 +134,7 @@ namespace Kbg.Demo.Namespace
             tbIcons.hToolbarBmp = tbBmp.GetHbitmap();
             IntPtr pTbIcons = Marshal.AllocHGlobal(Marshal.SizeOf(tbIcons));
             Marshal.StructureToPtr(tbIcons, pTbIcons, false);
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_ADDTOOLBARICON, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, pTbIcons);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_ADDTOOLBARICON, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, pTbIcons);
             Marshal.FreeHGlobal(pTbIcons);
         }
 
@@ -234,7 +234,7 @@ namespace Kbg.Demo.Namespace
                 msg = NppMsg.NPPM_GETCURRENTDIRECTORY;
 
             StringBuilder path = new StringBuilder(Win32.MAX_PATH);
-            Win32.SendMessage(PluginBase.nppData._nppHandle, msg, 0, path);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) msg, 0, path);
 
             editor.ReplaceSel(path.ToString());
         }
@@ -266,7 +266,7 @@ namespace Kbg.Demo.Namespace
         static internal void doInsertHtmlCloseTag(char newChar)
         {
             LangType docType = LangType.L_TEXT;
-            Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETCURRENTLANGTYPE, 0, ref docType);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETCURRENTLANGTYPE, 0, ref docType);
             bool isDocTypeHTML = (docType == LangType.L_HTML || docType == LangType.L_XML || docType == LangType.L_PHP);
 
             if (!doCloseTag || !isDocTypeHTML)
@@ -323,18 +323,18 @@ namespace Kbg.Demo.Namespace
 
         static void getFileNamesDemo()
         {
-            int nbFile = (int)Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETNBOPENFILES, 0, 0);
+            int nbFile = (int)Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETNBOPENFILES, 0, 0);
             MessageBox.Show(nbFile.ToString(), "Number of opened files:");
 
             using (ClikeStringArray cStrArray = new ClikeStringArray(nbFile, Win32.MAX_PATH))
             {
-                if (Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETOPENFILENAMES, cStrArray.NativePointer, nbFile) != IntPtr.Zero)
+                if (Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETOPENFILENAMES, cStrArray.NativePointer, nbFile) != IntPtr.Zero)
                     foreach (string file in cStrArray.ManagedStringsUnicode) MessageBox.Show(file);
             }
         }
         static void getSessionFileNamesDemo()
         {
-            int nbFile = (int)Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETNBSESSIONFILES, 0, sessionFilePath);
+            int nbFile = (int)Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETNBSESSIONFILES, 0, sessionFilePath);
 
             if (nbFile < 1)
             {
@@ -345,13 +345,13 @@ namespace Kbg.Demo.Namespace
 
             using (ClikeStringArray cStrArray = new ClikeStringArray(nbFile, Win32.MAX_PATH))
             {
-                if (Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETSESSIONFILES, cStrArray.NativePointer, sessionFilePath) != IntPtr.Zero)
+                if (Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETSESSIONFILES, cStrArray.NativePointer, sessionFilePath) != IntPtr.Zero)
                     foreach (string file in cStrArray.ManagedStringsUnicode) MessageBox.Show(file);
             }
         }
         static void saveCurrentSessionDemo()
         {
-            string sessionPath = Marshal.PtrToStringUni(Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SAVECURRENTSESSION, 0, sessionFilePath));
+            string sessionPath = Marshal.PtrToStringUni(Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SAVECURRENTSESSION, 0, sessionFilePath));
             if (!string.IsNullOrEmpty(sessionPath))
                 MessageBox.Show(sessionPath, "Saved Session File :", MessageBoxButtons.OK);
         }
@@ -392,21 +392,21 @@ namespace Kbg.Demo.Namespace
                 IntPtr _ptrNppTbData = Marshal.AllocHGlobal(Marshal.SizeOf(_nppTbData));
                 Marshal.StructureToPtr(_nppTbData, _ptrNppTbData, false);
 
-                Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMREGASDCKDLG, 0, _ptrNppTbData);
+                Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_DMMREGASDCKDLG, 0, _ptrNppTbData);
                 // Following message will toogle both menu item state and toolbar button
-                Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 1);
+                Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 1);
             }
             else
             {
                 if (!frmGoToLine.Visible)
                 {
-                    Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMSHOW, 0, frmGoToLine.Handle);
-                    Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 1);
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_DMMSHOW, 0, frmGoToLine.Handle);
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 1);
                 }
                 else
                 {
-                    Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_DMMHIDE, 0, frmGoToLine.Handle);
-                    Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 0);
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_DMMHIDE, 0, frmGoToLine.Handle);
+                    Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 0);
                 }
             }
             frmGoToLine.textBox1.Focus();

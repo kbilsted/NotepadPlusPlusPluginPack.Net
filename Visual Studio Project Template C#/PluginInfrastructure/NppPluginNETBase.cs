@@ -39,7 +39,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         internal static IntPtr GetCurrentScintilla()
         {
             int curScintilla;
-            Win32.SendMessage(nppData._nppHandle, NppMsg.NPPM_GETCURRENTSCINTILLA, 0, out curScintilla);
+            Win32.SendMessage(nppData._nppHandle, (uint) NppMsg.NPPM_GETCURRENTSCINTILLA, 0, out curScintilla);
             return (curScintilla == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
         }
 

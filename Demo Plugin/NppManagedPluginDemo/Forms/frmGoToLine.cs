@@ -57,7 +57,7 @@ namespace Kbg.Demo.Namespace
         {
             if (!Visible)
             {
-                Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETMENUITEMCHECK,
+                Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETMENUITEMCHECK,
                                   PluginBase._funcItems.Items[Main.idFrmGotToLine]._cmdID, 0);
             }
         }

@@ -24,7 +24,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 
 		public void FileNew()
 		{
-			Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_MENUCOMMAND, Unused, NppMenuCmd.IDM_FILE_NEW);
+			Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_MENUCOMMAND, Unused, NppMenuCmd.IDM_FILE_NEW);
 		}
 
 		/// <summary>
@@ -33,7 +33,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 		public string GetCurrentFilePath()
 		{
 			var path = new StringBuilder(2000);
-			Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETFULLCURRENTPATH, 0, path);
+			Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETFULLCURRENTPATH, 0, path);
 			return path.ToString();
 		}
 
@@ -43,13 +43,13 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 		public unsafe string GetFilePath(int bufferId)
 		{
 			var path = new StringBuilder(2000);
-			Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_GETFULLPATHFROMBUFFERID, bufferId, path);
+			Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETFULLPATHFROMBUFFERID, bufferId, path);
 			return path.ToString();
 		}
 
 		public void SetCurrentLanguage(LangType language)
 		{
-			Win32.SendMessage(PluginBase.nppData._nppHandle, NppMsg.NPPM_SETCURRENTLANGTYPE, Unused, (int) language);
+			Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETCURRENTLANGTYPE, Unused, (int) language);
 		}
 	}
 
@@ -63,7 +63,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 
 		public void ClearIndicator()
 		{
-			Win32.SendMessage(PluginBase.nppData._nppHandle, (NppMsg) Resource.NPPM_INTERNAL_CLEARINDICATOR, Unused, Unused);
+			Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) Resource.NPPM_INTERNAL_CLEARINDICATOR, Unused, Unused);
 		}
 	}
 }
