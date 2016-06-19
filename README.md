@@ -22,9 +22,13 @@ This is a fork of UFO's plugin package updated for VS2015
 
 ## Upgrading to a newer version
   * Upgrading the pluging package
-    *  simply by replacing the `NppPlugin.zip` from your visual studio (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"`) with a newer version
+    * replacing the `NppPluginXXXX.zip` from your visual studio (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"`) with a newer version
+
   * Upgrading plugings using the plugin pack. 
-    * Delete the folder `PluginInfrastructure` and copy over that folder from a newer version of `NppPlugin.zip`
+    * Delete the folder `PluginInfrastructure` and copy over that folder from a newer version of `NppPluginXXXX.zip`
+    * Open visual studio 
+      * Click "show all files" in the "solution explorer"
+      * Select the new files, Right-click and choose "include in project"
 
 
 ## Plugins using this pluginpack
