@@ -1,7 +1,14 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NppManagedPluginDemo.VS2010", "NppManagedPluginDemo\NppManagedPluginDemo.VS2015.csproj", "{EB8FC3A3-93E8-457B-B281-FAFA5119611A}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NppManagedPluginDemo.VS2015", "NppManagedPluginDemo\NppManagedPluginDemo.VS2015.csproj", "{EB8FC3A3-93E8-457B-B281-FAFA5119611A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3AE78A99-AA2D-49B1-84B5-75F184582902}"
+	ProjectSection(SolutionItems) = preProject
+		..\makerelease.ps1 = ..\makerelease.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
