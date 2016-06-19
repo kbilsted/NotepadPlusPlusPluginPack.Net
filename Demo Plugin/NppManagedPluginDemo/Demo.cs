@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using Kbg.NppPluginNET;
 using Kbg.NppPluginNET.PluginInfrastructure;
 
 namespace Kbg.NppPluginNET

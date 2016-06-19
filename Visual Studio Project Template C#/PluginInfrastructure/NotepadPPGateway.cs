@@ -1,9 +1,9 @@
 ﻿// NPP plugin platform for .Net v0.91.57 by Kasper B. Graversen etc.
 using System;
 using System.Text;
-using Kbg.NppPluginNET.PluginInfrastructure;
+using NppPluginNET.PluginInfrastructure;
 
-namespace Kbg.NppPluginNET
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
     public interface INotepadPPGateway
     {

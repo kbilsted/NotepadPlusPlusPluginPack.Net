@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Kbg.NppPluginNET
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct NppData

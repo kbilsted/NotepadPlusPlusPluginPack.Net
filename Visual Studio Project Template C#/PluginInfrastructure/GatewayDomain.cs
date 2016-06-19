@@ -2,9 +2,8 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using Kbg.NppPluginNET.PluginInfrastructure;
 
-namespace Kbg.NppPluginNET
+namespace Kbg.NppPluginNET.PluginInfrastructure
 {
     /// <summary>
     /// Colours are set using the RGB format (Red, Green, Blue). The intensity of each colour is set in the range 0 to 255.
