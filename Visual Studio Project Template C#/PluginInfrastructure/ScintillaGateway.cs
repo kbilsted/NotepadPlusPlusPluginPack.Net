@@ -43,6 +43,21 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             GotoPos(new Position(currentPos.Value + text.Length));
         }
 
+        public void SelectCurrentLine()
+        {
+            int line = GetCurrentLineNumber();
+            SetSelection(PositionFromLine(line).Value, PositionFromLine(line + 1).Value);
+        }
+
+        /// <summary>
+        /// clears the selection without changing the position of the cursor
+        /// </summary>
+        public void ClearSelectionToCursor()
+        {
+            var pos = GetCurrentPos().Value;
+            SetSelection(pos, pos);
+        }
+
         /// <summary>
         /// Get the current line from the current position
         /// </summary>

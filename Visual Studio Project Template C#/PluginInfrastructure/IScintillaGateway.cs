@@ -15,6 +15,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         int GetSelectionLength();
         void AppendTextAndMoveCursor(string text);
         void InsertTextAndMoveCursor(string text);
+        void SelectCurrentLine();
+        void ClearSelectionToCursor();
 
         /// <summary>
         /// Get the current line from the current position
