@@ -1,4 +1,4 @@
-﻿// NPP plugin platform for .Net v0.92.76 by Kasper B. Graversen etc.
+﻿// NPP plugin platform for .Net v0.92.83 by Kasper B. Graversen etc.
 //
 // This file should stay in sync with the CPP project file
 // "notepad-plus-plus/PowerEditor/src/MISC/PluginsManager/Notepad_plus_msgs.h"
