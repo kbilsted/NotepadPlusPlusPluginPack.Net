@@ -26,7 +26,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// <summary>
         /// CtrlID of the window issuing the notification
         /// </summary>
-        public uint IdFrom;   
+        public IntPtr IdFrom;
 
         /// <summary>
         /// The SCN_* notification Code
@@ -46,8 +46,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         public int Length;                  /* SCN_MODIFIED */
         public int LinesAdded;              /* SCN_MODIFIED */
         public int Message;                 /* SCN_MACRORECORD */
-        public uint wParam;                 /* SCN_MACRORECORD */
-        public int lParam;                  /* SCN_MACRORECORD */
+        public IntPtr wParam;               /* SCN_MACRORECORD */
+        public IntPtr lParam;               /* SCN_MACRORECORD */
 
         /// <summary>
         /// 0-based index
