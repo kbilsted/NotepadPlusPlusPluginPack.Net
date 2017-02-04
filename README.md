@@ -37,6 +37,7 @@ This is a fork of UFO's plugin package updated for VS2015
   * https://github.com/zkirkland/FirstUpper
   * https://github.com/kbilsted/NppPluginCutNCopyLine
   * https://github.com/kbilsted/NppPluginRebaseAssister
+  * https://github.com/nea/MarkdownViewerPlusPlus
   
 
 ## How to start coding plugins
