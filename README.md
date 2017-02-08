@@ -83,6 +83,28 @@ you can now set breakpoints and step-execute. (currently not working in v6.9.2 h
   
    * you can make this process easier by setting the "start action" in the project -> properties -> debug to start notepad++.exe - then you can simply build and hit `F5`.
 
+### Working with dependencies
+To use external dependencies such as libraries in your plugin you can proceed in two ways:
+* clone the dependency sources into your plugin project (e.g. as a shared project)
+* add the dependency as reference (i.e. via NuGet) and merge it into the plugin *.dll* via [ILMerge][2] (*preferred*)
+
+#### Shared Projects
+One possibility is to include dependencies by adding the required source code into a new **Shared Project** in the plugin-development solution.
+
+Assuming you are using Visual Studio to add a Shared Project to your solution (*New Project -> Shared Project*) and copy the required sources into that project. Double-check that the Shared Project is part of your main plugin-project references. If not, add the reference. You are now ready to use the included sources in your plugin and they will be compiled into the final plugin *.dll*.
+
+*Note: Do not include properties etc. from other dependencies when copying the sources, as the main project defines the e.g. assembly information.*
+
+#### References
+The prefered way to use dependencies is via **References**, in the best-case through [*NuGet*][3].
+
+Via NuGet you are able to add packages to your project, certain versions etc. through a global repository. Package information is stored in your project and other developers can gather the same, correct versions through the global repository without committing masses of data.
+
+To use included references in your compiled plugin you need to merge these into the *.dll* as Notepad++ is not fond of locating non-plugin *.dll's* in its folder. [ILMerge][2] was developed for the purpose of merging managed libraries. It can be installed via NuGet and used manually. 
+
+The best way is to install [MSBuild.ILMerge.Task][1] via NuGet in your plugin project. It will include [ILMerge][2] as dependency and attach itself to your Visual Studio build process. By that, with every build you compile a merged plugin *.dll* including all your custom references to use. ILMerge will add configuration files to your project: *ILMerge.props* and *ILMergeOrder.txt*. Refer to the official homepage for more information about the configuration possibilities.
+
+*Note: To use ILMerge in your plugin you have to change the **Target Framework** of your plugin project to at least .NET Framework 4.0 (CP). ILMerge can work with .NET 3.5 and below, but requires additional configuration and adaptation. If you do not required the extreme backwards compatibility, upgrade the .NET Framework target as quick and easy solution.*
 
 ## Versioning
 Until we reach v1.0 expect a bit of chaos and breaking changes.
@@ -106,3 +128,7 @@ From v1.0 and onwards we will turn over to semantic versioning
 ## About me
 
 I blog at http://firstclassthoughts.co.uk/ on code readability and quality
+
+  [1]: https://www.nuget.org/packages/MSBuild.ILMerge.Task/
+  [2]: https://www.nuget.org/packages/ilmerge
+  [3]: https://www.nuget.org/
