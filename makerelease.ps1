@@ -1,4 +1,4 @@
-$version = "0.93.87"
+$version = "0.93.96"
 
 
 function replaceVersionInfo($version)
