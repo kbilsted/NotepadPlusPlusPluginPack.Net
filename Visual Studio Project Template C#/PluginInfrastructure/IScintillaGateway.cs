@@ -1,5 +1,6 @@
 ﻿// NPP plugin platform for .Net v0.93.87 by Kasper B. Graversen etc.
 
+using System;
 using static Kbg.NppPluginNET.PluginInfrastructure.Win32;
 
 namespace Kbg.NppPluginNET.PluginInfrastructure
