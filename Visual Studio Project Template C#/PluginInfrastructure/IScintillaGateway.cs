@@ -886,14 +886,14 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         int GetTextLength();
 
         /// <summary>Retrieve a pointer to a function that processes messages for this Scintilla. (Scintilla feature 2184)</summary>
-        int GetDirectFunction();
+        IntPtr GetDirectFunction();
 
         /// <summary>
         /// Retrieve a pointer value to use as the first argument when calling
         /// the function returned by GetDirectFunction.
         /// (Scintilla feature 2185)
         /// </summary>
-        int GetDirectPointer();
+        IntPtr GetDirectPointer();
 
         /// <summary>Set to overtype (true) or insert mode. (Scintilla feature 2186)</summary>
         void SetOvertype(bool overtype);
@@ -1511,10 +1511,10 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         void SetViewEOL(bool visible);
 
         /// <summary>Retrieve a pointer to the document object. (Scintilla feature 2357)</summary>
-        int GetDocPointer();
+        IntPtr GetDocPointer();
 
         /// <summary>Change the document object used. (Scintilla feature 2358)</summary>
-        void SetDocPointer(int pointer);
+        void SetDocPointer(IntPtr pointer);
 
         /// <summary>Set which document modification events are sent to the container. (Scintilla feature 2359)</summary>
         void SetModEventMask(int mask);
@@ -1993,7 +1993,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// characters in the document.
         /// (Scintilla feature 2520)
         /// </summary>
-        int GetCharacterPointer();
+        IntPtr GetCharacterPointer();
 
         /// <summary>
         /// Return a read-only pointer to a range of characters in the document.
@@ -2001,7 +2001,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// to rangeLength bytes.
         /// (Scintilla feature 2643)
         /// </summary>
-        int GetRangePointer(int position, int rangeLength);
+        IntPtr GetRangePointer(int position, int rangeLength);
 
         /// <summary>
         /// Return a position which, to avoid performance costs, should not be within
