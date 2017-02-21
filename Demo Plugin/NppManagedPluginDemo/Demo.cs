@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Kbg.NppPluginNET.PluginInfrastructure;
+using static Kbg.NppPluginNET.PluginInfrastructure.Win32;
 
 namespace Kbg.NppPluginNET
 {
@@ -126,6 +127,24 @@ namespace Kbg.Demo.Namespace
             PluginBase.SetCommand(14, "---", null);
 
             PluginBase.SetCommand(15, "Dockable Dialog Demo", DockableDlgDemo); idFrmGotToLine = 15;
+
+            PluginBase.SetCommand(16, "---", null);
+
+            PluginBase.SetCommand(17, "Print Scroll and Row Information", PrintScrollInformation);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        static void PrintScrollInformation()
+        {
+            ScrollInfo scrollInfo = editor.GetScrollInfo(ScrollInfoMask.SIF_RANGE | ScrollInfoMask.SIF_TRACKPOS | ScrollInfoMask.SIF_PAGE, ScrollInfoBar.SB_VERT);
+            var scrollRatio = (double)scrollInfo.nTrackPos / (scrollInfo.nMax - scrollInfo.nPage);
+            var scrollPercentage = Math.Min(scrollRatio, 1) * 100;
+            editor.ReplaceSel($@"The maximum row in the current document was {scrollInfo.nMax+1}.
+A maximum of {scrollInfo.nPage} rows is visible at a time.
+The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
+");
         }
 
         static internal void SetToolBarIcon()
