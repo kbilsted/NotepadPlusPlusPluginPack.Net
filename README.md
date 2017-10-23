@@ -38,6 +38,7 @@ This is a fork of UFO's plugin package updated for VS2015
   * https://github.com/kbilsted/NppPluginCutNCopyLine
   * https://github.com/kbilsted/NppPluginRebaseAssister
   * https://github.com/nea/MarkdownViewerPlusPlus
+  * https://github.com/AnnaVel/RtfHelper
   
 If your plugin is not on the list, please make a PR with a link to it.. :-)
 
