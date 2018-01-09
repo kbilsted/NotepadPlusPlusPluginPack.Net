@@ -1,29 +1,52 @@
 ﻿// NPP plugin platform for .Net v0.93.96 by Kasper B. Graversen etc.
 using System;
+using System.Windows.Forms;
 
 namespace Kbg.NppPluginNET.PluginInfrastructure
 {
-    class PluginBase
-    {
-        internal static NppData nppData;
-        internal static FuncItems _funcItems = new FuncItems();
+    // cs-script.npp
+    public delegate void SetMenuCommand(int cmdIndex, string name, NppFuncItemDelegate handler, string shortcut);
 
-        internal static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer)
+    // cs-script.npp
+    public partial class PluginBase
+    {
+        static NotepadPPGateway editor;
+
+        public static IScintillaGateway GetCurrentDocument()
+        {
+            return GetGatewayFactory()();
+        }
+
+        public static NotepadPPGateway Editor
+        {
+            get
+            {
+                return editor ?? (editor = new NotepadPPGateway());
+            }
+        }
+    }
+
+    public partial class PluginBase
+    {
+        public static NppData nppData;
+        public static FuncItems _funcItems = new FuncItems();
+
+        public static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer)
         {
             SetCommand(index, commandName, functionPointer, new ShortcutKey(), false);
         }
-        
-        internal static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, ShortcutKey shortcut)
+
+        public static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, ShortcutKey shortcut)
         {
             SetCommand(index, commandName, functionPointer, shortcut, false);
         }
-        
-        internal static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, bool checkOnInit)
+
+        public static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, bool checkOnInit)
         {
             SetCommand(index, commandName, functionPointer, new ShortcutKey(), checkOnInit);
         }
-        
-        internal static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, ShortcutKey shortcut, bool checkOnInit)
+
+        public static void SetCommand(int index, string commandName, NppFuncItemDelegate functionPointer, ShortcutKey shortcut, bool checkOnInit)
         {
             FuncItem funcItem = new FuncItem();
             funcItem._cmdID = index;
@@ -36,13 +59,12 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             _funcItems.Add(funcItem);
         }
 
-        internal static IntPtr GetCurrentScintilla()
+        public static IntPtr GetCurrentScintilla()
         {
             int curScintilla;
-            Win32.SendMessage(nppData._nppHandle, (uint) NppMsg.NPPM_GETCURRENTSCINTILLA, 0, out curScintilla);
+            Win32.SendMessage(nppData._nppHandle, (uint)NppMsg.NPPM_GETCURRENTSCINTILLA, 0, out curScintilla);
             return (curScintilla == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
         }
-
 
         static readonly Func<IScintillaGateway> gatewayFactory = () => new ScintillaGateway(GetCurrentScintilla());
 
