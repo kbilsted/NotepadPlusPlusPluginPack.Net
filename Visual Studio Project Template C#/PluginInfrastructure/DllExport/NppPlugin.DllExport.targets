@@ -5,6 +5,9 @@
   <Target Name="AfterBuild"
           DependsOnTargets="GetFrameworkPaths"
           >
+    <PropertyGroup>
+        <LibToolPath Condition="Exists('$(DevEnvDir)\..\..\VC\bin')">$(DevEnvDir)\..\..\VC\bin</LibToolPath>
+    </PropertyGroup>
     <DllExportTask Platform="$(Platform)"
                    PlatformTarget="$(PlatformTarget)"
                    CpuType="$(CpuType)"
@@ -17,14 +20,19 @@
                    ProjectDirectory="$(MSBuildProjectDirectory)"
                    InputFileName="$(TargetPath)"
                    FrameworkPath="$(TargetedFrameworkDir);$(TargetFrameworkDirectory)"
-                   LibToolPath="$(DevEnvDir)\..\..\VC\bin"
+                   LibToolPath="$(LibToolPath)"
                    LibToolDllPath="$(DevEnvDir)"
                    SdkPath="$(SDK40ToolsPath)"/>
  
     <Copy 
         SourceFiles="$(TargetPath)" 
-        DestinationFolder="C:\Program Files (x86)\Notepad++\plugins\" 
-        Condition="Exists('C:\Program Files (x86)\Notepad++\plugins\')"
+        DestinationFolder="$(MSBuildProgramFiles32)\Notepad++\plugins\" 
+        Condition="Exists('$(MSBuildProgramFiles32)\Notepad++\plugins\') AND '$(Platform)'=='x86'"
+        ContinueOnError="false" /> 
+    <Copy 
+        SourceFiles="$(TargetPath)" 
+        DestinationFolder="$(ProgramW6432)\Notepad++\plugins\" 
+        Condition="Exists('$(ProgramW6432)\Notepad++\plugins\') AND '$(Platform)'=='x64'"
         ContinueOnError="false" />
   </Target>
 </Project>
