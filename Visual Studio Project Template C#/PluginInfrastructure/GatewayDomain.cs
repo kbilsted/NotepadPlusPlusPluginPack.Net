@@ -43,7 +43,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 
         public int Value
         {
-            get { return Red + (Blue << 8) + (Green << 16); }
+            get { return Red + (Green << 8) + (Blue << 16); }
         }
     }
 
@@ -231,7 +231,6 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         {
             this.charactersAndStyles = charactersAndStyles;
         }
-
         public char[] Value { get { return charactersAndStyles; } }
     }
 
@@ -260,11 +259,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             public CharacterRange chrg;
             public IntPtr lpstrText;
         }
-
         public IntPtr NativePointer { get { _initNativeStruct(); return _ptrSciTextRange; } }
-
         public string lpstrText { get { _readNativeStruct(); return Marshal.PtrToStringAnsi(_sciTextRange.lpstrText); } }
-
         public CharacterRange chrg { get { _readNativeStruct(); return _sciTextRange.chrg; } set { _sciTextRange.chrg = value; _initNativeStruct(); } }
 
         void _initNativeStruct()
