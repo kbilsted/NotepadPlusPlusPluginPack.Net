@@ -50,6 +50,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
+    <!-- Default values for debugging sso it start correct version of Notepad++
+         $(ProgramW6432) and $(MSBuildProgramFiles32) points to the 64 and 32 bit "Program Files" directories -->
     <StartAction>Program</StartAction>
     <StartProgram Condition="'$(Platform)'=='x64'">$(ProgramW6432)\Notepad++\notepad++.exe</StartProgram>
     <StartProgram Condition="'$(Platform)'=='x86'">$(MSBuildProgramFiles32)\Notepad++\notepad++.exe</StartProgram>

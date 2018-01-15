@@ -13,7 +13,7 @@ This is a fork of UFO's plugin package updated for VS2015
 ## Getting started
   1. Download a [release](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases/) 
   2. Place the visual studio project template (the `NppPlugin.zip`) in the visual studio path (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"`)
-  3. Ensure you have installed **Visual C++** from the visual studio installer otherwise your project wont build<br>
+  3. If you intend to debug Notepad++ itself (and not just the plugin) ensure you have installed **Visual C++** from the visual studio installer<br>
   ![install CPP](/documentation/installcpp.png)
   4. Create a new project inside Visual studio using `file -> new -> project -> visual C# -> Notepad++ project`
   5. Build (building will copy the dll to the `Notepad++/plugins` folder)
@@ -39,6 +39,7 @@ This is a fork of UFO's plugin package updated for VS2015
   * https://github.com/kbilsted/NppPluginRebaseAssister
   * https://github.com/nea/MarkdownViewerPlusPlus
   * https://github.com/AnnaVel/RtfHelper
+  * https://github.com/jokedst/CsvQuery
   
 If your plugin is not on the list, please make a PR with a link to it.. :-)
 
@@ -76,9 +77,17 @@ The architecture of the plugin is.
                        +-----------+ 
 
 ### How to debug plugins
+  * Install both 32 bit and 64 bit versions of Notepad++ (if you intend to publish for both)
+  * Give yourself write permissions to the Notepad++ plugin folders
+    * Usually `C:\Program Files (x86)\Notepad++\plugins\` (for 32 bit) and `C:\Program Files\Notepad++\plugins\` (for 64 bit)
+    * Or run Visual Studio as administrator (not recommended)
+  * In Visual Studio, choose Platform to debug (x86 or x64)
+  * Make sure Notepad++ is not running
+  * Start Debugging (F5 by default)
 
+Or you can attach to a running process:
   * start notepad++
-  * in Visualstudio: debug -> attach to process... -> notepad++.exe
+  * in Visual Studio: debug -> attach to process... -> notepad++.exe
 
 you can now set breakpoints and step-execute. (currently not working in v6.9.2 https://github.com/notepad-plus-plus/notepad-plus-plus/issues/1964) 
   
@@ -106,6 +115,14 @@ To use included references in your compiled plugin you need to merge these into 
 The best way is to install [MSBuild.ILMerge.Task][1] via NuGet in your plugin project. It will include [ILMerge][2] as dependency and attach itself to your Visual Studio build process. By that, with every build you compile a merged plugin *.dll* including all your custom references to use. ILMerge will add configuration files to your project: *ILMerge.props* and *ILMergeOrder.txt*. Refer to the official homepage for more information about the configuration possibilities.
 
 *Note: To use ILMerge in your plugin you have to change the **Target Framework** of your plugin project to at least .NET Framework 4.0 (CP). ILMerge can work with .NET 3.5 and below, but requires additional configuration and adaptation. If you do not required the extreme backwards compatibility, upgrade the .NET Framework target as quick and easy solution.*
+
+### 32 vs 64 bit
+Notepad++ comes in two versions, 32 bit and 64 bit. Unfortunately this means plugins need to create two versions as well.
+
+Using this template you can switch between the two using the Visual Studio "Target Platform" drop-down.
+
+When publishing your plugin you should build in Release mode for both x86 and x64 and publish both resulting dll's (e.g. `bin/Release/myPlugin.dll` and `/bin/Release-x64/MyPlugin.dll`)
+
 
 ## Versioning
 Until we reach v1.0 expect a bit of chaos and breaking changes.
