@@ -2,7 +2,7 @@
 
 What is this? Its a simple template for very fast and easy building plugins for Notepad++ in C#/.Net
 
-This is a fork of UFO's plugin package updated for VS2015
+This is a fork of UFO's plugin package updated for VS2015 and 2017
 
 [![Build status](https://ci.appveyor.com/api/projects/status/5f0ui9y2ujugh6wt/branch/master?svg=true)](https://ci.appveyor.com/project/kbilsted/notepadpluspluspluginpack-net/branch/master)
 [![License](http://img.shields.io/badge/License-Apache_2-red.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)

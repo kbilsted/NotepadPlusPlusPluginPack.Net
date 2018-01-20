@@ -1,4 +1,4 @@
-$version = "0.93.96"
+$version = "0.94.00"
 
 
 function replaceVersionInfo($version)
@@ -29,7 +29,7 @@ write-host "# zip the projectTemplate '$filename'" -foreground green
 & 'C:\Program Files\7-Zip\7z.exe' a -tzip $filename * -xr!bin -xr!obj
 
 
-$vsTemplatepath = [Environment]::GetFolderPath("MyDocuments")+'\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\'
+$vsTemplatepath = [Environment]::GetFolderPath("MyDocuments")+'\Visual Studio 2017\Templates\ProjectTemplates\Visual C#\'
 write-host "# Copy projectTemplate to VS: '$vsTemplatepath'" -foreground green
 del "$($vsTemplatepath)\nppplugin*.zip"
 copy $filename $($vsTemplatepath)
