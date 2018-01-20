@@ -1,4 +1,4 @@
-# NppPlugin .NET package for VS2015 and beyond...
+# NppPlugin .NET package for VS2015 and beyond for Notepad++ 32bit and 64 bit...
 
 What is this? Its a simple template for very fast and easy building plugins for Notepad++ in C#/.Net
 
@@ -137,8 +137,20 @@ From v1.0 and onwards we will turn over to semantic versioning
     * Dark Daskin: http://www.codeproject.com/KB/dotnet/DllExporter.aspx
     * Robert Giesecke: http://sites.google.com/site/robertgiesecke/Home/uploads/csharpprojecttemplateforunmanagedexports https://www.nuget.org/packages/UnmanagedExports
 
+And of course the people helping out with pull requests! Much appreciated!
 
-## Requirements:
+
+
+### Requirements:
+  * works with .NET Runtime 4.0 and above 
+  * UNICODE plugins only.
+	
+	
+## VisualStudio 2015 
+
+The last known version to run vs2015 is v0.93.96 (https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases) with a little fidling you may be able to get newer versions to run 2015 as well. I just haven't tested it.
+
+### Requirements:
   * works with .NET Runtime 3.5 and above (can easily be reduced to .Net runtime 2.0 if needed)
   * UNICODE plugins only.
 
