@@ -21,7 +21,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// <summary>
         /// environment specific window handle/pointer
         /// </summary>
-        public IntPtr hwndFrom; 
+        public IntPtr hwndFrom;
 
         /// <summary>
         /// CtrlID of the window issuing the notification
@@ -31,7 +31,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// <summary>
         /// The SCN_* notification Code
         /// </summary>
-        public uint Code;       
+        public uint Code;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -2549,7 +2549,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// Move the selected lines down one line, shifting the line below before the selection
         SCI_MOVESELECTEDLINESDOWN = 2621,
 
-        /// Set the identifier reported as IdFrom in notification messages.
+        /// Set the identifier reported as idFrom in notification messages.
         SCI_SETIDENTIFIER = 2622,
 
         /// Get the identifier.

@@ -65,7 +65,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public int GetCurrentLineNumber()
         {
-            return LineFromPosition(GetCurrentPos()); 
+            return LineFromPosition(GetCurrentPos());
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public unsafe string GetCurLine(int length)
         {
-            byte[] textBuffer = new byte[10000];
+            byte[] textBuffer = new byte[length];
             fixed (byte* textPtr = textBuffer)
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_GETCURLINE, length, (IntPtr) textPtr);
@@ -1802,7 +1802,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public unsafe string GetText(int length)
         {
-            byte[] textBuffer = new byte[10000];
+            byte[] textBuffer = new byte[length];
             fixed (byte* textPtr = textBuffer)
             {
                 IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_GETTEXT, length, (IntPtr) textPtr);
@@ -1820,7 +1820,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// <summary>Retrieve a pointer to a function that processes messages for this Scintilla. (Scintilla feature 2184)</summary>
         public IntPtr GetDirectFunction()
         {
-            return Win32.SendMessage(scintilla, SciMsg.SCI_GETDIRECTFUNCTION, Unused, Unused);
+            IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_GETDIRECTFUNCTION, Unused, Unused);
+            return (IntPtr) res;
         }
 
         /// <summary>
@@ -1830,7 +1831,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public IntPtr GetDirectPointer()
         {
-            return Win32.SendMessage(scintilla, SciMsg.SCI_GETDIRECTPOINTER, Unused, Unused);
+            IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_GETDIRECTPOINTER, Unused, Unused);
+            return (IntPtr) res;
         }
 
         /// <summary>Set to overtype (true) or insert mode. (Scintilla feature 2186)</summary>
@@ -3009,7 +3011,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// <summary>Retrieve a pointer to the document object. (Scintilla feature 2357)</summary>
         public IntPtr GetDocPointer()
         {
-            return Win32.SendMessage(scintilla, SciMsg.SCI_GETDOCPOINTER, Unused, Unused);
+            IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_GETDOCPOINTER, Unused, Unused);
+            return (IntPtr) res;
         }
 
         /// <summary>Change the document object used. (Scintilla feature 2358)</summary>
@@ -3952,7 +3955,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public IntPtr GetCharacterPointer()
         {
-            return Win32.SendMessage(scintilla, SciMsg.SCI_GETCHARACTERPOINTER, Unused, Unused);
+            IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_GETCHARACTERPOINTER, Unused, Unused);
+            return (IntPtr) res;
         }
 
         /// <summary>
@@ -3963,7 +3967,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public IntPtr GetRangePointer(int position, int rangeLength)
         {
-            return Win32.SendMessage(scintilla, SciMsg.SCI_GETRANGEPOINTER, position, rangeLength);
+            IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_GETRANGEPOINTER, position, rangeLength);
+            return (IntPtr) res;
         }
 
         /// <summary>
@@ -4628,7 +4633,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_MOVESELECTEDLINESDOWN, Unused, Unused);
         }
 
-        /// <summary>Set the identifier reported as IdFrom in notification messages. (Scintilla feature 2622)</summary>
+        /// <summary>Set the identifier reported as idFrom in notification messages. (Scintilla feature 2622)</summary>
         public void SetIdentifier(int identifier)
         {
             IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_SETIDENTIFIER, identifier, Unused);
@@ -4968,7 +4973,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>For private communication between an application and a known lexer. (Scintilla feature 4013)</summary>
-        public int PrivateLexerCall(int operation, int pointer)
+        public int PrivateLexerCall(int operation, IntPtr pointer)
         {
             IntPtr res = Win32.SendMessage(scintilla, SciMsg.SCI_PRIVATELEXERCALL, operation, pointer);
             return (int) res;

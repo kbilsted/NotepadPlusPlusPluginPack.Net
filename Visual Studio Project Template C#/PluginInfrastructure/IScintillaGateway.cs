@@ -2312,7 +2312,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// <summary>Move the selected lines down one line, shifting the line below before the selection (Scintilla feature 2621)</summary>
         void MoveSelectedLinesDown();
 
-        /// <summary>Set the identifier reported as IdFrom in notification messages. (Scintilla feature 2622)</summary>
+        /// <summary>Set the identifier reported as idFrom in notification messages. (Scintilla feature 2622)</summary>
         void SetIdentifier(int identifier);
 
         /// <summary>Get the identifier. (Scintilla feature 2623)</summary>
@@ -2464,7 +2464,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         unsafe string GetLexerLanguage();
 
         /// <summary>For private communication between an application and a known lexer. (Scintilla feature 4013)</summary>
-        int PrivateLexerCall(int operation, int pointer);
+        int PrivateLexerCall(int operation, IntPtr pointer);
 
         /// <summary>
         /// Retrieve a '\n' separated list of properties understood by the current lexer.
