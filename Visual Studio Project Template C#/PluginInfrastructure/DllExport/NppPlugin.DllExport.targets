@@ -33,7 +33,7 @@
     <MakeDir Directories="$(MSBuildProgramFiles32)\Notepad++\plugins\$(TargetName)\" Condition="Exists('$(MSBuildProgramFiles32)\Notepad++\plugins\') AND !Exists('$(MSBuildProgramFiles32)\Notepad++\plugins\$(TargetName)\') AND '$(Platform)'=='x86'" />
     <Copy 
         SourceFiles="$(TargetPath)" 
-        DestinationFolder="$(MSBuildProgramFiles32)\Notepad++\plugins\$(TargetName)\)" 
+        DestinationFolder="$(MSBuildProgramFiles32)\Notepad++\plugins\$(TargetName)\" 
         Condition="Exists('$(MSBuildProgramFiles32)\Notepad++\plugins\$(TargetName)\') AND '$(Platform)'=='x86'"
         ContinueOnError="false" />
     <MakeDir Directories="$(ProgramW6432)\Notepad++\plugins\$(TargetName)\" Condition="Exists('$(ProgramW6432)\Notepad++\plugins\') AND !Exists('$(ProgramW6432)\Notepad++\plugins\$(TargetName)\') AND '$(Platform)'=='x64'" />
