@@ -40,6 +40,7 @@ This is a fork of UFO's plugin package updated for VS2015 and 2017
   * https://github.com/nea/MarkdownViewerPlusPlus
   * https://github.com/AnnaVel/RtfHelper
   * https://github.com/jokedst/CsvQuery
+  * https://github.com/wakatime/notepadpp-wakatime
   
 If your plugin is not on the list, please make a PR with a link to it.. :-)
 
