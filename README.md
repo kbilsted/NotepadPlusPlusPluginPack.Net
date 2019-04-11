@@ -127,11 +127,16 @@ When publishing your plugin you should build in Release mode for both x86 and x6
 
 ## Requirements
 
-  * works with .NET Runtime 4.0 and above 
+  * Works with .NET Runtime 4.0 and above 
   * UNICODE plugins only.
+  * Works on Notepad++ 7.6.3 and above
+  
+For Notepad++ 7.6 to 7.6.2 no release works out of the box due to plugin directories changing with every release.
+
 
 ### v0.94.00
-The last version to work with Notepad++ v4.6.3 or below (newer versions of notepad++ use a different plugin structure, so you need to use a newer version of this framework)
+The last version to work with Notepad++ v7.5.9 or below (newer versions of notepad++ use a different plugin structure, so you need to use a newer version of this framework). 
+If you copy the binaries to the right place, you may still get things working.
 	
 ### v0.93.96	
 
