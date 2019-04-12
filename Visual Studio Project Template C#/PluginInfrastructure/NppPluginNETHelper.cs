@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace Kbg.NppPluginNET.PluginInfrastructure
 {
@@ -20,6 +21,18 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     [StructLayout(LayoutKind.Sequential)]
     public struct ShortcutKey
     {
+        // cs-script.npp
+        public ShortcutKey(string data)
+        {
+            //Ctrl+Shift+Alt+Key
+            var parts = data.Split('+');
+            _key = Convert.ToByte(Enum.Parse(typeof(Keys), parts.Last()));
+            parts = parts.Take(parts.Length - 1).ToArray();
+            _isCtrl = Convert.ToByte(parts.Contains("Ctrl"));
+            _isShift = Convert.ToByte(parts.Contains("Shift"));
+            _isAlt = Convert.ToByte(parts.Contains("Alt"));
+        }
+
         public ShortcutKey(bool isCtrl, bool isAlt, bool isShift, Keys key)
         {
             // the types 'bool' and 'char' have a size of 1 byte only!
@@ -28,6 +41,12 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             _isShift = Convert.ToByte(isShift);
             _key = Convert.ToByte(key);
         }
+
+        public bool IsCtrl { get { return _isCtrl != 0; } }
+        public bool IsShift { get { return _isShift != 0; } }
+        public bool IsAlt { get { return _isAlt != 0; } }
+        public Keys Key { get { return (Keys)_key; } }
+
         public byte _isCtrl;
         public byte _isAlt;
         public byte _isShift;
@@ -39,6 +58,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
     {
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
         public string _itemName;
+
         public NppFuncItemDelegate _pFunc;
         public int _cmdID;
         public bool _init2Check;
@@ -62,6 +82,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 
         [DllImport("kernel32")]
         static extern void RtlMoveMemory(IntPtr Destination, IntPtr Source, int Length);
+
         public void Add(FuncItem funcItem)
         {
             int oldSize = _funcItems.Count * _sizeFuncItem;
@@ -129,12 +150,12 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
                 _disposed = true;
             }
         }
+
         ~FuncItems()
         {
             Dispose();
         }
     }
-
 
     public enum winVer
     {
@@ -142,32 +163,31 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8, WV_WIN81, WV_WIN10
     }
 
-
     [Flags]
     public enum DockMgrMsg : uint
     {
         IDB_CLOSE_DOWN = 137,
-        IDB_CLOSE_UP                    = 138,
-        IDD_CONTAINER_DLG               = 139,
+        IDB_CLOSE_UP                = 138,
+        IDD_CONTAINER_DLG           = 139,
 
-        IDC_TAB_CONT                    = 1027,
-        IDC_CLIENT_TAB                  = 1028,
-        IDC_BTN_CAPTION                 = 1050,
+        IDC_TAB_CONT                = 1027,
+        IDC_CLIENT_TAB              = 1028,
+        IDC_BTN_CAPTION             = 1050,
 
-        DMM_MSG                         = 0x5000,
-            DMM_CLOSE                   = (DMM_MSG + 1),
-            DMM_DOCK                    = (DMM_MSG + 2),
-            DMM_FLOAT                   = (DMM_MSG + 3),
-            DMM_DOCKALL                 = (DMM_MSG + 4),
-            DMM_FLOATALL                = (DMM_MSG + 5),
-            DMM_MOVE                    = (DMM_MSG + 6),
-            DMM_UPDATEDISPINFO          = (DMM_MSG + 7),
-            DMM_GETIMAGELIST            = (DMM_MSG + 8),
-            DMM_GETICONPOS              = (DMM_MSG + 9),
-            DMM_DROPDATA                = (DMM_MSG + 10),
-            DMM_MOVE_SPLITTER            = (DMM_MSG + 11),
-            DMM_CANCEL_MOVE                = (DMM_MSG + 12),
-            DMM_LBUTTONUP                = (DMM_MSG + 13),
+        DMM_MSG                     = 0x5000,
+        DMM_CLOSE                   = (DMM_MSG + 1),
+        DMM_DOCK                    = (DMM_MSG + 2),
+        DMM_FLOAT                   = (DMM_MSG + 3),
+        DMM_DOCKALL                 = (DMM_MSG + 4),
+        DMM_FLOATALL                = (DMM_MSG + 5),
+        DMM_MOVE                    = (DMM_MSG + 6),
+        DMM_UPDATEDISPINFO          = (DMM_MSG + 7),
+        DMM_GETIMAGELIST            = (DMM_MSG + 8),
+        DMM_GETICONPOS              = (DMM_MSG + 9),
+        DMM_DROPDATA                = (DMM_MSG + 10),
+        DMM_MOVE_SPLITTER           = (DMM_MSG + 11),
+        DMM_CANCEL_MOVE             = (DMM_MSG + 12),
+        DMM_LBUTTONUP              = (DMM_MSG + 13),
 
         DMN_FIRST = 1050,
             DMN_CLOSE                    = (DMN_FIRST + 1),
@@ -178,8 +198,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             DMN_DOCK                    = (DMN_FIRST + 2),
             DMN_FLOAT                    = (DMN_FIRST + 3)
             //nmhdr.Code = DWORD(DMN_XXX, int newContainer);
-            //nmhdr.hwndFrom = hwndNpp;
-            //nmhdr.IdFrom = ctrlIdNpp;
+        //nmhdr.hwndFrom = hwndNpp;
+        //nmhdr.IdFrom = ctrlIdNpp;
     }
 
     [StructLayout(LayoutKind.Sequential)]

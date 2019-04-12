@@ -18,11 +18,12 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             for (int i = 0; i < num; i++)
             {
                 IntPtr item = Marshal.AllocHGlobal(stringCapacity);
-                Marshal.WriteIntPtr((IntPtr)((int)_nativeArray + (i * IntPtr.Size)), item);
+                Marshal.WriteIntPtr(_nativeArray + (i * IntPtr.Size), item);
                 _nativeItems.Add(item);
             }
-            Marshal.WriteIntPtr((IntPtr)((int)_nativeArray + (num * IntPtr.Size)), IntPtr.Zero);
+            Marshal.WriteIntPtr(_nativeArray + (num * IntPtr.Size), IntPtr.Zero);
         }
+
         public ClikeStringArray(List<string> lstStrings)
         {
             _nativeArray = Marshal.AllocHGlobal((lstStrings.Count + 1) * IntPtr.Size);
@@ -30,15 +31,16 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             for (int i = 0; i < lstStrings.Count; i++)
             {
                 IntPtr item = Marshal.StringToHGlobalUni(lstStrings[i]);
-                Marshal.WriteIntPtr((IntPtr)((int)_nativeArray + (i * IntPtr.Size)), item);
+                Marshal.WriteIntPtr(_nativeArray + (i * IntPtr.Size), item);
                 _nativeItems.Add(item);
             }
-            Marshal.WriteIntPtr((IntPtr)((int)_nativeArray + (lstStrings.Count * IntPtr.Size)), IntPtr.Zero);
+            Marshal.WriteIntPtr(_nativeArray + (lstStrings.Count * IntPtr.Size), IntPtr.Zero);
         }
 
         public IntPtr NativePointer { get { return _nativeArray; } }
         public List<string> ManagedStringsAnsi { get { return _getManagedItems(false); } }
         public List<string> ManagedStringsUnicode { get { return _getManagedItems(true); } }
+
         List<string> _getManagedItems(bool unicode)
         {
             List<string> _managedItems = new List<string>();
@@ -60,6 +62,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
                 _disposed = true;
             }
         }
+
         ~ClikeStringArray()
         {
             Dispose();
