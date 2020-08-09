@@ -35,20 +35,20 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         public void AppendTextAndMoveCursor(string text)
         {
             AppendText(text.Length, text);
-            GotoPos(new Position(GetCurrentPos().Value + text.Length));
+            GotoPos(GetCurrentPos() + text.Length);
         }
 
         public void InsertTextAndMoveCursor(string text)
         {
             var currentPos = GetCurrentPos();
             InsertText(currentPos, text);
-            GotoPos(new Position(currentPos.Value + text.Length));
+            GotoPos(currentPos + text.Length);
         }
 
         public void SelectCurrentLine()
         {
             int line = GetCurrentLineNumber();
-            SetSelection(PositionFromLine(line).Value, PositionFromLine(line + 1).Value);
+            SetSelection(PositionFromLine(line), PositionFromLine(line + 1));
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public void ClearSelectionToCursor()
         {
-            var pos = GetCurrentPos().Value;
+            var pos = GetCurrentPos();
             SetSelection(pos, pos);
         }
 
@@ -65,7 +65,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public int GetCurrentLineNumber()
         {
-            return LineFromPosition(GetCurrentPos()); 
+            return LineFromPosition(GetCurrentPos());
         }
 
         /// <summary>
