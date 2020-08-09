@@ -1,9 +1,12 @@
-# requires the notepad++ project is cloned in a folder next to this plugin pack 
+# requires the notepad++ project to be cloned in a folder next to this plugin pack 
 
 import Face
 from FileGenerator import Regenerate
+import os
 
 indent = "        "
+scintillaIfacePath = os.path.join("..","..","..","notepad-plus-plus","scintilla","include")                     
+templatePath = os.path.join("..","..","Visual Studio Project Template C#","PluginInfrastructure")   
 
 def printLexCSFile(f):
 	out = []
@@ -35,21 +38,23 @@ def isTypeUnsupported(t):
 def translateType(t):
 	if t == "cells": return "Cells"
 	if t == "colour": return "Colour"
-	if t == "position": return "Position"
+	if t == "line": return "int"
+	if t == "pointer": return "IntPtr"
+	if t == "position": return "int"
 	if t == "textrange": return "TextRange"
 	if t == "findtext": return "TextToFind"
 	if t == "keymod": return "KeyModifier"
 	return t
 
 def translateVariableAccess(name, type):
-	if type == "bool": return name + " ? 1 : 0"
-	if type in ["string", "stringresult", "Cells"]: return "(IntPtr) " +name+ "Ptr"
-
 	res = name if name else "Unused"
-	if type in ["Colour", "Position", "KeyModifier"]:
+	if type == "bool": return "new IntPtr(" +res+ " ? 1 : 0)"
+	elif type in ["string", "stringresult", "Cells"]: return "(IntPtr) " +res+ "Ptr"
+	elif type in ["Colour", "KeyModifier"]:
 		res += ".Value"
-	if type in ["TextRange", "TextToFind"]: 
+	elif type in ["TextRange", "TextToFind"]: 
 		res += ".NativePointer"
+	else: res = "(IntPtr) " + res
 	return res
 
 def methodName(name):
@@ -85,26 +90,28 @@ def getParameterList(param1Type, param1Name, param2Type, param2Name):
 	separator = ", " if first and second else ""
 	return first + separator + second
 
-#def printEnumDefinitions(f):
-#	out = []
-#	for name in f.order:
-#		v = f.features[name]
-#
-#		iindent = indent + "    "
-#
-#		if v["FeatureType"] in ["enu"]:
-#			appendComment(indent, out, v)
-#			prefix = v["Value"]
-#			out.append(indent + "public enum " + name)
-#			out.append(indent + "{")
-#			for ename in f.order:
-#				ve = f.features[ename]
-#				if ve["FeatureType"] in ["val"]:
-#					if ename.startswith(prefix):
-#						out.append(iindent + ename[len(prefix):] + " = " + ve["Value"] + "," )
-#
-#			out.append(indent + "}")
-#	return out
+def printEnumDefinitions(f):
+	out = []
+	for name in f.order:
+		v = f.features[name]
+
+		iindent = indent + "    "
+
+		if v["FeatureType"] in ["enu"] and name not in ["Keys"]: # for all except excluded enums [conflicting]
+			appendComment(indent, out, v)
+			prefix = v["Value"]
+			out.append(indent + "public enum " + name)
+			out.append(indent + "{")
+			for ename in f.order:
+				ve = f.features[ename]
+				if ve["FeatureType"] in ["val"] and ename.startswith(prefix):
+					valname = ename[len(prefix):]
+					if valname[0].isdigit(): valname = "_" + valname	# for enums labels such as char encoding 
+					if ve["Value"] == "0xFFFFFFFF": ve["Value"] = "-1"	# reset back since these are signed enums
+					out.append(iindent + valname + " = " + ve["Value"] + "," )
+			out[-1] = out[-1].rstrip(",")	
+			out.append(indent + "}")
+	return out
 
 def printLexGatewayFile(f):
 	out = []
@@ -172,20 +179,25 @@ def printLexGatewayFile(f):
 			firstArg = translateVariableAccess(param1Name, param1Type)
 			seconArg = translateVariableAccess(param2Name, param2Type)
 
-			out.append(iindent + "IntPtr res = Win32.SendMessage(scintilla, " +featureConstant+ ", " +firstArg+ ", " +seconArg+ ");")
+			res = "Win32.SendMessage(scintilla, " +featureConstant+ ", " +firstArg+ ", " +seconArg+ ")"
 
-
-			if returnType != "void":
-				if returnType == "bool":
-					out.append(iindent + "return 1 == (int) res;")
-				elif returnType == "Colour":
-					out.append(iindent + "return new Colour((int) res);")
-				elif returnType == "Position":
-					out.append(iindent + "return new Position((int) res);")
-				elif returnType == "string":
-					out.append(iindent + "return Encoding.UTF8.GetString("+bufferVariableName+").TrimEnd('\\0');")
-				else:
-					out.append(iindent + "return (" +returnType+ ") res;")
+			if returnType == "void":
+				out.append(iindent + res + ";")
+			elif returnType == "IntPtr":
+				out.append(iindent + "return "+ res + ";")
+			elif returnType == "bool":
+				out.append(iindent + "return 1 == (int)" +res+ ";")
+			elif returnType == "Colour":
+				out.append(iindent + "return new Colour((int) " +res+ ");")
+			# elif returnType == "Line":
+			# 	out.append(iindent + "return new Line((int) " +res+ ");")
+			# elif returnType == "Position":
+			# 	out.append(iindent + "return new Position((int) " +res+ ");")
+			elif returnType == "string":
+				out.append(iindent + res + ";")
+				out.append(iindent + "return Encoding.UTF8.GetString("+bufferVariableName+").TrimEnd('\\0');")
+			else:
+				out.append(iindent + "return (" +returnType+ ")" +res+ ";")
 
 			if param1Type in ["string", "Cells", "stringresult"]:
 				iindent = iindent[4:]
@@ -226,12 +238,11 @@ def printLexIGatewayFile(f):
 
 def main():
 	f = Face.Face()
-	f.ReadFromFile("../../../notepad-plus-plus/scintilla/include/Scintilla.iface")
-	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/Scintilla_iface.cs", "/* ", printLexCSFile(f))
-	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/ScintillaGateWay.cs", "/* ", printLexGatewayFile(f))
-	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/IScintillaGateWay.cs", "/* ", printLexIGatewayFile(f))
-#	Regenerate("../../Visual Studio Project Template C#/PluginInfrastructure/gatewaydomain.cs", "/* ", printEnumDefinitions(f))
-
+	f.ReadFromFile(os.path.join(scintillaIfacePath,"Scintilla.iface"))
+	Regenerate(os.path.join(templatePath,"Scintilla_iface.cs"), "/* ", printLexCSFile(f))
+	Regenerate(os.path.join(templatePath,"ScintillaGateway.cs"), "/* ", printLexGatewayFile(f))
+	Regenerate(os.path.join(templatePath,"IScintillaGateway.cs"), "/* ", printLexIGatewayFile(f))
+	Regenerate(os.path.join(templatePath,"GatewayDomain.cs"), "/* ", printEnumDefinitions(f))
 
 if __name__ == "__main__":
 	main()
