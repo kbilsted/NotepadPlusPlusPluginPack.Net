@@ -1,5 +1,7 @@
-$version = "0.94.00"
+# Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
+$version = "0.94.00"
+$vsRelease = "2019"
 
 function replaceVersionInfo($version)
 {
@@ -28,14 +30,21 @@ $filename = "NppPlugin" + $version + ".zip"
 write-host "# zip the projectTemplate '$filename'" -foreground green
 & 'C:\Program Files\7-Zip\7z.exe' a -tzip $filename * -xr!bin -xr!obj
 
+$vsTemplatepath = [Environment]::GetFolderPath("MyDocuments") + "\Visual Studio " +
+$vsRelease + '\Templates\ProjectTemplates\Visual C#\'
 
-$vsTemplatepath = [Environment]::GetFolderPath("MyDocuments")+'\Visual Studio 2017\Templates\ProjectTemplates\Visual C#\'
 write-host "# Copy projectTemplate to VS: '$vsTemplatepath'" -foreground green
-del "$($vsTemplatepath)\nppplugin*.zip"
+if (Test-Path $vsTemplatepath) {
+  del "$($vsTemplatepath)\nppplugin*.zip"
+} else { 
+  ni -ItemType Directory -Force -Path $vsTemplatepath
+}
+
 copy $filename $($vsTemplatepath)
-copy $filename c:\temp\
 
 write-host "# remove temp files" -foreground green
 rm $filename
 
 cd ..
+
+# Read-Host -Prompt "Press Enter to continue"

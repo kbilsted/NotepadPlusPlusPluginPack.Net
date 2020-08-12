@@ -25,6 +25,7 @@ def UpdateFile(filename, updated):
         with codecs.open(filename, "r", "utf-8") as infile:
             original = infile.read()
         if updated == original:
+            print("Nothing new to update:", os.path.basename(filename))
             # Same as before so don't write
             return
         os.unlink(filename)

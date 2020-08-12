@@ -296,7 +296,7 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
 
             int bufCapacity = 512;
             var pos = editor.GetCurrentPos();
-            int currentPos = pos.Value;
+            int currentPos = pos;
             int beginPos = currentPos - (bufCapacity - 1);
             int startPos = (beginPos > 0) ? beginPos : 0;
             int size = currentPos - startPos;
