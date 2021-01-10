@@ -1,4 +1,4 @@
-# NppPlugin .NET package for VS2015 and beyond for Notepad++ 32bit and 64 bit...
+# NppPlugin .NET package for VS2019 and beyond for Notepad++ 32bit and 64 bit...
 
 What is this? Its a simple template for very fast and easy building plugins for Notepad++ in C#/.Net
 
@@ -12,7 +12,7 @@ This is a fork of UFO's plugin package updated for VS2015, 2017 and 2019
 
 ## Getting started
   1. Download a [release](https://github.com/kbilsted/NotepadPlusPlusPluginPack.Net/releases/) 
-  2. Place the visual studio project template (the `NppPlugin.zip`) in the visual studio path (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"`)
+  2. Place the visual studio project template (the `NppPlugin.zip`) in the visual studio path (typically `"My Documents\Visual Studio 20xx\Templates\ProjectTemplates\Visual C#\"`)
   3. If you intend to debug Notepad++ itself (and not just the plugin) ensure you have installed **Visual C++** from the visual studio installer<br>
   ![install CPP](/documentation/installcpp.png)
   4. Create a new project inside Visual studio using `file -> new -> project -> visual C# -> Notepad++ project`
@@ -22,7 +22,7 @@ This is a fork of UFO's plugin package updated for VS2015, 2017 and 2019
 
 ## Upgrading to a newer version
   * Upgrading the pluging package
-    * replacing the `NppPluginXXXX.zip` from your visual studio (typically `"My Documents\Visual Studio 2015\Templates\ProjectTemplates\Visual C#\"`) with a newer version
+    * replacing the `NppPluginXXXX.zip` from your visual studio (typically `"My Documents\Visual Studio 20xx\Templates\ProjectTemplates\Visual C#\"`) with a newer version
 
   * Upgrading plugings using the plugin pack. 
     * Delete the folder `PluginInfrastructure` and copy over that folder from a newer version of `NppPluginXXXX.zip`
@@ -134,6 +134,9 @@ When publishing your plugin you should build in Release mode for both x86 and x6
   
 For Notepad++ 7.6 to 7.6.2 no release works out of the box due to plugin directories changing with every release.
 
+### v0.95.00 pre-release
+Latest version as of Jan 2021 contains x64 fixes and updated HOW-TO-INSTALL.txt  
+Tested on VS2019 and latest Notepad++ both x86 and x64 versions.  
 
 ### v0.94.00
 The last version to work with Notepad++ v7.5.9 or below (newer versions of notepad++ use a different plugin structure, so you need to use a newer version of this framework). 
@@ -160,7 +163,6 @@ From v1.0 and onwards we will turn over to semantic versioning
     * Robert Giesecke: http://sites.google.com/site/robertgiesecke/Home/uploads/csharpprojecttemplateforunmanagedexports https://www.nuget.org/packages/UnmanagedExports
 
 And of course the people helping out with pull requests! Much appreciated!
-
 
 
 ## About me
