@@ -109,3 +109,4 @@ UpgradeLog*.XML
 *.pyc
 
 Visual Studio Project Template C#/$projectname$.sln
+.vscode/launch.json
