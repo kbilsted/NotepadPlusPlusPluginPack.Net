@@ -35,7 +35,7 @@ def isTypeUnsupported(t):
 	if t in ["formatrange"]: return True
 	return False
 
-def translateType(t):
+def translateType(t:str):
 	if t == "cells": return "Cells"
 	if t == "colour": return "Colour"
 	if t == "line": return "int"
@@ -44,6 +44,11 @@ def translateType(t):
 	if t == "textrange": return "TextRange"
 	if t == "findtext": return "TextToFind"
 	if t == "keymod": return "KeyModifier"
+	# refer: https://github.com/notepad-plus-plus/notepad-plus-plus/blob/9a2dcaa5f8eb678e2b0c6494c16a8b9df37f06bb/scintilla/include/Scintilla.iface#L65
+	# which states that the enumeration types are capitalized.
+	# in C/C++ these enumerations can be added using OR '|' operation but in .Net/C# enums are strictly typed.
+	# So based on official documentation of Scintilla.iface(https://www.scintilla.org/ScintillaDoc.html) we make the below change
+	if t and t[0].isupper(): return "int"    
 	return t
 
 def translateVariableAccess(name, type):
@@ -90,6 +95,15 @@ def getParameterList(param1Type, param1Name, param2Type, param2Name):
 	separator = ", " if first and second else ""
 	return first + separator + second
 
+'''
+  Type: unused/obsolete
+  
+  - enums are not plain ints as they are in C/C++ in C# they are strictly typed.
+  - so grouping enumeration types into enum class in C# restricts the combination of enum types with plain ints 
+  - hence 'int' will be used instead.
+  - This causes the below function to become obsolete.
+'''
+'''
 def printEnumDefinitions(f):
 	out = []
 	for name in f.order:
@@ -112,6 +126,7 @@ def printEnumDefinitions(f):
 			out[-1] = out[-1].rstrip(",")	
 			out.append(indent + "}")
 	return out
+'''
 
 def printLexGatewayFile(f):
 	out = []
@@ -242,7 +257,10 @@ def main():
 	Regenerate(os.path.join(templatePath,"Scintilla_iface.cs"), "/* ", printLexCSFile(f))
 	Regenerate(os.path.join(templatePath,"ScintillaGateway.cs"), "/* ", printLexGatewayFile(f))
 	Regenerate(os.path.join(templatePath,"IScintillaGateway.cs"), "/* ", printLexIGatewayFile(f))
-	Regenerate(os.path.join(templatePath,"GatewayDomain.cs"), "/* ", printEnumDefinitions(f))
+	# enum definitions are not applicable in C# since they are strictly typed and can't be combined using plain OR '|', 
+	# 'int' will be used instead.
+	# hence below code is commented out and not required.
+	# Regenerate(os.path.join(templatePath,"GatewayDomain.cs"), "/* ", printEnumDefinitions(f))
 
 if __name__ == "__main__":
 	main()

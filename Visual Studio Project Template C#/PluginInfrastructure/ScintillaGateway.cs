@@ -239,13 +239,13 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// Returns one of SCWS_* constants.
         /// (Scintilla feature 2020)
         /// </summary>
-        public WhiteSpace GetViewWS()
+        public int GetViewWS()
         {
-            return (WhiteSpace)Win32.SendMessage(scintilla, SciMsg.SCI_GETVIEWWS, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETVIEWWS, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Make white space characters invisible, always visible or visible outside indentation. (Scintilla feature 2021)</summary>
-        public void SetViewWS(WhiteSpace viewWS)
+        public void SetViewWS(int viewWS)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETVIEWWS, (IntPtr) viewWS, (IntPtr) Unused);
         }
@@ -255,13 +255,13 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// Returns one of SCTD_* constants.
         /// (Scintilla feature 2698)
         /// </summary>
-        public TabDrawMode GetTabDrawMode()
+        public int GetTabDrawMode()
         {
-            return (TabDrawMode)Win32.SendMessage(scintilla, SciMsg.SCI_GETTABDRAWMODE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETTABDRAWMODE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set how tabs are drawn when visible. (Scintilla feature 2699)</summary>
-        public void SetTabDrawMode(TabDrawMode tabDrawMode)
+        public void SetTabDrawMode(int tabDrawMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETTABDRAWMODE, (IntPtr) tabDrawMode, (IntPtr) Unused);
         }
@@ -327,19 +327,19 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Convert all line endings in the document to one mode. (Scintilla feature 2029)</summary>
-        public void ConvertEOLs(EndOfLine eolMode)
+        public void ConvertEOLs(int eolMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_CONVERTEOLS, (IntPtr) eolMode, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve the current end of line mode - one of CRLF, CR, or LF. (Scintilla feature 2030)</summary>
-        public EndOfLine GetEOLMode()
+        public int GetEOLMode()
         {
-            return (EndOfLine)Win32.SendMessage(scintilla, SciMsg.SCI_GETEOLMODE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETEOLMODE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the current end of line mode. (Scintilla feature 2031)</summary>
-        public void SetEOLMode(EndOfLine eolMode)
+        public void SetEOLMode(int eolMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETEOLMODE, (IntPtr) eolMode, (IntPtr) Unused);
         }
@@ -421,19 +421,19 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Is the IME displayed in a window or inline? (Scintilla feature 2678)</summary>
-        public IMEInteraction GetIMEInteraction()
+        public int GetIMEInteraction()
         {
-            return (IMEInteraction)Win32.SendMessage(scintilla, SciMsg.SCI_GETIMEINTERACTION, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETIMEINTERACTION, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Choose to display the the IME in a winow or inline. (Scintilla feature 2679)</summary>
-        public void SetIMEInteraction(IMEInteraction imeInteraction)
+        public void SetIMEInteraction(int imeInteraction)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETIMEINTERACTION, (IntPtr) imeInteraction, (IntPtr) Unused);
         }
 
         /// <summary>Set the symbol used for a particular marker number. (Scintilla feature 2040)</summary>
-        public void MarkerDefine(int markerNumber, MarkerSymbol markerSymbol)
+        public void MarkerDefine(int markerNumber, int markerSymbol)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_MARKERDEFINE, (IntPtr) markerNumber, (IntPtr) markerSymbol);
         }
@@ -518,21 +518,21 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the alpha used for a marker that is drawn in the text area, not the margin. (Scintilla feature 2476)</summary>
-        public void MarkerSetAlpha(int markerNumber, Alpha alpha)
+        public void MarkerSetAlpha(int markerNumber, int alpha)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_MARKERSETALPHA, (IntPtr) markerNumber, (IntPtr) alpha);
         }
 
         /// <summary>Set a margin to be either numeric or symbolic. (Scintilla feature 2240)</summary>
-        public void SetMarginTypeN(int margin, MarginType marginType)
+        public void SetMarginTypeN(int margin, int marginType)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETMARGINTYPEN, (IntPtr) margin, (IntPtr) marginType);
         }
 
         /// <summary>Retrieve the type of a margin. (Scintilla feature 2241)</summary>
-        public MarginType GetMarginTypeN(int margin)
+        public int GetMarginTypeN(int margin)
         {
-            return (MarginType)Win32.SendMessage(scintilla, SciMsg.SCI_GETMARGINTYPEN, (IntPtr) margin, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETMARGINTYPEN, (IntPtr) margin, (IntPtr) Unused);
         }
 
         /// <summary>Set the width of a margin to a width expressed in pixels. (Scintilla feature 2242)</summary>
@@ -572,15 +572,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the cursor shown when the mouse is inside a margin. (Scintilla feature 2248)</summary>
-        public void SetMarginCursorN(int margin, CursorShape cursor)
+        public void SetMarginCursorN(int margin, int cursor)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETMARGINCURSORN, (IntPtr) margin, (IntPtr) cursor);
         }
 
         /// <summary>Retrieve the cursor shown in a margin. (Scintilla feature 2249)</summary>
-        public CursorShape GetMarginCursorN(int margin)
+        public int GetMarginCursorN(int margin)
         {
-            return (CursorShape)Win32.SendMessage(scintilla, SciMsg.SCI_GETMARGINCURSORN, (IntPtr) margin, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETMARGINCURSORN, (IntPtr) margin, (IntPtr) Unused);
         }
 
         /// <summary>Set the background colour of a margin. Only visible for SC_MARGIN_COLOUR. (Scintilla feature 2250)</summary>
@@ -729,15 +729,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Get is a style mixed case, or to force upper or lower case. (Scintilla feature 2489)</summary>
-        public CaseVisible StyleGetCase(int style)
+        public int StyleGetCase(int style)
         {
-            return (CaseVisible)Win32.SendMessage(scintilla, SciMsg.SCI_STYLEGETCASE, (IntPtr) style, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_STYLEGETCASE, (IntPtr) style, (IntPtr) Unused);
         }
 
         /// <summary>Get the character get of the font in a style. (Scintilla feature 2490)</summary>
-        public CharacterSet StyleGetCharacterSet(int style)
+        public int StyleGetCharacterSet(int style)
         {
-            return (CharacterSet)Win32.SendMessage(scintilla, SciMsg.SCI_STYLEGETCHARACTERSET, (IntPtr) style, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_STYLEGETCHARACTERSET, (IntPtr) style, (IntPtr) Unused);
         }
 
         /// <summary>Get is a style visible or not. (Scintilla feature 2491)</summary>
@@ -763,7 +763,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set a style to be mixed case, or to force upper or lower case. (Scintilla feature 2060)</summary>
-        public void StyleSetCase(int style, CaseVisible caseVisible)
+        public void StyleSetCase(int style, int caseVisible)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_STYLESETCASE, (IntPtr) style, (IntPtr) caseVisible);
         }
@@ -781,19 +781,19 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the weight of characters of a style. (Scintilla feature 2063)</summary>
-        public void StyleSetWeight(int style, FontWeight weight)
+        public void StyleSetWeight(int style, int weight)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_STYLESETWEIGHT, (IntPtr) style, (IntPtr) weight);
         }
 
         /// <summary>Get the weight of characters of a style. (Scintilla feature 2064)</summary>
-        public FontWeight StyleGetWeight(int style)
+        public int StyleGetWeight(int style)
         {
-            return (FontWeight)Win32.SendMessage(scintilla, SciMsg.SCI_STYLEGETWEIGHT, (IntPtr) style, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_STYLEGETWEIGHT, (IntPtr) style, (IntPtr) Unused);
         }
 
         /// <summary>Set the character set of the font in a style. (Scintilla feature 2066)</summary>
-        public void StyleSetCharacterSet(int style, CharacterSet characterSet)
+        public void StyleSetCharacterSet(int style, int characterSet)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_STYLESETCHARACTERSET, (IntPtr) style, (IntPtr) characterSet);
         }
@@ -817,13 +817,13 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Get the alpha of the selection. (Scintilla feature 2477)</summary>
-        public Alpha GetSelAlpha()
+        public int GetSelAlpha()
         {
-            return (Alpha)Win32.SendMessage(scintilla, SciMsg.SCI_GETSELALPHA, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETSELALPHA, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the alpha of the selection. (Scintilla feature 2478)</summary>
-        public void SetSelAlpha(Alpha alpha)
+        public void SetSelAlpha(int alpha)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETSELALPHA, (IntPtr) alpha, (IntPtr) Unused);
         }
@@ -948,15 +948,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set an indicator to plain, squiggle or TT. (Scintilla feature 2080)</summary>
-        public void IndicSetStyle(int indicator, IndicatorStyle indicatorStyle)
+        public void IndicSetStyle(int indicator, int indicatorStyle)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_INDICSETSTYLE, (IntPtr) indicator, (IntPtr) indicatorStyle);
         }
 
         /// <summary>Retrieve the style of an indicator. (Scintilla feature 2081)</summary>
-        public IndicatorStyle IndicGetStyle(int indicator)
+        public int IndicGetStyle(int indicator)
         {
-            return (IndicatorStyle)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETSTYLE, (IntPtr) indicator, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETSTYLE, (IntPtr) indicator, (IntPtr) Unused);
         }
 
         /// <summary>Set the foreground colour of an indicator. (Scintilla feature 2082)</summary>
@@ -984,15 +984,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set a hover indicator to plain, squiggle or TT. (Scintilla feature 2680)</summary>
-        public void IndicSetHoverStyle(int indicator, IndicatorStyle indicatorStyle)
+        public void IndicSetHoverStyle(int indicator, int indicatorStyle)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_INDICSETHOVERSTYLE, (IntPtr) indicator, (IntPtr) indicatorStyle);
         }
 
         /// <summary>Retrieve the hover style of an indicator. (Scintilla feature 2681)</summary>
-        public IndicatorStyle IndicGetHoverStyle(int indicator)
+        public int IndicGetHoverStyle(int indicator)
         {
-            return (IndicatorStyle)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETHOVERSTYLE, (IntPtr) indicator, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETHOVERSTYLE, (IntPtr) indicator, (IntPtr) Unused);
         }
 
         /// <summary>Set the foreground hover colour of an indicator. (Scintilla feature 2682)</summary>
@@ -1008,15 +1008,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the attributes of an indicator. (Scintilla feature 2684)</summary>
-        public void IndicSetFlags(int indicator, IndicFlag flags)
+        public void IndicSetFlags(int indicator, int flags)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_INDICSETFLAGS, (IntPtr) indicator, (IntPtr) flags);
         }
 
         /// <summary>Retrieve the attributes of an indicator. (Scintilla feature 2685)</summary>
-        public IndicFlag IndicGetFlags(int indicator)
+        public int IndicGetFlags(int indicator)
         {
-            return (IndicFlag)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETFLAGS, (IntPtr) indicator, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETFLAGS, (IntPtr) indicator, (IntPtr) Unused);
         }
 
         /// <summary>Set the foreground colour of all whitespace and whether to use this setting. (Scintilla feature 2084)</summary>
@@ -1421,15 +1421,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Show or hide indentation guides. (Scintilla feature 2132)</summary>
-        public void SetIndentationGuides(IndentView indentView)
+        public void SetIndentationGuides(int indentView)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETINDENTATIONGUIDES, (IntPtr) indentView, (IntPtr) Unused);
         }
 
         /// <summary>Are the indentation guides visible? (Scintilla feature 2133)</summary>
-        public IndentView GetIndentationGuides()
+        public int GetIndentationGuides()
         {
-            return (IndentView)Win32.SendMessage(scintilla, SciMsg.SCI_GETINDENTATIONGUIDES, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETINDENTATIONGUIDES, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>
@@ -1521,19 +1521,19 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Modify colours when printing for clearer printed text. (Scintilla feature 2148)</summary>
-        public void SetPrintColourMode(PrintOption mode)
+        public void SetPrintColourMode(int mode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETPRINTCOLOURMODE, (IntPtr) mode, (IntPtr) Unused);
         }
 
         /// <summary>Returns the print colour mode. (Scintilla feature 2149)</summary>
-        public PrintOption GetPrintColourMode()
+        public int GetPrintColourMode()
         {
-            return (PrintOption)Win32.SendMessage(scintilla, SciMsg.SCI_GETPRINTCOLOURMODE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETPRINTCOLOURMODE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Find some text in the document. (Scintilla feature 2150)</summary>
-        public int FindText(FindOption searchFlags, TextToFind ft)
+        public int FindText(int searchFlags, TextToFind ft)
         {
             return (int)Win32.SendMessage(scintilla, SciMsg.SCI_FINDTEXT, (IntPtr) searchFlags, ft.NativePointer);
         }
@@ -1927,15 +1927,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the search flags used by SearchInTarget. (Scintilla feature 2198)</summary>
-        public void SetSearchFlags(FindOption searchFlags)
+        public void SetSearchFlags(int searchFlags)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETSEARCHFLAGS, (IntPtr) searchFlags, (IntPtr) Unused);
         }
 
         /// <summary>Get the search flags used by SearchInTarget. (Scintilla feature 2199)</summary>
-        public FindOption GetSearchFlags()
+        public int GetSearchFlags()
         {
-            return (FindOption)Win32.SendMessage(scintilla, SciMsg.SCI_GETSEARCHFLAGS, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETSEARCHFLAGS, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Show a call tip containing a definition near position pos. (Scintilla feature 2200)</summary>
@@ -2031,19 +2031,19 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// line is a header and whether it is effectively white space.
         /// (Scintilla feature 2222)
         /// </summary>
-        public void SetFoldLevel(int line, FoldLevel level)
+        public void SetFoldLevel(int line, int level)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETFOLDLEVEL, (IntPtr) line, (IntPtr) level);
         }
 
         /// <summary>Retrieve the fold level of a line. (Scintilla feature 2223)</summary>
-        public FoldLevel GetFoldLevel(int line)
+        public int GetFoldLevel(int line)
         {
-            return (FoldLevel)Win32.SendMessage(scintilla, SciMsg.SCI_GETFOLDLEVEL, (IntPtr) line, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETFOLDLEVEL, (IntPtr) line, (IntPtr) Unused);
         }
 
         /// <summary>Find the last child line of a header line. (Scintilla feature 2224)</summary>
-        public int GetLastChild(int line, FoldLevel level)
+        public int GetLastChild(int line, int level)
         {
             return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETLASTCHILD, (IntPtr) line, (IntPtr) level);
         }
@@ -2106,15 +2106,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the style of fold display text. (Scintilla feature 2701)</summary>
-        public void FoldDisplayTextSetStyle(FoldDisplayTextStyle style)
+        public void FoldDisplayTextSetStyle(int style)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_FOLDDISPLAYTEXTSETSTYLE, (IntPtr) style, (IntPtr) Unused);
         }
 
         /// <summary>Get the style of fold display text. (Scintilla feature 2707)</summary>
-        public FoldDisplayTextStyle FoldDisplayTextGetStyle()
+        public int FoldDisplayTextGetStyle()
         {
-            return (FoldDisplayTextStyle)Win32.SendMessage(scintilla, SciMsg.SCI_FOLDDISPLAYTEXTGETSTYLE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_FOLDDISPLAYTEXTGETSTYLE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the default fold display text. (Scintilla feature 2722)</summary>
@@ -2138,25 +2138,25 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Expand or contract a fold header. (Scintilla feature 2237)</summary>
-        public void FoldLine(int line, FoldAction action)
+        public void FoldLine(int line, int action)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_FOLDLINE, (IntPtr) line, (IntPtr) action);
         }
 
         /// <summary>Expand or contract a fold header and its children. (Scintilla feature 2238)</summary>
-        public void FoldChildren(int line, FoldAction action)
+        public void FoldChildren(int line, int action)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_FOLDCHILDREN, (IntPtr) line, (IntPtr) action);
         }
 
         /// <summary>Expand a fold header and all children. Use the level argument instead of the line's current level. (Scintilla feature 2239)</summary>
-        public void ExpandChildren(int line, FoldLevel level)
+        public void ExpandChildren(int line, int level)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_EXPANDCHILDREN, (IntPtr) line, (IntPtr) level);
         }
 
         /// <summary>Expand or contract all fold headers. (Scintilla feature 2662)</summary>
-        public void FoldAll(FoldAction action)
+        public void FoldAll(int action)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_FOLDALL, (IntPtr) action, (IntPtr) Unused);
         }
@@ -2168,19 +2168,19 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set automatic folding behaviours. (Scintilla feature 2663)</summary>
-        public void SetAutomaticFold(AutomaticFold automaticFold)
+        public void SetAutomaticFold(int automaticFold)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETAUTOMATICFOLD, (IntPtr) automaticFold, (IntPtr) Unused);
         }
 
         /// <summary>Get automatic folding behaviours. (Scintilla feature 2664)</summary>
-        public AutomaticFold GetAutomaticFold()
+        public int GetAutomaticFold()
         {
-            return (AutomaticFold)Win32.SendMessage(scintilla, SciMsg.SCI_GETAUTOMATICFOLD, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETAUTOMATICFOLD, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set some style options for folding. (Scintilla feature 2233)</summary>
-        public void SetFoldFlags(FoldFlag flags)
+        public void SetFoldFlags(int flags)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETFOLDFLAGS, (IntPtr) flags, (IntPtr) Unused);
         }
@@ -2250,51 +2250,51 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Sets limits to idle styling. (Scintilla feature 2692)</summary>
-        public void SetIdleStyling(IdleStyling idleStyling)
+        public void SetIdleStyling(int idleStyling)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETIDLESTYLING, (IntPtr) idleStyling, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve the limits to idle styling. (Scintilla feature 2693)</summary>
-        public IdleStyling GetIdleStyling()
+        public int GetIdleStyling()
         {
-            return (IdleStyling)Win32.SendMessage(scintilla, SciMsg.SCI_GETIDLESTYLING, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETIDLESTYLING, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Sets whether text is word wrapped. (Scintilla feature 2268)</summary>
-        public void SetWrapMode(Wrap wrapMode)
+        public void SetWrapMode(int wrapMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETWRAPMODE, (IntPtr) wrapMode, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve whether text is word wrapped. (Scintilla feature 2269)</summary>
-        public Wrap GetWrapMode()
+        public int GetWrapMode()
         {
-            return (Wrap)Win32.SendMessage(scintilla, SciMsg.SCI_GETWRAPMODE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETWRAPMODE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the display mode of visual flags for wrapped lines. (Scintilla feature 2460)</summary>
-        public void SetWrapVisualFlags(WrapVisualFlag wrapVisualFlags)
+        public void SetWrapVisualFlags(int wrapVisualFlags)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETWRAPVISUALFLAGS, (IntPtr) wrapVisualFlags, (IntPtr) Unused);
         }
 
         /// <summary>Retrive the display mode of visual flags for wrapped lines. (Scintilla feature 2461)</summary>
-        public WrapVisualFlag GetWrapVisualFlags()
+        public int GetWrapVisualFlags()
         {
-            return (WrapVisualFlag)Win32.SendMessage(scintilla, SciMsg.SCI_GETWRAPVISUALFLAGS, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETWRAPVISUALFLAGS, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the location of visual flags for wrapped lines. (Scintilla feature 2462)</summary>
-        public void SetWrapVisualFlagsLocation(WrapVisualLocation wrapVisualFlagsLocation)
+        public void SetWrapVisualFlagsLocation(int wrapVisualFlagsLocation)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETWRAPVISUALFLAGSLOCATION, (IntPtr) wrapVisualFlagsLocation, (IntPtr) Unused);
         }
 
         /// <summary>Retrive the location of visual flags for wrapped lines. (Scintilla feature 2463)</summary>
-        public WrapVisualLocation GetWrapVisualFlagsLocation()
+        public int GetWrapVisualFlagsLocation()
         {
-            return (WrapVisualLocation)Win32.SendMessage(scintilla, SciMsg.SCI_GETWRAPVISUALFLAGSLOCATION, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETWRAPVISUALFLAGSLOCATION, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the start indent for wrapped lines. (Scintilla feature 2464)</summary>
@@ -2310,27 +2310,27 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Sets how wrapped sublines are placed. Default is fixed. (Scintilla feature 2472)</summary>
-        public void SetWrapIndentMode(WrapIndentMode wrapIndentMode)
+        public void SetWrapIndentMode(int wrapIndentMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETWRAPINDENTMODE, (IntPtr) wrapIndentMode, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve how wrapped sublines are placed. Default is fixed. (Scintilla feature 2473)</summary>
-        public WrapIndentMode GetWrapIndentMode()
+        public int GetWrapIndentMode()
         {
-            return (WrapIndentMode)Win32.SendMessage(scintilla, SciMsg.SCI_GETWRAPINDENTMODE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETWRAPINDENTMODE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Sets the degree of caching of layout information. (Scintilla feature 2272)</summary>
-        public void SetLayoutCache(LineCache cacheMode)
+        public void SetLayoutCache(int cacheMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETLAYOUTCACHE, (IntPtr) cacheMode, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve the degree of caching of layout information. (Scintilla feature 2273)</summary>
-        public LineCache GetLayoutCache()
+        public int GetLayoutCache()
         {
-            return (LineCache)Win32.SendMessage(scintilla, SciMsg.SCI_GETLAYOUTCACHE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETLAYOUTCACHE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Sets the document width assumed for scrolling. (Scintilla feature 2274)</summary>
@@ -2420,9 +2420,9 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>How many phases is drawing done in? (Scintilla feature 2673)</summary>
-        public PhasesDraw GetPhasesDraw()
+        public int GetPhasesDraw()
         {
-            return (PhasesDraw)Win32.SendMessage(scintilla, SciMsg.SCI_GETPHASESDRAW, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETPHASESDRAW, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>
@@ -2432,21 +2432,21 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// to overlap from one line to the next.
         /// (Scintilla feature 2674)
         /// </summary>
-        public void SetPhasesDraw(PhasesDraw phases)
+        public void SetPhasesDraw(int phases)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETPHASESDRAW, (IntPtr) phases, (IntPtr) Unused);
         }
 
         /// <summary>Choose the quality level for text from the FontQuality enumeration. (Scintilla feature 2611)</summary>
-        public void SetFontQuality(FontQuality fontQuality)
+        public void SetFontQuality(int fontQuality)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETFONTQUALITY, (IntPtr) fontQuality, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve the quality level for text. (Scintilla feature 2612)</summary>
-        public FontQuality GetFontQuality()
+        public int GetFontQuality()
         {
-            return (FontQuality)Win32.SendMessage(scintilla, SciMsg.SCI_GETFONTQUALITY, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETFONTQUALITY, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Scroll so that a display line is at the top of the display. (Scintilla feature 2613)</summary>
@@ -2456,15 +2456,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Change the effect of pasting when there are multiple selections. (Scintilla feature 2614)</summary>
-        public void SetMultiPaste(MultiPaste multiPaste)
+        public void SetMultiPaste(int multiPaste)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETMULTIPASTE, (IntPtr) multiPaste, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve the effect of pasting when there are multiple selections. (Scintilla feature 2615)</summary>
-        public MultiPaste GetMultiPaste()
+        public int GetMultiPaste()
         {
-            return (MultiPaste)Win32.SendMessage(scintilla, SciMsg.SCI_GETMULTIPASTE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETMULTIPASTE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>
@@ -2511,15 +2511,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Enable or disable accessibility. (Scintilla feature 2702)</summary>
-        public void SetAccessibility(Accessibility accessibility)
+        public void SetAccessibility(int accessibility)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETACCESSIBILITY, (IntPtr) accessibility, (IntPtr) Unused);
         }
 
         /// <summary>Report accessibility status. (Scintilla feature 2703)</summary>
-        public Accessibility GetAccessibility()
+        public int GetAccessibility()
         {
-            return (Accessibility)Win32.SendMessage(scintilla, SciMsg.SCI_GETACCESSIBILITY, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETACCESSIBILITY, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Move caret down one line. (Scintilla feature 2300)</summary>
@@ -2991,7 +2991,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set which document modification events are sent to the container. (Scintilla feature 2359)</summary>
-        public void SetModEventMask(ModificationFlags eventMask)
+        public void SetModEventMask(int eventMask)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETMODEVENTMASK, (IntPtr) eventMask, (IntPtr) Unused);
         }
@@ -3013,9 +3013,9 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Retrieve the edge highlight mode. (Scintilla feature 2362)</summary>
-        public EdgeVisualStyle GetEdgeMode()
+        public int GetEdgeMode()
         {
-            return (EdgeVisualStyle)Win32.SendMessage(scintilla, SciMsg.SCI_GETEDGEMODE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETEDGEMODE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>
@@ -3023,7 +3023,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// goes beyond it (EDGE_BACKGROUND) or not displayed at all (EDGE_NONE).
         /// (Scintilla feature 2363)
         /// </summary>
-        public void SetEdgeMode(EdgeVisualStyle edgeMode)
+        public void SetEdgeMode(int edgeMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETEDGEMODE, (IntPtr) edgeMode, (IntPtr) Unused);
         }
@@ -3063,7 +3063,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// Does not ensure the selection is visible.
         /// (Scintilla feature 2367)
         /// </summary>
-        public unsafe int SearchNext(FindOption searchFlags, string text)
+        public unsafe int SearchNext(int searchFlags, string text)
         {
             fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
@@ -3076,7 +3076,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// Does not ensure the selection is visible.
         /// (Scintilla feature 2368)
         /// </summary>
-        public unsafe int SearchPrev(FindOption searchFlags, string text)
+        public unsafe int SearchPrev(int searchFlags, string text)
         {
             fixed (byte* textPtr = Encoding.UTF8.GetBytes(text))
             {
@@ -3095,7 +3095,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// the wrong mouse button on certain areas.
         /// (Scintilla feature 2371)
         /// </summary>
-        public void UsePopUp(PopUp popUpMode)
+        public void UsePopUp(int popUpMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_USEPOPUP, (IntPtr) popUpMode, (IntPtr) Unused);
         }
@@ -3127,7 +3127,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// Starts with reference count of 1 and not selected into editor.
         /// (Scintilla feature 2375)
         /// </summary>
-        public IntPtr CreateDocument(int bytes, DocumentOption documentOptions)
+        public IntPtr CreateDocument(int bytes, int documentOptions)
         {
             return Win32.SendMessage(scintilla, SciMsg.SCI_CREATEDOCUMENT, (IntPtr) bytes, (IntPtr) documentOptions);
         }
@@ -3145,15 +3145,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Get which document options are set. (Scintilla feature 2379)</summary>
-        public DocumentOption GetDocumentOptions()
+        public int GetDocumentOptions()
         {
-            return (DocumentOption)Win32.SendMessage(scintilla, SciMsg.SCI_GETDOCUMENTOPTIONS, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETDOCUMENTOPTIONS, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Get which document modification events are sent to the container. (Scintilla feature 2378)</summary>
-        public ModificationFlags GetModEventMask()
+        public int GetModEventMask()
         {
-            return (ModificationFlags)Win32.SendMessage(scintilla, SciMsg.SCI_GETMODEVENTMASK, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETMODEVENTMASK, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set whether command events are sent to the container. (Scintilla feature 2717)</summary>
@@ -3181,15 +3181,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Change error status - 0 = OK. (Scintilla feature 2382)</summary>
-        public void SetStatus(Status status)
+        public void SetStatus(int status)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETSTATUS, (IntPtr) status, (IntPtr) Unused);
         }
 
         /// <summary>Get error status. (Scintilla feature 2383)</summary>
-        public Status GetStatus()
+        public int GetStatus()
         {
-            return (Status)Win32.SendMessage(scintilla, SciMsg.SCI_GETSTATUS, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETSTATUS, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set whether the mouse is captured when its button is pressed. (Scintilla feature 2384)</summary>
@@ -3217,15 +3217,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Sets the cursor to one of the SC_CURSOR* values. (Scintilla feature 2386)</summary>
-        public void SetCursor(CursorShape cursorType)
+        public void SetCursor(int cursorType)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETCURSOR, (IntPtr) cursorType, (IntPtr) Unused);
         }
 
         /// <summary>Get cursor type. (Scintilla feature 2387)</summary>
-        public CursorShape GetCursor()
+        public int GetCursor()
         {
-            return (CursorShape)Win32.SendMessage(scintilla, SciMsg.SCI_GETCURSOR, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETCURSOR, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>
@@ -3281,7 +3281,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// is to be moved to by Find, FindNext, GotoLine, etc.
         /// (Scintilla feature 2394)
         /// </summary>
-        public void SetVisiblePolicy(VisiblePolicy visiblePolicy, int visibleSlop)
+        public void SetVisiblePolicy(int visiblePolicy, int visibleSlop)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETVISIBLEPOLICY, (IntPtr) visiblePolicy, (IntPtr) visibleSlop);
         }
@@ -3327,7 +3327,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// The exclusion zone is given in pixels.
         /// (Scintilla feature 2402)
         /// </summary>
-        public void SetXCaretPolicy(CaretPolicy caretPolicy, int caretSlop)
+        public void SetXCaretPolicy(int caretPolicy, int caretSlop)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETXCARETPOLICY, (IntPtr) caretPolicy, (IntPtr) caretSlop);
         }
@@ -3337,21 +3337,21 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// The exclusion zone is given in lines.
         /// (Scintilla feature 2403)
         /// </summary>
-        public void SetYCaretPolicy(CaretPolicy caretPolicy, int caretSlop)
+        public void SetYCaretPolicy(int caretPolicy, int caretSlop)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETYCARETPOLICY, (IntPtr) caretPolicy, (IntPtr) caretSlop);
         }
 
         /// <summary>Set printing to line wrapped (SC_WRAP_WORD) or not line wrapped (SC_WRAP_NONE). (Scintilla feature 2406)</summary>
-        public void SetPrintWrapMode(Wrap wrapMode)
+        public void SetPrintWrapMode(int wrapMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETPRINTWRAPMODE, (IntPtr) wrapMode, (IntPtr) Unused);
         }
 
         /// <summary>Is printing line wrapped? (Scintilla feature 2407)</summary>
-        public Wrap GetPrintWrapMode()
+        public int GetPrintWrapMode()
         {
-            return (Wrap)Win32.SendMessage(scintilla, SciMsg.SCI_GETPRINTWRAPMODE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETPRINTWRAPMODE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set a fore colour for active hotspots. (Scintilla feature 2410)</summary>
@@ -3487,15 +3487,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// by lines (SC_SEL_LINES).
         /// (Scintilla feature 2422)
         /// </summary>
-        public void SetSelectionMode(SelectionMode selectionMode)
+        public void SetSelectionMode(int selectionMode)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETSELECTIONMODE, (IntPtr) selectionMode, (IntPtr) Unused);
         }
 
         /// <summary>Get the mode of the current selection. (Scintilla feature 2423)</summary>
-        public SelectionMode GetSelectionMode()
+        public int GetSelectionMode()
         {
-            return (SelectionMode)Win32.SendMessage(scintilla, SciMsg.SCI_GETSELECTIONMODE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETSELECTIONMODE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Get whether or not regular caret moves will extend or reduce the selection. (Scintilla feature 2706)</summary>
@@ -3700,39 +3700,39 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set auto-completion case insensitive behaviour to either prefer case-sensitive matches or have no preference. (Scintilla feature 2634)</summary>
-        public void AutoCSetCaseInsensitiveBehaviour(CaseInsensitiveBehaviour behaviour)
+        public void AutoCSetCaseInsensitiveBehaviour(int behaviour)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR, (IntPtr) behaviour, (IntPtr) Unused);
         }
 
         /// <summary>Get auto-completion case insensitive behaviour. (Scintilla feature 2635)</summary>
-        public CaseInsensitiveBehaviour AutoCGetCaseInsensitiveBehaviour()
+        public int AutoCGetCaseInsensitiveBehaviour()
         {
-            return (CaseInsensitiveBehaviour)Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCGETCASEINSENSITIVEBEHAVIOUR, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCGETCASEINSENSITIVEBEHAVIOUR, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Change the effect of autocompleting when there are multiple selections. (Scintilla feature 2636)</summary>
-        public void AutoCSetMulti(MultiAutoComplete multi)
+        public void AutoCSetMulti(int multi)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCSETMULTI, (IntPtr) multi, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve the effect of autocompleting when there are multiple selections. (Scintilla feature 2637)</summary>
-        public MultiAutoComplete AutoCGetMulti()
+        public int AutoCGetMulti()
         {
-            return (MultiAutoComplete)Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCGETMULTI, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCGETMULTI, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the way autocompletion lists are ordered. (Scintilla feature 2660)</summary>
-        public void AutoCSetOrder(Ordering order)
+        public void AutoCSetOrder(int order)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCSETORDER, (IntPtr) order, (IntPtr) Unused);
         }
 
         /// <summary>Get the way autocompletion lists are ordered. (Scintilla feature 2661)</summary>
-        public Ordering AutoCGetOrder()
+        public int AutoCGetOrder()
         {
-            return (Ordering)Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCGETORDER, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_AUTOCGETORDER, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Enlarge the document to a particular size of text bytes. (Scintilla feature 2446)</summary>
@@ -3796,13 +3796,13 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Can the caret preferred x position only be changed by explicit movement commands? (Scintilla feature 2457)</summary>
-        public CaretSticky GetCaretSticky()
+        public int GetCaretSticky()
         {
-            return (CaretSticky)Win32.SendMessage(scintilla, SciMsg.SCI_GETCARETSTICKY, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETCARETSTICKY, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Stop the caret preferred x position changing when the user types. (Scintilla feature 2458)</summary>
-        public void SetCaretSticky(CaretSticky useCaretStickyBehaviour)
+        public void SetCaretSticky(int useCaretStickyBehaviour)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETCARETSTICKY, (IntPtr) useCaretStickyBehaviour, (IntPtr) Unused);
         }
@@ -3832,27 +3832,27 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set background alpha of the caret line. (Scintilla feature 2470)</summary>
-        public void SetCaretLineBackAlpha(Alpha alpha)
+        public void SetCaretLineBackAlpha(int alpha)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETCARETLINEBACKALPHA, (IntPtr) alpha, (IntPtr) Unused);
         }
 
         /// <summary>Get the background alpha of the caret line. (Scintilla feature 2471)</summary>
-        public Alpha GetCaretLineBackAlpha()
+        public int GetCaretLineBackAlpha()
         {
-            return (Alpha)Win32.SendMessage(scintilla, SciMsg.SCI_GETCARETLINEBACKALPHA, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETCARETLINEBACKALPHA, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the style of the caret to be drawn. (Scintilla feature 2512)</summary>
-        public void SetCaretStyle(CaretStyle caretStyle)
+        public void SetCaretStyle(int caretStyle)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETCARETSTYLE, (IntPtr) caretStyle, (IntPtr) Unused);
         }
 
         /// <summary>Returns the current style of the caret. (Scintilla feature 2513)</summary>
-        public CaretStyle GetCaretStyle()
+        public int GetCaretStyle()
         {
-            return (CaretStyle)Win32.SendMessage(scintilla, SciMsg.SCI_GETCARETSTYLE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETCARETSTYLE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the indicator used for IndicatorFillRange and IndicatorClearRange (Scintilla feature 2500)</summary>
@@ -3965,27 +3965,27 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the alpha fill colour of the given indicator. (Scintilla feature 2523)</summary>
-        public void IndicSetAlpha(int indicator, Alpha alpha)
+        public void IndicSetAlpha(int indicator, int alpha)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_INDICSETALPHA, (IntPtr) indicator, (IntPtr) alpha);
         }
 
         /// <summary>Get the alpha fill colour of the given indicator. (Scintilla feature 2524)</summary>
-        public Alpha IndicGetAlpha(int indicator)
+        public int IndicGetAlpha(int indicator)
         {
-            return (Alpha)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETALPHA, (IntPtr) indicator, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETALPHA, (IntPtr) indicator, (IntPtr) Unused);
         }
 
         /// <summary>Set the alpha outline colour of the given indicator. (Scintilla feature 2558)</summary>
-        public void IndicSetOutlineAlpha(int indicator, Alpha alpha)
+        public void IndicSetOutlineAlpha(int indicator, int alpha)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_INDICSETOUTLINEALPHA, (IntPtr) indicator, (IntPtr) alpha);
         }
 
         /// <summary>Get the alpha outline colour of the given indicator. (Scintilla feature 2559)</summary>
-        public Alpha IndicGetOutlineAlpha(int indicator)
+        public int IndicGetOutlineAlpha(int indicator)
         {
-            return (Alpha)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETOUTLINEALPHA, (IntPtr) indicator, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_INDICGETOUTLINEALPHA, (IntPtr) indicator, (IntPtr) Unused);
         }
 
         /// <summary>Set extra ascent for each line (Scintilla feature 2525)</summary>
@@ -4089,15 +4089,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the margin options. (Scintilla feature 2539)</summary>
-        public void SetMarginOptions(MarginOption marginOptions)
+        public void SetMarginOptions(int marginOptions)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETMARGINOPTIONS, (IntPtr) marginOptions, (IntPtr) Unused);
         }
 
         /// <summary>Get the margin options. (Scintilla feature 2557)</summary>
-        public MarginOption GetMarginOptions()
+        public int GetMarginOptions()
         {
-            return (MarginOption)Win32.SendMessage(scintilla, SciMsg.SCI_GETMARGINOPTIONS, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETMARGINOPTIONS, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the annotation text for a line (Scintilla feature 2540)</summary>
@@ -4165,15 +4165,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the visibility for the annotations for a view (Scintilla feature 2548)</summary>
-        public void AnnotationSetVisible(AnnotationVisible visible)
+        public void AnnotationSetVisible(int visible)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_ANNOTATIONSETVISIBLE, (IntPtr) visible, (IntPtr) Unused);
         }
 
         /// <summary>Get the visibility for the annotations for a view (Scintilla feature 2549)</summary>
-        public AnnotationVisible AnnotationGetVisible()
+        public int AnnotationGetVisible()
         {
-            return (AnnotationVisible)Win32.SendMessage(scintilla, SciMsg.SCI_ANNOTATIONGETVISIBLE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_ANNOTATIONGETVISIBLE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Get the start of the range of style numbers used for annotations (Scintilla feature 2550)</summary>
@@ -4201,7 +4201,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Add a container action to the undo stack (Scintilla feature 2560)</summary>
-        public void AddUndoAction(int token, UndoFlags flags)
+        public void AddUndoAction(int token, int flags)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_ADDUNDOACTION, (IntPtr) token, (IntPtr) flags);
         }
@@ -4451,15 +4451,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set options for virtual space behaviour. (Scintilla feature 2596)</summary>
-        public void SetVirtualSpaceOptions(VirtualSpace virtualSpaceOptions)
+        public void SetVirtualSpaceOptions(int virtualSpaceOptions)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETVIRTUALSPACEOPTIONS, (IntPtr) virtualSpaceOptions, (IntPtr) Unused);
         }
 
         /// <summary>Return options for virtual space behaviour. (Scintilla feature 2597)</summary>
-        public VirtualSpace GetVirtualSpaceOptions()
+        public int GetVirtualSpaceOptions()
         {
-            return (VirtualSpace)Win32.SendMessage(scintilla, SciMsg.SCI_GETVIRTUALSPACEOPTIONS, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETVIRTUALSPACEOPTIONS, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>
@@ -4501,15 +4501,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the alpha of the selection. (Scintilla feature 2602)</summary>
-        public void SetAdditionalSelAlpha(Alpha alpha)
+        public void SetAdditionalSelAlpha(int alpha)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETADDITIONALSELALPHA, (IntPtr) alpha, (IntPtr) Unused);
         }
 
         /// <summary>Get the alpha of the selection. (Scintilla feature 2603)</summary>
-        public Alpha GetAdditionalSelAlpha()
+        public int GetAdditionalSelAlpha()
         {
-            return (Alpha)Win32.SendMessage(scintilla, SciMsg.SCI_GETADDITIONALSELALPHA, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETADDITIONALSELALPHA, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the foreground colour of additional carets. (Scintilla feature 2604)</summary>
@@ -4663,19 +4663,19 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the technology used. (Scintilla feature 2630)</summary>
-        public void SetTechnology(Technology technology)
+        public void SetTechnology(int technology)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETTECHNOLOGY, (IntPtr) technology, (IntPtr) Unused);
         }
 
         /// <summary>Get the tech. (Scintilla feature 2631)</summary>
-        public Technology GetTechnology()
+        public int GetTechnology()
         {
-            return (Technology)Win32.SendMessage(scintilla, SciMsg.SCI_GETTECHNOLOGY, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETTECHNOLOGY, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Create an ILoader*. (Scintilla feature 2632)</summary>
-        public IntPtr CreateLoader(int bytes, DocumentOption documentOptions)
+        public IntPtr CreateLoader(int bytes, int documentOptions)
         {
             return Win32.SendMessage(scintilla, SciMsg.SCI_CREATELOADER, (IntPtr) bytes, (IntPtr) documentOptions);
         }
@@ -4727,21 +4727,21 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Set the line end types that the application wants to use. May not be used if incompatible with lexer or encoding. (Scintilla feature 2656)</summary>
-        public void SetLineEndTypesAllowed(LineEndType lineEndBitSet)
+        public void SetLineEndTypesAllowed(int lineEndBitSet)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETLINEENDTYPESALLOWED, (IntPtr) lineEndBitSet, (IntPtr) Unused);
         }
 
         /// <summary>Get the line end types currently allowed. (Scintilla feature 2657)</summary>
-        public LineEndType GetLineEndTypesAllowed()
+        public int GetLineEndTypesAllowed()
         {
-            return (LineEndType)Win32.SendMessage(scintilla, SciMsg.SCI_GETLINEENDTYPESALLOWED, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETLINEENDTYPESALLOWED, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Get the line end types currently recognised. May be a subset of the allowed types due to lexer limitation. (Scintilla feature 2658)</summary>
-        public LineEndType GetLineEndTypesActive()
+        public int GetLineEndTypesActive()
         {
-            return (LineEndType)Win32.SendMessage(scintilla, SciMsg.SCI_GETLINEENDTYPESACTIVE, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETLINEENDTYPESACTIVE, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set the way a character is drawn. (Scintilla feature 2665)</summary>
@@ -4940,11 +4940,11 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Retrieve the type of a property. (Scintilla feature 4015)</summary>
-        public unsafe TypeProperty PropertyType(string name)
+        public unsafe int PropertyType(string name)
         {
             fixed (byte* namePtr = Encoding.UTF8.GetBytes(name))
             {
-                return (TypeProperty)Win32.SendMessage(scintilla, SciMsg.SCI_PROPERTYTYPE, (IntPtr) namePtr, (IntPtr) Unused);
+                return (int)Win32.SendMessage(scintilla, SciMsg.SCI_PROPERTYTYPE, (IntPtr) namePtr, (IntPtr) Unused);
             }
         }
 
@@ -5113,43 +5113,43 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         }
 
         /// <summary>Retrieve bidirectional text display state. (Scintilla feature 2708)</summary>
-        public Bidirectional GetBidirectional()
+        public int GetBidirectional()
         {
-            return (Bidirectional)Win32.SendMessage(scintilla, SciMsg.SCI_GETBIDIRECTIONAL, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETBIDIRECTIONAL, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Set bidirectional text display state. (Scintilla feature 2709)</summary>
-        public void SetBidirectional(Bidirectional bidirectional)
+        public void SetBidirectional(int bidirectional)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_SETBIDIRECTIONAL, (IntPtr) bidirectional, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve line character index state. (Scintilla feature 2710)</summary>
-        public LineCharacterIndexType GetLineCharacterIndex()
+        public int GetLineCharacterIndex()
         {
-            return (LineCharacterIndexType)Win32.SendMessage(scintilla, SciMsg.SCI_GETLINECHARACTERINDEX, (IntPtr) Unused, (IntPtr) Unused);
+            return (int)Win32.SendMessage(scintilla, SciMsg.SCI_GETLINECHARACTERINDEX, (IntPtr) Unused, (IntPtr) Unused);
         }
 
         /// <summary>Request line character index be created or its use count increased. (Scintilla feature 2711)</summary>
-        public void AllocateLineCharacterIndex(LineCharacterIndexType lineCharacterIndex)
+        public void AllocateLineCharacterIndex(int lineCharacterIndex)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_ALLOCATELINECHARACTERINDEX, (IntPtr) lineCharacterIndex, (IntPtr) Unused);
         }
 
         /// <summary>Decrease use count of line character index and remove if 0. (Scintilla feature 2712)</summary>
-        public void ReleaseLineCharacterIndex(LineCharacterIndexType lineCharacterIndex)
+        public void ReleaseLineCharacterIndex(int lineCharacterIndex)
         {
             Win32.SendMessage(scintilla, SciMsg.SCI_RELEASELINECHARACTERINDEX, (IntPtr) lineCharacterIndex, (IntPtr) Unused);
         }
 
         /// <summary>Retrieve the document line containing a position measured in index units. (Scintilla feature 2713)</summary>
-        public int LineFromIndexPosition(int pos, LineCharacterIndexType lineCharacterIndex)
+        public int LineFromIndexPosition(int pos, int lineCharacterIndex)
         {
             return (int)Win32.SendMessage(scintilla, SciMsg.SCI_LINEFROMINDEXPOSITION, (IntPtr) pos, (IntPtr) lineCharacterIndex);
         }
 
         /// <summary>Retrieve the position measured in index units at the start of a document line. (Scintilla feature 2714)</summary>
-        public int IndexPositionFromLine(int line, LineCharacterIndexType lineCharacterIndex)
+        public int IndexPositionFromLine(int line, int lineCharacterIndex)
         {
             return (int)Win32.SendMessage(scintilla, SciMsg.SCI_INDEXPOSITIONFROMLINE, (IntPtr) line, (IntPtr) lineCharacterIndex);
         }
