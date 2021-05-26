@@ -35,12 +35,12 @@ def isTypeUnsupported(t):
 	if t in ["formatrange"]: return True
 	return False
 
-def translateType(t):
+def translateType(t:str):
 	if t == "cells": return "Cells"
 	if t == "colour": return "Colour"
-	if t == "line": return "int"
+	if t == "line": return "long"
 	if t == "pointer": return "IntPtr"
-	if t == "position": return "int"
+	if t == "position": return "long"
 	if t == "textrange": return "TextRange"
 	if t == "findtext": return "TextToFind"
 	if t == "keymod": return "KeyModifier"
@@ -81,7 +81,7 @@ def getUnsafeModifier(returnType, param1Type, param2Type):
 def translateReturnType(v, param1Type, param2Type):
 	if param1Type == "stringresult" or param2Type == "stringresult": 
 		return "string" 
-	else:
+	else:	
 		return translateType(v["ReturnType"])
 
 def getParameterList(param1Type, param1Name, param2Type, param2Name):
@@ -100,6 +100,7 @@ def printEnumDefinitions(f):
 		if v["FeatureType"] in ["enu"] and name not in ["Keys"]: # for all except excluded enums [conflicting]
 			appendComment(indent, out, v)
 			prefix = v["Value"]
+			out.append(indent + "[Flags]")
 			out.append(indent + "public enum " + name)
 			out.append(indent + "{")
 			for ename in f.order:
@@ -189,10 +190,6 @@ def printLexGatewayFile(f):
 				out.append(iindent + "return 1 == (int)" +res+ ";")
 			elif returnType == "Colour":
 				out.append(iindent + "return new Colour((int) " +res+ ");")
-			# elif returnType == "Line":
-			# 	out.append(iindent + "return new Line((int) " +res+ ");")
-			# elif returnType == "Position":
-			# 	out.append(iindent + "return new Position((int) " +res+ ");")
 			elif returnType == "string":
 				out.append(iindent + res + ";")
 				out.append(iindent + "return Encoding.UTF8.GetString("+bufferVariableName+").TrimEnd('\\0');")

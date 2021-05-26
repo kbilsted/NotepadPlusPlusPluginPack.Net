@@ -50,6 +50,10 @@ class Face:
 		currentCategory = ""
 		currentComment = []
 		currentCommentFinished = 0
+		import os, os.path, inspect
+		if '__file__' not in locals(): 
+			__file__ = inspect.getframeinfo(inspect.currentframe())[0]
+		os.chdir(os.path.dirname(os.path.realpath(__file__)))
 		file = open(name)
 		for line in file.readlines():
 			line = sanitiseLine(line)
