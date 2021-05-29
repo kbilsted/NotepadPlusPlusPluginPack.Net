@@ -4,10 +4,6 @@
 // "notepad-plus-plus/scintilla/include/Scintilla.iface"
 // found at
 // https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/scintilla/include/Scintilla.iface
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace NppPluginNET.PluginInfrastructure
 {
