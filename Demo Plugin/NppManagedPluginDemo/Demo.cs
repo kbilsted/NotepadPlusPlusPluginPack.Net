@@ -274,10 +274,7 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
 
         static void checkInsertHtmlCloseTag()
         {
-            doCloseTag = !doCloseTag;
-
-            int i = Win32.CheckMenuItem(Win32.GetMenu(PluginBase.nppData._nppHandle), PluginBase._funcItems.Items[9]._cmdID,
-                Win32.MF_BYCOMMAND | (doCloseTag ? Win32.MF_CHECKED : Win32.MF_UNCHECKED));
+            PluginBase.CheckMenuItemToggle(9, ref doCloseTag); // 9 = menu item index
         }
 
         static Regex regex = new Regex(@"[\._\-:\w]", RegexOptions.Compiled);
