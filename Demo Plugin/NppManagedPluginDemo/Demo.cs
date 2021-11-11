@@ -59,9 +59,14 @@ namespace Kbg.Demo.Namespace
         static string sessionFilePath = @"C:\text.session";
         static frmGoToLine frmGoToLine = null;
         static internal int idFrmGotToLine = -1;
+
+        // toolbar icons
         static Bitmap tbBmp = Properties.Resources.star;
         static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
+        static Icon tbIco = Properties.Resources.star_black_ico;
+        static Icon tbIcoDM = Properties.Resources.star_white_ico;
         static Icon tbIcon = null;
+
         static IScintillaGateway editor = new ScintillaGateway(PluginBase.GetCurrentScintilla());
         static INotepadPPGateway notepad = new NotepadPPGateway();
         #endregion
@@ -149,11 +154,22 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
 
         static internal void SetToolBarIcon()
         {
+            // create struct
             toolbarIcons tbIcons = new toolbarIcons();
+			
+            // add bmp icon
             tbIcons.hToolbarBmp = tbBmp.GetHbitmap();
+            tbIcons.hToolbarIcon = tbIco.Handle;            // icon with black lines
+            tbIcons.hToolbarIconDarkMode = tbIcoDM.Handle;  // icon with light grey lines
+
+            // convert to c++ pointer
             IntPtr pTbIcons = Marshal.AllocHGlobal(Marshal.SizeOf(tbIcons));
             Marshal.StructureToPtr(tbIcons, pTbIcons, false);
-            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_ADDTOOLBARICON, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, pTbIcons);
+
+            // call Notepad++ api
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_ADDTOOLBARICON_FORDARKMODE, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, pTbIcons);
+
+            // release pointer
             Marshal.FreeHGlobal(pTbIcons);
         }
 
