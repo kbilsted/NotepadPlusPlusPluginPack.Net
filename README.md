@@ -42,6 +42,7 @@ This is a fork of UFO's plugin package updated for VS2015, 2017 and 2019
   * https://github.com/jokedst/CsvQuery
   * https://github.com/wakatime/notepadpp-wakatime
   * https://github.com/alex-ilin/WebEdit
+  * https://github.com/Fruchtzwerg94/PlantUmlViewer
   
 If your plugin is not on the list, please make a PR with a link to it.. :-)
 
