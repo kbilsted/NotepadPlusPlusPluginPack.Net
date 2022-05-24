@@ -36,6 +36,15 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             _funcItems.Add(funcItem);
         }
 
+        // menuitem with checkmark, toggle visible checkmark on/off
+        internal static void CheckMenuItemToggle(int idx, ref bool value)
+        {
+            // toggle value
+            value = !value;
+
+            Win32.CheckMenuItem(Win32.GetMenu(nppData._nppHandle), _funcItems.Items[idx]._cmdID, Win32.MF_BYCOMMAND | (value ? Win32.MF_CHECKED : Win32.MF_UNCHECKED));
+        }
+
         internal static IntPtr GetCurrentScintilla()
         {
             int curScintilla;
