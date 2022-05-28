@@ -3232,8 +3232,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// <param name="searchText">the search pattern</param>
         public TextToFind(int cpmin, int cpmax, string searchText)
         {
-            _sciTextToFind.chrg.cpMin = cpmin;
-            _sciTextToFind.chrg.cpMax = cpmax;
+            _sciTextToFind.chrg.cpMin = new IntPtr(cpmin);
+            _sciTextToFind.chrg.cpMax = new IntPtr(cpmax);
             _sciTextToFind.lpstrText = Marshal.StringToHGlobalAnsi(searchText);
         }
 
