@@ -1766,7 +1766,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
         /// </summary>
         public unsafe string GetText(int length)
         {
-            byte[] textBuffer = new byte[10000];
+            byte[] textBuffer = new byte[length];
             fixed (byte* textPtr = textBuffer)
             {
                 Win32.SendMessage(scintilla, SciMsg.SCI_GETTEXT, (IntPtr) length, (IntPtr) textPtr);
