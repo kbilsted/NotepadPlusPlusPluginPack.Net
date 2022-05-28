@@ -171,7 +171,8 @@ def printLexGatewayFile(f):
 				
 			if param2Type == "stringresult":
 				bufferVariableName = param2Name + "Buffer"
-				out.append(iindent + "byte[] " + bufferVariableName +" = new byte[10000];")
+				bufferSize = "length" if (param1Type == "int" and param1Name == "length") else "10000"
+				out.append(iindent + "byte[] " + bufferVariableName +" = new byte["+bufferSize+"];")
 				out.append(iindent + "fixed (byte* "+param2Name+"Ptr = " +bufferVariableName + ")" )
 				out.append(iindent + "{")
 				iindent = iindent + "    "
