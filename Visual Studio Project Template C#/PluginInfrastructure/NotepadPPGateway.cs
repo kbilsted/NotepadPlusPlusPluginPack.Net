@@ -60,7 +60,11 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 		/// Gets the path of the current document.
 		/// </summary>
 		public string GetCurrentFilePath()
-			=> GetString(NppMsg.NPPM_GETFULLCURRENTPATH);
+		{
+			var path = new StringBuilder(2000);
+			Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_GETFULLCURRENTPATH, 0, path);
+			return path.ToString();
+		}
 
 		/// <summary>
 		/// This method incapsulates a common pattern in the Notepad++ API: when
