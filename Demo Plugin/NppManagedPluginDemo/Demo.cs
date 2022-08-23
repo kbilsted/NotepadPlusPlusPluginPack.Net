@@ -222,6 +222,7 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
 
         static void WhatIsNpp()
         {
+            // from https://notepad-plus-plus.org/
             string text2display = "Notepad++ is a free (as in \"free speech\" and also as in \"free beer\") " +
                 "source code editor and Notepad replacement that supports several languages.\n" +
                 "Running in the MS Windows environment, its use is governed by GPL License.\n\n" +
@@ -233,34 +234,53 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
             new Thread(new ParameterizedThreadStart(callbackWhatIsNpp)).Start(text2display);
         }
 
+        /// <summary>
+        /// Open up a new file and slowly printing out the "What is NPP" text above.<br></br>
+        /// Stops printing text if the new file is closed.
+        /// </summary>
+        /// <param name="data"></param>
         static void callbackWhatIsNpp(object data)
         {
             string text2display = (string)data;
             notepad.FileNew();
+            string new_file_name = getCurrentPath(NppMsg.FULL_CURRENT_PATH);
 
             Random srand = new Random(DateTime.Now.Millisecond);
             int rangeMin = 0;
-            int rangeMax = 250;
+            int rangeMax = 125;
             for (int i = 0; i < text2display.Length; i++)
             {
                 Thread.Sleep(srand.Next(rangeMin, rangeMax) + 30);
+                // stop adding new text if the user closes or switches out of the new file.
+                // otherwise you get this obnoxious addition of text to existing files.
+                string selected_file_name = getCurrentPath(NppMsg.FULL_CURRENT_PATH);
+                if (selected_file_name != new_file_name) break;
                 editor.AppendTextAndMoveCursor(text2display[i].ToString());
             }
         }
 
         static void insertCurrentFullPath()
         {
-            insertCurrentPath(NppMsg.FULL_CURRENT_PATH);
+            editor.ReplaceSel(getCurrentPath(NppMsg.FULL_CURRENT_PATH));
         }
         static void insertCurrentFileName()
         {
-            insertCurrentPath(NppMsg.FILE_NAME);
+            editor.ReplaceSel(getCurrentPath(NppMsg.FILE_NAME));
         }
         static void insertCurrentDirectory()
         {
-            insertCurrentPath(NppMsg.CURRENT_DIRECTORY);
+            editor.ReplaceSel(getCurrentPath(NppMsg.CURRENT_DIRECTORY));
         }
-        static void insertCurrentPath(NppMsg which)
+
+        /// <summary>
+        /// Returns a property of the currently open file, depending on argument:<br></br>
+        /// * If NppMsg.NPPM_GETFULLCURRENTPATH -> return absolute path to current file<br></br>
+        /// * If NppMsg.NPPM_GETFILENAME -> return file name of current file<br></br>
+        /// * If NppMsg.NPPM_GETCURRENTDIRECTORY -> return directory of current file<br></br>
+        /// </summary>
+        /// <param name="which"></param>
+        /// <returns></returns>
+        static string getCurrentPath(NppMsg which)
         {
             NppMsg msg = NppMsg.NPPM_GETFULLCURRENTPATH;
             if (which == NppMsg.FILE_NAME)
@@ -269,9 +289,9 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
                 msg = NppMsg.NPPM_GETCURRENTDIRECTORY;
 
             StringBuilder path = new StringBuilder(Win32.MAX_PATH);
-            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) msg, 0, path);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)msg, 0, path);
 
-            editor.ReplaceSel(path.ToString());
+            return path.ToString();
         }
 
         static void insertShortDateTime()
@@ -293,7 +313,7 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
             PluginBase.CheckMenuItemToggle(9, ref doCloseTag); // 9 = menu item index
         }
 
-        static Regex regex = new Regex(@"[\._\-:\w]", RegexOptions.Compiled);
+        static Regex XmlTagNameRegex = new Regex(@"[\._\-:\w]", RegexOptions.Compiled);
 
         static internal void doInsertHtmlCloseTag(char newChar)
         {
@@ -335,7 +355,7 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
 
                     var insertString = new StringBuilder("</");
 
-                    while (regex.IsMatch(buf[pCur].ToString()))
+                    while (XmlTagNameRegex.IsMatch(buf[pCur].ToString()))
                     {
                         insertString.Append(buf[pCur]);
                         pCur++;
@@ -360,8 +380,12 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
 
             using (ClikeStringArray cStrArray = new ClikeStringArray(nbFile, Win32.MAX_PATH))
             {
+                // try to see if 
                 if (Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_GETOPENFILENAMES, cStrArray.NativePointer, nbFile) != IntPtr.Zero)
-                    foreach (string file in cStrArray.ManagedStringsUnicode) MessageBox.Show(file);
+                    foreach (string file in cStrArray.ManagedStringsUnicode)
+                    {
+                        MessageBox.Show(file);
+                    }
             }
         }
         static void getSessionFileNamesDemo()
