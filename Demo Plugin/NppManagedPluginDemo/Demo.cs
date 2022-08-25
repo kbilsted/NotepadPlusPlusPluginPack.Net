@@ -136,6 +136,7 @@ namespace Kbg.Demo.Namespace
             PluginBase.SetCommand(16, "---", null);
 
             PluginBase.SetCommand(17, "Print Scroll and Row Information", PrintScrollInformation);
+            PluginBase.SetCommand(18, "Use NanInf class for -inf, inf, nan!!", PrintNanInf);
         }
 
         /// <summary>
@@ -410,6 +411,21 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
             string sessionPath = Marshal.PtrToStringUni(Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SAVECURRENTSESSION, 0, sessionFilePath));
             if (!string.IsNullOrEmpty(sessionPath))
                 MessageBox.Show(sessionPath, "Saved Session File :", MessageBoxButtons.OK);
+        }
+
+        static void PrintNanInf()
+        {
+            string naninf = $@"-infinity = NanInf.neginf = {NanInf.neginf}
+infinity = NanInf.inf = {NanInf.inf}
+NaN = NanInf.nan = {NanInf.nan}
+
+If you want these constants in your plugin, you can find them in the NanInf class in PluginInfrastructure.
+
+DO NOT USE double.PositiveInfinity, double.NegativeInfinity, or double.NaN.
+You will get a compiler error if you do.    ";
+            MessageBox.Show(naninf, "Use the NanInf class for NaN, -inf, inf!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            notepad.FileNew();
+            editor.AppendTextAndMoveCursor(naninf);
         }
 
         static void DockableDlgDemo()
