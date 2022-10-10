@@ -1,5 +1,6 @@
 ﻿// NPP plugin platform for .Net v0.91.57 by Kasper B. Graversen etc.
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Drawing;
@@ -36,10 +37,33 @@ namespace Kbg.NppPluginNET
 
         public static void OnNotification(ScNotification notification)
         {
+            uint code = notification.Header.Code;
+            // This method is invoked whenever something is happening in notepad++
+            // use eg. as
+            // if (code == (uint)NppMsg.NPPN_xxx)
+            // { ... }
+            // or
+            //
+            // if (code == (uint)SciMsg.SCNxxx)
+            // { ... }
+            // when closing a file
+            if (code == (uint)NppMsg.NPPN_FILEBEFORECLOSE)
+            {
+                Kbg.Demo.Namespace.Main.AddToFilesClosed(notification.Header.IdFrom);
+                return;
+            }
+
             if (notification.Header.Code == (uint)SciMsg.SCN_CHARADDED)
             {
                 Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag((char)notification.Character);
+                return;
             }
+
+            //if (code > int.MaxValue) // windows messages
+            //{
+            //    int wm = -(int)code;
+            //    }
+            //}
         }
 
         internal static string PluginName { get { return Kbg.Demo.Namespace.Main.PluginName; }}
@@ -59,6 +83,7 @@ namespace Kbg.Demo.Namespace
         static string sessionFilePath = @"C:\text.session";
         static frmGoToLine frmGoToLine = null;
         static internal int idFrmGotToLine = -1;
+        static internal List<string> filesClosedThisSession = new List<string>();
 
         // toolbar icons
         static Bitmap tbBmp = Properties.Resources.star;
@@ -137,6 +162,7 @@ namespace Kbg.Demo.Namespace
 
             PluginBase.SetCommand(17, "Print Scroll and Row Information", PrintScrollInformation);
             PluginBase.SetCommand(18, "Use NanInf class for -inf, inf, nan!!", PrintNanInf);
+            PluginBase.SetCommand(19, "Show files closed this session", FilesClosedThisSession);
         }
 
         /// <summary>
@@ -413,6 +439,22 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
                 MessageBox.Show(sessionPath, "Saved Session File :", MessageBoxButtons.OK);
         }
 
+        public static void AddToFilesClosed(IntPtr buffer_closed_id)
+        {
+            string buffer_closed = notepad.GetFilePath(buffer_closed_id);
+            filesClosedThisSession.Add(buffer_closed);
+        }
+
+        static void FilesClosedThisSession()
+        {
+            notepad.FileNew();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Files closed this session:");
+            foreach (string file_closed in filesClosedThisSession)
+                sb.AppendLine(file_closed);
+            editor.AppendTextAndMoveCursor(sb.ToString());
+        }
+
         static void PrintNanInf()
         {
             string naninf = $@"-infinity = NanInf.neginf = {NanInf.neginf}
@@ -437,7 +479,8 @@ You will get a compiler error if you do.    ";
             if (frmGoToLine == null)
             {
                 frmGoToLine = new frmGoToLine(editor);
-
+                
+                // not sure what this block does but it's necessary 
                 using (Bitmap newBmp = new Bitmap(16, 16))
                 {
                     Graphics g = Graphics.FromImage(newBmp);
@@ -450,7 +493,7 @@ You will get a compiler error if you do.    ";
                     g.DrawImage(tbBmp_tbTab, new Rectangle(0, 0, 16, 16), 0, 0, 16, 16, GraphicsUnit.Pixel, attr);
                     tbIcon = Icon.FromHandle(newBmp.GetHicon());
                 }
-                
+
                 NppTbData _nppTbData = new NppTbData();
                 _nppTbData.hClient = frmGoToLine.Handle;
                 _nppTbData.pszName = "Go To Line #";
