@@ -41,7 +41,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 				Marshal.StructureToPtr(icon, pTbIcons, false);
 				_ = Win32.SendMessage(
 					PluginBase.nppData._nppHandle,
-                    (uint) NppMsg.NPPM_ADDTOOLBARICON_FORDARKMODE,
+					(uint) NppMsg.NPPM_ADDTOOLBARICON_FORDARKMODE,
 					PluginBase._funcItems.Items[funcItemsIndex]._cmdID,
 					pTbIcons);
 			} finally {
