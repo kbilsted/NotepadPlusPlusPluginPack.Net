@@ -19,6 +19,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 		unsafe string GetFilePath(int bufferId);
 		void SetCurrentLanguage(LangType language);
 		bool OpenFile(string path);
+		string GetNppVersion();
 	}
 
 	/// <summary>
@@ -118,6 +119,27 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 		public void SetCurrentLanguage(LangType language)
 		{
 			Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETCURRENTLANGTYPE, Unused, (int) language);
+		}
+
+		/// <summary>
+		/// Gets Notepad++ version.
+		/// </summary>
+		public string GetNppVersion()
+		{
+			var msgPtr = Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_GETNPPVERSION, 0, 0);
+
+			try 
+			{
+				var num = Convert.ToInt32(msgPtr.ToString());
+                var high = num >> 16;
+                var low = num & 0xFFFF;
+
+                return $"{high}.{string.Join(".", low.ToString().ToCharArray())}";
+			}
+			catch 
+			{
+				return string.Empty;	
+			}
 		}
 	}
 
