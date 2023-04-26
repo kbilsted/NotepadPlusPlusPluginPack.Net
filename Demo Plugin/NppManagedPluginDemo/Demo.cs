@@ -40,6 +40,13 @@ namespace Kbg.NppPluginNET
             {
                 Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag((char)notification.Character);
             }
+
+            // dark mode (de-)activated
+            if (notification.Header.Code == (uint)NppMsg.NPPN_DARKMODECHANGED)
+            {
+                INotepadPPGateway notepad = new NotepadPPGateway();
+                Kbg.Demo.Namespace.Main.ToggleDarkMode(notepad.IsDarkModeEnabled());
+            }
         }
 
         internal static string PluginName { get { return Kbg.Demo.Namespace.Main.PluginName; }}
@@ -176,6 +183,32 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
         static internal void PluginCleanUp()
         {
             Win32.WritePrivateProfileString(sectionName, keyName, doCloseTag ? "1" : "0", iniFilePath);
+        }
+
+        static internal void ToggleDarkMode(bool isDark)
+        {
+            if (frmGoToLine != null)
+            {
+                if (isDark)
+                {
+                    IntPtr theme_ptr = notepad.GetDarkModeColors();
+                    if (theme_ptr != IntPtr.Zero)
+                    {
+                        var theme = (DarkModeColors)Marshal.PtrToStructure(theme_ptr, typeof(DarkModeColors));
+                        frmGoToLine.label1.BackColor  = NppDarkMode.BGRToColor(theme.PureBackground);
+                        frmGoToLine.label1.ForeColor  = NppDarkMode.BGRToColor(theme.Text);
+                        frmGoToLine.button1.BackColor = NppDarkMode.BGRToColor(theme.SofterBackground);
+                        frmGoToLine.button1.ForeColor = NppDarkMode.BGRToColor(theme.Text);
+                    }
+                }
+                else
+                {
+                    frmGoToLine.label1.BackColor  = Label.DefaultBackColor;
+                    frmGoToLine.label1.ForeColor  = Label.DefaultForeColor;
+                    frmGoToLine.button1.BackColor = Color.FromKnownColor(KnownColor.ButtonFace);
+                    frmGoToLine.button1.ForeColor = Button.DefaultForeColor;
+                }
+            }
         }
         #endregion
 
@@ -441,6 +474,7 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
                     Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 0);
                 }
             }
+            ToggleDarkMode(notepad.IsDarkModeEnabled());
             frmGoToLine.textBox1.Focus();
         }
         #endregion

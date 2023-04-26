@@ -13,6 +13,8 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 
 		void AddToolbarIcon(int funcItemsIndex, toolbarIcons icon);
 		void AddToolbarIcon(int funcItemsIndex, Bitmap icon);
+		bool IsDarkModeEnabled();
+		IntPtr GetDarkModeColors();
 		string GetNppPath();
 		string GetPluginConfigPath();
 		string GetCurrentFilePath();
@@ -25,7 +27,7 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
 	/// This class holds helpers for sending messages defined in the Msgs_h.cs file. It is at the moment
 	/// incomplete. Please help fill in the blanks.
 	/// </summary>
-	public class NotepadPPGateway : INotepadPPGateway
+	public partial class NotepadPPGateway : INotepadPPGateway
 	{
 		private const int Unused = 0;
 

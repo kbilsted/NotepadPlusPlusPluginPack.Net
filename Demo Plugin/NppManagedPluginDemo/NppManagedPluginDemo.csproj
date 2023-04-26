@@ -72,6 +72,9 @@
     <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\ClikeStringArray.cs">
       <Link>PluginInfrastructure\ClikeStringArray.cs</Link>
     </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\DarkMode.cs">
+      <Link>PluginInfrastructure\DarkMode.cs</Link>
+    </Compile>
     <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\NotepadPPGateway.cs">
       <Link>PluginInfrastructure\NotepadPPGateway.cs</Link>
     </Compile>
