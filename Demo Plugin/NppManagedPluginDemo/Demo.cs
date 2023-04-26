@@ -204,10 +204,10 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
                 }
                 else
                 {
-                    frmGoToLine.label1.BackColor  = Label.DefaultBackColor;
-                    frmGoToLine.label1.ForeColor  = Label.DefaultForeColor;
-                    frmGoToLine.button1.BackColor = Color.FromKnownColor(KnownColor.ButtonFace);
-                    frmGoToLine.button1.ForeColor = Button.DefaultForeColor;
+                    frmGoToLine.label1.ResetBackColor();
+                    frmGoToLine.label1.ResetForeColor();
+                    frmGoToLine.button1.ResetBackColor();
+                    frmGoToLine.button1.ResetForeColor();
                 }
             }
         }
