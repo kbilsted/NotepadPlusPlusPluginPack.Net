@@ -199,6 +199,7 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
                         frmGoToLine.label1.ForeColor  = NppDarkMode.BGRToColor(theme.Text);
                         frmGoToLine.button1.BackColor = NppDarkMode.BGRToColor(theme.SofterBackground);
                         frmGoToLine.button1.ForeColor = NppDarkMode.BGRToColor(theme.Text);
+                        Marshal.FreeHGlobal(theme_ptr);
                     }
                 }
                 else
