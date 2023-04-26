@@ -1,5 +1,6 @@
 ﻿// NPP plugin platform for .Net v0.91.57 by Kasper B. Graversen etc.
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Drawing;
@@ -40,6 +41,10 @@ namespace Kbg.NppPluginNET
             {
                 Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag((char)notification.Character);
             }
+            else if (notification.Header.Code == (uint)NppMsg.NPPN_FILEBEFORECLOSE)
+            {
+                Kbg.Demo.Namespace.Main.addFileToFilesClosed(notification.Header.IdFrom);
+            }
         }
 
         internal static string PluginName { get { return Kbg.Demo.Namespace.Main.PluginName; }}
@@ -56,6 +61,7 @@ namespace Kbg.Demo.Namespace
         static string sectionName = "Insert Extension";
         static string keyName = "doCloseTag";
         static bool doCloseTag = false;
+        static List<string> filesClosedThisSession = new List<string>();
         static string sessionFilePath = @"C:\text.session";
         static frmGoToLine frmGoToLine = null;
         static internal int idFrmGotToLine = -1;
@@ -136,6 +142,7 @@ namespace Kbg.Demo.Namespace
             PluginBase.SetCommand(16, "---", null);
 
             PluginBase.SetCommand(17, "Print Scroll and Row Information", PrintScrollInformation);
+            PluginBase.SetCommand(18, "Show files closed this session", filesClosedDemo);
         }
 
         /// <summary>
@@ -351,6 +358,19 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
                     }
                 }
             }
+        }
+
+        static internal void addFileToFilesClosed(IntPtr bufClosedId)
+        {
+            var bufClosedName = notepad.GetFilePath(bufClosedId);
+            filesClosedThisSession.Add(bufClosedName);
+        }
+
+        static void filesClosedDemo()
+        {
+            var filesClosed = string.Join("\r\n", filesClosedThisSession);
+            MessageBox.Show($"Files closed this session:\r\n{filesClosed}",
+                "Files closed this session");
         }
 
         static void getFileNamesDemo()
