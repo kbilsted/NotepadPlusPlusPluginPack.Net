@@ -73,5 +73,19 @@ namespace Kbg.NppPluginNET.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+		
+        internal static System.Drawing.Icon star_black {
+            get {
+                object obj = ResourceManager.GetObject("star_black", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon star_white {
+            get {
+                object obj = ResourceManager.GetObject("star_white", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

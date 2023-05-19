@@ -32,6 +32,8 @@
         <ProjectItem ReplaceParameters="false" TargetFileName="Resources.resx">Resources.resx</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="star.png">star.png</ProjectItem>
         <ProjectItem ReplaceParameters="false" TargetFileName="star_bmp.bmp">star_bmp.bmp</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="star_black.ico">star_black.ico</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="star_white.ico">star_white.ico</ProjectItem>
       </Folder>
       <Folder Name="PluginInfrastructure" TargetFolderName="PluginInfrastructure">
           <Folder Name="DllExport" TargetFolderName="DllExport">
