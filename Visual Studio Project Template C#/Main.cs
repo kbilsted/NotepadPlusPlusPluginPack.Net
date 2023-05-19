@@ -16,8 +16,11 @@ namespace Kbg.NppPluginNET
         static bool someSetting = false;
         static frmMyDlg frmMyDlg = null;
         static int idMyDlg = -1;
-        static Bitmap tbBmp = Properties.Resources.star;
-        static Bitmap tbBmp_tbTab = Properties.Resources.star_bmp;
+
+        // toolbar icons
+        static Bitmap tbBmp_color = Properties.Resources.star;     // standard icon small color
+        static Icon tbIco_black = Properties.Resources.star_black; // Fluent UI icon black
+        static Icon tbIco_white = Properties.Resources.star_white; // Fluent UI icon white
         static Icon tbIcon = null;
 
         public static void OnNotification(ScNotification notification)
@@ -47,14 +50,25 @@ namespace Kbg.NppPluginNET
 
         internal static void SetToolBarIcon()
         {
+            // create struct
             toolbarIcons tbIcons = new toolbarIcons();
-            tbIcons.hToolbarBmp = tbBmp.GetHbitmap();
+
+            // add bmp icon
+            tbIcons.hToolbarBmp = tbBmp_color.GetHbitmap();
+            tbIcons.hToolbarIcon = tbIco_black.Handle;            // icon with black lines
+            tbIcons.hToolbarIconDarkMode = tbIco_white.Handle;  // icon with light grey lines
+
+            // convert to c++ pointer
             IntPtr pTbIcons = Marshal.AllocHGlobal(Marshal.SizeOf(tbIcons));
             Marshal.StructureToPtr(tbIcons, pTbIcons, false);
-            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_ADDTOOLBARICON, PluginBase._funcItems.Items[idMyDlg]._cmdID, pTbIcons);
+
+            // call Notepad++ api
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_ADDTOOLBARICON_FORDARKMODE, PluginBase._funcItems.Items[idMyDlg]._cmdID, pTbIcons);
+
+            // release pointer
             Marshal.FreeHGlobal(pTbIcons);
         }
-
+		
         internal static void PluginCleanUp()
         {
             Win32.WritePrivateProfileString("SomeSection", "SomeKey", someSetting ? "1" : "0", iniFilePath);
@@ -70,8 +84,10 @@ namespace Kbg.NppPluginNET
         {
             if (frmMyDlg == null)
             {
+                // show dialog for first time
                 frmMyDlg = new frmMyDlg();
 
+                // icon
                 using (Bitmap newBmp = new Bitmap(16, 16))
                 {
                     Graphics g = Graphics.FromImage(newBmp);
@@ -81,17 +97,21 @@ namespace Kbg.NppPluginNET
                     colorMap[0].NewColor = Color.FromKnownColor(KnownColor.ButtonFace);
                     ImageAttributes attr = new ImageAttributes();
                     attr.SetRemapTable(colorMap);
-                    g.DrawImage(tbBmp_tbTab, new Rectangle(0, 0, 16, 16), 0, 0, 16, 16, GraphicsUnit.Pixel, attr);
+                    g.DrawImage(tbBmp_color, new Rectangle(0, 0, 16, 16), 0, 0, 16, 16, GraphicsUnit.Pixel, attr);
                     tbIcon = Icon.FromHandle(newBmp.GetHicon());
                 }
 
-                NppTbData _nppTbData = new NppTbData();
-                _nppTbData.hClient = frmMyDlg.Handle;
-                _nppTbData.pszName = "My dockable dialog";
-                _nppTbData.dlgID = idMyDlg;
-                _nppTbData.uMask = NppTbMsg.DWS_DF_CONT_RIGHT | NppTbMsg.DWS_ICONTAB | NppTbMsg.DWS_ICONBAR;
-                _nppTbData.hIconTab = (uint)tbIcon.Handle;
-                _nppTbData.pszModuleName = PluginName;
+                // dockable window struct data
+                var _nppTbData = new NppTbData
+                {
+                    hClient = frmMyDlg.Handle,
+                    pszName = "My dockable dialog",
+                    dlgID = idMyDlg,
+                    uMask = NppTbMsg.DWS_DF_CONT_RIGHT | NppTbMsg.DWS_ICONTAB | NppTbMsg.DWS_ICONBAR,
+                    hIconTab = (uint)tbIcon.Handle,
+                    pszModuleName = PluginName
+                };
+
                 IntPtr _ptrNppTbData = Marshal.AllocHGlobal(Marshal.SizeOf(_nppTbData));
                 Marshal.StructureToPtr(_nppTbData, _ptrNppTbData, false);
 
