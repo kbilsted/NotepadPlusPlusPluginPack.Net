@@ -136,6 +136,8 @@ namespace Kbg.Demo.Namespace
             PluginBase.SetCommand(16, "---", null);
 
             PluginBase.SetCommand(17, "Print Scroll and Row Information", PrintScrollInformation);
+            
+            PluginBase.SetCommand(18, "Use NanInf class for -inf, inf, nan!!", PrintNanInf);
         }
 
         /// <summary>
@@ -442,6 +444,21 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
                 }
             }
             frmGoToLine.textBox1.Focus();
+        }
+
+        static void PrintNanInf()
+        {
+            bool neginf_correct = double.IsNegativeInfinity(NanInf.neginf);
+            bool inf_correct = double.IsPositiveInfinity(NanInf.inf);
+            bool nan_correct = double.IsNaN(NanInf.nan);
+            string naninf = $@"-infinity == NanInf.neginf: {neginf_correct}
+infinity == NanInf.inf: {inf_correct}
+NaN == NanInf.nan: {nan_correct}
+If you want these constants in your plugin, you can find them in the NanInf class in PluginInfrastructure.
+DO NOT USE double.PositiveInfinity, double.NegativeInfinity, or double.NaN.
+You will get a compiler error if you do.";
+            notepad.FileNew();
+            editor.AppendTextAndMoveCursor(naninf);
         }
         #endregion
     }
