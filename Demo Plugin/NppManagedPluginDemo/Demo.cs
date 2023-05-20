@@ -143,7 +143,7 @@ namespace Kbg.Demo.Namespace
 
             PluginBase.SetCommand(17, "Print Scroll and Row Information", PrintScrollInformation);
             PluginBase.SetCommand(18, "Show files closed this session", filesClosedDemo);
-            PluginBase.SetCommand(19, "Use NanInf class for -inf, inf, nan!!", PrintNanInf)
+            PluginBase.SetCommand(19, "Use NanInf class for -inf, inf, nan!!", PrintNanInf);
         }
 
         /// <summary>
