@@ -114,6 +114,9 @@
     <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\UnmanagedExports.cs">
       <Link>PluginInfrastructure\UnmanagedExports.cs</Link>
     </Compile>
+    <Compile Include="..\..\Visual Studio Project Template C#\PluginInfrastructure\NanInf.cs">
+      <Link>PluginInfrastructure\NanInf.cs</Link>
+    </Compile>
     <Compile Include="Forms\frmGoToLine.cs">
       <SubType>Form</SubType>
     </Compile>
