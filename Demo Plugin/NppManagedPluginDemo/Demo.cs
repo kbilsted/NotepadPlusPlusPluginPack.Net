@@ -2,7 +2,9 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
@@ -38,7 +40,13 @@ namespace Kbg.NppPluginNET
         {
             if (notification.Header.Code == (uint)SciMsg.SCN_CHARADDED)
             {
-                Kbg.Demo.Namespace.Main.doInsertHtmlCloseTag((char)notification.Character);
+                Demo.Namespace.Main.doInsertHtmlCloseTag((char)notification.Character);
+            }
+            // dark mode (de-)activated
+            if (notification.Header.Code == (uint)NppMsg.NPPN_DARKMODECHANGED)
+            {
+                INotepadPPGateway notepad = new NotepadPPGateway();
+                Demo.Namespace.Main.ToggleDarkMode(Demo.Namespace.Main.frmGoToLine, notepad.IsDarkModeEnabled());
             }
         }
 
@@ -57,7 +65,7 @@ namespace Kbg.Demo.Namespace
         static string keyName = "doCloseTag";
         static bool doCloseTag = false;
         static string sessionFilePath = @"C:\text.session";
-        static frmGoToLine frmGoToLine = null;
+        static internal frmGoToLine frmGoToLine = null;
         static internal int idFrmGotToLine = -1;
 
         // toolbar icons
@@ -178,6 +186,140 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
         static internal void PluginCleanUp()
         {
             Win32.WritePrivateProfileString(sectionName, keyName, doCloseTag ? "1" : "0", iniFilePath);
+        }
+
+        /// <summary>
+        /// Apply dark mode (or re-apply light mode) to the controls of any form.<br></br>
+        /// This method currently supports colorizing the following types of controls:<br></br>
+        /// - Buttons<br></br>
+        /// - Labels<br></br>
+        /// - LinkLabels<br></br>
+        /// - ComboBoxes<br></br>
+        /// - CheckBoxes<br></br>
+        /// - ListBoxes<br></br>
+        /// - TreeViews<br></br>
+        /// Feel free to add more as needed.<br></br>
+        /// TODO: Figure out best way to customize border colors of controls.
+        /// https://stackoverflow.com/questions/1445472/how-to-change-the-form-border-color-c
+        /// may be a lead.
+        /// </summary>
+        /// <param name="form">a Windows Form</param>
+        /// <param name="isDark">is Notepad++ dark mode on?</param>
+        static internal void ToggleDarkMode(Control ctrl, bool isDark)
+        {
+            if (ctrl == null)
+                return;
+            IntPtr themePtr = notepad.GetDarkModeColors();
+            if (isDark && themePtr == IntPtr.Zero)
+                return;
+            var theme = (DarkModeColors)Marshal.PtrToStructure(themePtr, typeof(DarkModeColors));
+            if (ctrl is Form form)
+            {
+                foreach (Form childForm in form.OwnedForms)
+                {
+                    // allow possibility that some forms will have other child forms
+                    // JsonTools does this in a couple of places
+                    ToggleDarkMode(childForm, isDark);
+                }
+            }
+            if (isDark)
+            {
+                ctrl.BackColor = NppDarkMode.BGRToColor(theme.Background);
+                ctrl.ForeColor = NppDarkMode.BGRToColor(theme.Text);
+            }
+            else
+            {
+                ctrl.ResetForeColor();
+                ctrl.ResetBackColor();
+            }
+            foreach (Control child in ctrl.Controls)
+            {
+                if (isDark)
+                {
+                    // this doesn't actually make disabled controls have different colors
+                    // windows forms don't make it easy for the user to choose the
+                    // color of a disabled control. See https://stackoverflow.com/questions/136129/windows-forms-how-do-you-change-the-font-color-for-a-disabled-label
+                    var textTheme = child.Enabled ? theme.Text : theme.DisabledText;
+                    Color foreColor = NppDarkMode.BGRToColor(textTheme);
+                    Color backColor = NppDarkMode.BGRToColor(theme.PureBackground);
+                    Color InBetween = Color.FromArgb(
+                        foreColor.R / 4 + 3 * backColor.R / 4,
+                        foreColor.G / 4 + 3 * backColor.G / 4,
+                        foreColor.B / 4 + 3 * backColor.B / 4
+                    );
+                    if (child is GroupBox)
+                        ToggleDarkMode(child, isDark);
+                    else if (child is Button btn)
+                    {
+                        btn.BackColor = NppDarkMode.BGRToColor(theme.SofterBackground);
+                        btn.ForeColor = foreColor;
+                    }
+                    else if (child is LinkLabel llbl)
+                    {
+                        llbl.BackColor = NppDarkMode.BGRToColor(theme.ErrorBackground);
+                        llbl.ForeColor = NppDarkMode.BGRToColor(theme.DarkerText);
+                        llbl.LinkColor = NppDarkMode.BGRToColor(theme.LinkText);
+                        llbl.ActiveLinkColor = NppDarkMode.BGRToColor(theme.Text);
+                        llbl.VisitedLinkColor = NppDarkMode.BGRToColor(theme.DarkerText);
+                    }
+                    // other common text-based controls
+                    else if (child is TextBox
+                        || child is Label
+                        || child is ListBox
+                        || child is ComboBox)
+                    {
+                        child.BackColor = backColor;
+                        child.ForeColor = foreColor;
+                    }
+                    else if (child is TreeView tv)
+                    {
+                        tv.BackColor = NppDarkMode.BGRToColor(theme.HotBackground);
+                        tv.ForeColor = foreColor;
+                    }
+                    else if (child is DataGridView dgv)
+                    {
+                        dgv.EnableHeadersVisualStyles = false;
+                        dgv.BackgroundColor = InBetween;
+                        dgv.ForeColor = foreColor;
+                        dgv.GridColor = foreColor;
+                        dgv.ColumnHeadersDefaultCellStyle.ForeColor = foreColor;
+                        dgv.ColumnHeadersDefaultCellStyle.BackColor = backColor;
+                        dgv.RowHeadersDefaultCellStyle.ForeColor = foreColor;
+                        dgv.RowHeadersDefaultCellStyle.BackColor = backColor;
+                        dgv.RowsDefaultCellStyle.ForeColor = foreColor;
+                        dgv.RowsDefaultCellStyle.BackColor = backColor;
+                    }
+                    else
+                    {
+                        // other controls I haven't thought of yet
+                        child.BackColor = NppDarkMode.BGRToColor(theme.SofterBackground);
+                        child.ForeColor = foreColor;
+                    }
+                }
+                else // normal light mode
+                {
+                    child.ResetForeColor();
+                    child.ResetBackColor();
+                    if (child is GroupBox)
+                        ToggleDarkMode(child, isDark);
+                    if (child is LinkLabel llbl)
+                    {
+                        llbl.LinkColor = Color.Blue;
+                        llbl.ActiveLinkColor = Color.Red;
+                        llbl.VisitedLinkColor = Color.Purple;
+                    }
+                    else if (child is DataGridView dgv)
+                    {
+                        dgv.EnableHeadersVisualStyles = true;
+                        dgv.BackgroundColor = SystemColors.ControlDark;
+                        dgv.ForeColor = SystemColors.ControlText;
+                        dgv.GridColor = SystemColors.ControlLight;
+                        dgv.RowsDefaultCellStyle.ForeColor = SystemColors.ControlText;
+                        dgv.RowsDefaultCellStyle.BackColor = SystemColors.Window;
+                    }
+                }
+            }
+            Marshal.FreeHGlobal(themePtr);
         }
         #endregion
 
@@ -443,6 +585,7 @@ The current scroll ratio is {Math.Round(scrollPercentage, 2)}%.
                     Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETMENUITEMCHECK, PluginBase._funcItems.Items[idFrmGotToLine]._cmdID, 0);
                 }
             }
+            ToggleDarkMode(frmGoToLine, notepad.IsDarkModeEnabled());
             frmGoToLine.textBox1.Focus();
         }
 

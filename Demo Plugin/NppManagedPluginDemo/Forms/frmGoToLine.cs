@@ -8,11 +8,13 @@ namespace Kbg.Demo.Namespace
     partial class frmGoToLine : Form
     {
         private readonly IScintillaGateway editor;
+        public DarkModeTestForm darkModeTestForm;
 
         public frmGoToLine(IScintillaGateway editor)
         {
             this.editor = editor;
             InitializeComponent();
+            darkModeTestForm = null;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -60,6 +62,21 @@ namespace Kbg.Demo.Namespace
                 Win32.SendMessage(PluginBase.nppData._nppHandle, (uint) NppMsg.NPPM_SETMENUITEMCHECK,
                                   PluginBase._funcItems.Items[Main.idFrmGotToLine]._cmdID, 0);
             }
+        }
+
+        private void DarkModeTestFormButton_Click(object sender, EventArgs e)
+        {
+            if (darkModeTestForm != null && !darkModeTestForm.IsDisposed)
+            {
+                RemoveOwnedForm(darkModeTestForm);
+                darkModeTestForm.Dispose();
+            }
+            // need to register this as an owned form
+            // so that Main.ToggleDarkMode can recursively apply dark mode
+            // to this form.
+            darkModeTestForm = new DarkModeTestForm();
+            darkModeTestForm.Show();
+            AddOwnedForm(darkModeTestForm);
         }
     }
 }
